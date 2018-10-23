@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --mode development",
-    "build": "react-scripts build",
+    "build": "cross-env NODE_ENV=production ./node_modules/.bin/webpack -p --mode production",
     "build:clean": "rimraf ./build"
   },
   "eslintConfig": {
