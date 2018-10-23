@@ -11,6 +11,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --mode development",
     "build": "cross-env NODE_ENV=production ./node_modules/.bin/webpack -p --mode production",
+    "build:stats": "./node_modules/.bin/webpack -p --mode production --profile --json > stats.json",
     "build:clean": "rimraf ./build"
   },
   "eslintConfig": {
