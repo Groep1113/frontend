@@ -35,14 +35,3 @@ jobs:
         
       # run tests!
       - command: npm run build
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
-          filters:
-            branches:
-              only: circleci
