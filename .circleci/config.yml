@@ -39,5 +39,5 @@ workflows:
     jobs:
       - prepare
       - build:
-        requires:
-          - prepare
+          requires:
+            - prepare
