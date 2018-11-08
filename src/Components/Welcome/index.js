@@ -4,8 +4,8 @@ import QueryHOC from '../HOC/QueryHOC';
 import './welcome.css';
 
 const query = gql`{
-  user(id:"1") {
-    firstName lastName email role
+  user(id:1) {
+    firstName lastName email roles { name   }
   }
 }`;
 
@@ -61,10 +61,14 @@ export default class Navbar extends Component {
                         &nbsp;&nbsp;
                     </td>
                     <td>
-                        {user.role}
+                        {user.roles.map(userToJSX)}
                     </td>
                 </tr>
             </div>
         );
     }
 }
+
+const userToJSX = (role, i) => <li key={role.id + i}>
+{role.name}
+</li>;
