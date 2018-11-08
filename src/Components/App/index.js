@@ -6,20 +6,26 @@ import HelloWorld from '../HelloWorld';
 import Login from '../Login';
 import Navbar from '../Navbar';
 import Welcome from '../Welcome';
+import AuthRequired from '../AuthRequired';
 
 import './App.css';
 
 export default class App extends Component {
+    componentDidMount() {
+        localStorage.clear();
+    }
+
   render() {
       let header;
     return (
-      <div>
-          <Navbar />
-        <Switch>
-          {/*<Route component={Login} /> /!* Index page (/) *!/*/}
-          <Route component={Welcome} /> /* Index page (/) */}
-        </Switch>
-      </div>
+        <>
+            <Navbar />
+            <AuthRequired>
+                <Switch>
+                    <Route component={Welcome} />
+                </Switch>
+            </AuthRequired>
+        </>
     );
   }
 }
