@@ -1,0 +1,15 @@
+version: "3"
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - build:/var/www
+  scala:
+    image: htg-it-wms:0.1.0
+    ports:
+      - "9000:9000" # dit moet gaat eruit zodra de verbinding tussen graphQL en nginx is getest
+
+volumes:
+    build:
