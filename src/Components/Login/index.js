@@ -3,6 +3,13 @@ import './login.css';
 
 export default class Login extends Component {
     state = { email:"@htg.nl", password:"" };
+
+    onSubmit(event) {
+        console.log("Doet ie iets?")
+        event.preventDefault();
+        localStorage.setItem( "loggedIn", true);
+    }
+
     render() {
         return (
             <>
@@ -49,7 +56,7 @@ export default class Login extends Component {
                                 </td>
                                 <td>
                                     <br />
-                                    <input type="submit" name="ok" value="OK" />
+                                    <input type="submit" name="ok" value="OK" onClick={this.onSubmit} />
                                 </td>
                             </tr>
                         </tbody>
