@@ -1,20 +1,8 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
-import QueryHOC from '../HOC/QueryHOC';
 import './welcome.css';
 
-const query = gql`{
-  user(id:"1") {
-    firstName lastName email role
-  }
-}`;
-
-@QueryHOC(query)
 export default class Navbar extends Component {
     render() {
-        const { loading, error, data: {user} } = this.props.queryResults;
-        if (loading) return "Loading graphql query..";
-        if (error) return `GraphQL query resulted in error: ${error}`;
         return (
             <div className="welcome">
                 <tr>
@@ -25,7 +13,7 @@ export default class Navbar extends Component {
                         &nbsp;&nbsp;
                     </td>
                     <td>
-                        {user.firstName}
+                        ---- Hier nog voornaam neerzetten -----
                     </td>
                 </tr>
                 <tr><br/></tr>
@@ -37,7 +25,7 @@ export default class Navbar extends Component {
                         &nbsp;&nbsp;
                     </td>
                     <td>
-                        {user.lastName}
+                        ---- Hier nog achternaam neerzetten -----
                     </td>
                 </tr>
                 <tr><br/></tr>
@@ -49,7 +37,7 @@ export default class Navbar extends Component {
                         &nbsp;&nbsp;
                     </td>
                     <td>
-                        {user.email}
+                        ---- Hier nog email neerzetten -----
                     </td>
                 </tr>
                 <tr><br/></tr>
@@ -61,7 +49,7 @@ export default class Navbar extends Component {
                         &nbsp;&nbsp;
                     </td>
                     <td>
-                        {user.role}
+                        ---- Hier nog rol neerzetten -----
                     </td>
                 </tr>
             </div>
