@@ -5,6 +5,10 @@ import {
   Route, Switch, Redirect, withRouter
 } from 'react-router-dom';
 import HelloWorld from '../HelloWorld';
+import Login from '../Login';
+import Navbar from '../Navbar';
+import Welcome from '../Welcome';
+
 import './App.css';
 
 const query = gql`{
@@ -20,10 +24,15 @@ export default class App extends Component {
     if (loading) return "Loading graphql query..";
     if (error) return `GraphQL query resulted in error: ${error}`;
     return (
-      <>
-        <h2>Alle users van de backend gehaald;</h2>
-        <ul>{users.map(userToJSX)}</ul>
-      </>
+      <div>
+          <Navbar />
+          <h2>Alle users van de backend gehaald;</h2>
+          <ul>{users.map(userToJSX)}</ul>
+        <Switch>
+          {/*<Route component={Login} /> /!* Index page (/) *!/*/}
+          <Route component={Welcome} /> {/* Index page (/) */}
+        </Switch>
+      </div>
     );
   }
 }
