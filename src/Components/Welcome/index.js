@@ -12,9 +12,10 @@ const query = gql`{
 @QueryHOC(query)
 export default class Navbar extends Component {
     render() {
-        const { loading, error, data: {user} } = this.props.queryResults;
+        const { loading, error, data} = this.props.queryResults;
         if (loading) return "Loading graphql query..";
         if (error) return `GraphQL query resulted in error: ${error}`;
+        const { user } = data;
         return (
             <div className="welcome">
                 <tr>
