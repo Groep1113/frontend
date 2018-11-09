@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import './login.css';
 
+@withRouter
 export default class Login extends Component {
     state = { email:"@htg.nl", password:"" };
+    onSubmit = this.onSubmit.bind(this)
 
     onSubmit(event) {
-        console.log("Doet ie iets?")
-        event.preventDefault();
-        localStorage.setItem( "loggedIn", true);
+      event.preventDefault();
+      localStorage.setItem("loggedIn", true);
+      const { email, password } = this.state;
+      localStorage.setItem("BasicAuth", btoa(`${email}:${password}`));
+      this.props.history.push("/"); // redirect to dashboard
     }
 
     render() {
@@ -41,10 +46,11 @@ export default class Login extends Component {
                                     &nbsp;&nbsp;
                                 </td>
                                 <td>
-                                    <input type="password" name="password" value={this.state.password}
-                                        onChange={({ target: {value} }) => {
-                                            this.setState({ password: value });
-                                        }}/>
+                                    <input type="password" name="password"
+                                      value={this.state.password}
+                                      onChange={({ target: {value} }) => {
+                                        this.setState({ password: value });
+                                      }}/>
                                 </td>
                             </tr>
                             <tr>
@@ -56,7 +62,8 @@ export default class Login extends Component {
                                 </td>
                                 <td>
                                     <br />
-                                    <input type="submit" name="ok" value="OK" onClick={this.onSubmit} />
+                                    <input type="submit" name="ok" value="OK"
+                                      onClick={this.onSubmit} />
                                 </td>
                             </tr>
                         </tbody>
