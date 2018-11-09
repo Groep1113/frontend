@@ -10,6 +10,25 @@ services:
     image: htg-it-wms:0.1.0
     ports:
       - "9000:9000" # dit moet gaat eruit zodra de verbinding tussen graphQL en nginx is getest
-
+    restart: always
+    networks: 
+      - backend
+    links:
+      - "mysql:database"
+    depends_on:
+      - "mysql"
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootwachtwoord # niet voor productie
+      MYSQL_DATABASE: databasenaam
+      MYSQL_USER: gebruikersnaam
+      MYSQL_PASSWORD: wachtwoord
+    networks:
+      - backend
 volumes:
     build:
+networks:
+  backend:
