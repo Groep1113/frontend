@@ -4,6 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+RUN npm run build:clean
 RUN npm run build
 
 FROM nginx:latest as production-stage

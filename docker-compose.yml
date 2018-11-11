@@ -4,8 +4,6 @@ services:
     build: .
     ports:
       - "80:80"
-    volumes:
-      - build:/var/www
   scala:
     image: htg-it-wms:0.1.0
     restart: always
@@ -18,7 +16,7 @@ services:
   nginx_proxy:
     build: ./nginx_reverse_proxy/
     ports:
-      - "9001:9001"
+      - "9000:9001"
     networks:
       - backend
     links:
@@ -34,7 +32,5 @@ services:
       MYSQL_PASSWORD: wachtwoord
     networks:
       - backend
-volumes:
-    build:
 networks:
   backend:
