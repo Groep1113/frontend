@@ -5,7 +5,7 @@ import QueryHOC from '../HOC/QueryHOC';
 import './welcome.css';
 
 const query = gql`{
-  user(id:3) {
+  users {
     firstName lastName email roles { name }
   }
 }`;
@@ -29,7 +29,7 @@ export default class Welcome extends Component {
       return <Redirect to="/login" />;
     }
 
-    const { user } = data;
+    const user = data.users[0];
     return (
       <div className="welcome">
         <table>
