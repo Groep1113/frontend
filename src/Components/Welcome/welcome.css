@@ -14,6 +14,16 @@
   min-width: 200px;
 }
 
-input[type="submit"] {
+.logout {
     width: 50%;
+    height: 40px;
+    font-size: 14px;
+    color: white;
+    background: #2660da;
+    border: 1px #4C8FFB solid;
+    box-shadow: inset 0 1px 0 #80B0FB;
+    padding: 5px 10px;
+    border-radius: 2px;
+    font-weight: bold;
+    outline: none;
 }
