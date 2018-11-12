@@ -38,35 +38,17 @@ const plugins = [
   }),
 ];
 
+let optimization = {
+  removeAvailableModules: false,
+  removeEmptyChunks: false,
+  splitChunks: false
+}
+
 if (process.env.NODE_ENV == 'development') {
   plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 if (process.env.NODE_ENV != 'development') {
-  plugins.push(
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
-    })
-  );
-}
-
-module.exports = {
-  devtool: process.env.NODE_ENV == 'development'
-    ? 'cheap-module-eval-source-map' : '',
-
-  entry: './src/index.js',
-
-  output: {
-    filename: process.env.NODE_ENV == 'development'
-      ? '[name].[hash].js' : '[name].[chunkHash].js',
-    publicPath: '/',
-    path: path.resolve(process.cwd(), 'build')
-  },
-
-  devServer: {
-    historyApiFallback: true
-  },
-
-  optimization: {
+  optimization = {
     splitChunks: {
       chunks: 'all',
       minSize: 3000,
@@ -87,7 +69,32 @@ module.exports = {
           reuseExistingChunk: true
         }
       }
-    }
+    },
+  }
+  plugins.push(
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
+    })
+  );
+}
+
+module.exports = {
+  devtool: process.env.NODE_ENV == 'development'
+    ? 'cheap-module-eval-source-map' : '',
+
+  entry: './src/index.js',
+
+  output: {
+    filename: process.env.NODE_ENV == 'development'
+      ? '[name].[hash].js' : '[name].[chunkHash].js',
+    publicPath: '/',
+    path: path.resolve(process.cwd(), 'build'),
+    // might want to switch this for debug purposes, speeds up compile time tho
+    pathinfo: false
+  },
+
+  devServer: {
+    historyApiFallback: true
   },
 
   module: {
@@ -129,5 +136,6 @@ module.exports = {
     ]
   },
 
+  optimization: optimization,
   plugins: plugins
 }

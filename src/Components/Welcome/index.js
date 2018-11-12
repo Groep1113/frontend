@@ -1,74 +1,70 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
+import { withRouter } from 'react-router-dom';
 import QueryHOC from '../HOC/QueryHOC';
 import './welcome.css';
 
 const query = gql`{
-  user(id:1) {
-    firstName lastName email roles { name   }
+  user(id: 1) {
+    firstName lastName email roles { name }
   }
 }`;
 
 @QueryHOC(query)
+@withRouter
 export default class Navbar extends Component {
-    render() {
-        const { loading, error, data: {user} } = this.props.queryResults;
-        if (loading) return "Loading graphql query..";
-        if (error) return `GraphQL query resulted in error: ${error}`;
-        return (
-            <div className="welcome">
-                <tr>
-                    <td>
-                        Voornaam:
-                    </td>
-                    <td>
-                        &nbsp;&nbsp;
-                    </td>
-                    <td>
-                        {user.firstName}
-                    </td>
-                </tr>
-                <tr><br/></tr>
-                <tr>
-                    <td>
-                        Achternaam:
-                    </td>
-                    <td>
-                        &nbsp;&nbsp;
-                    </td>
-                    <td>
-                        {user.lastName}
-                    </td>
-                </tr>
-                <tr><br/></tr>
-                <tr>
-                    <td>
-                        Email:
-                    </td>
-                    <td>
-                        &nbsp;&nbsp;
-                    </td>
-                    <td>
-                        {user.email}
-                    </td>
-                </tr>
-                <tr><br/></tr>
-                <tr>
-                    <td>
-                        Rol:
-                    </td>
-                    <td>
-                        &nbsp;&nbsp;
-                    </td>
-                    <td>
-                        {user.roles.map(userToJSX)}
-                    </td>
-                </tr>
-            </div>
-        );
-    }
+  logout = this.logout.bind(this);
+
+  logout() {
+    localStorage.clear();
+    this.props.history.push("/login");
+  }
+
+  render() {
+    const { loading, error, data} = this.props.queryResults;
+    if (loading) return "Loading graphql query..";
+    if (error) return `GraphQL query resulted in ${error}`;
+    const { user } = data;
+    
+    return (
+      <div className="welcome">
+        <table>
+          <tbody>
+            <tr>
+              <td> Voornaam: </td>
+              <td> {user.firstName} </td>
+            </tr>
+            <tr>
+              <td> Achternaam: </td>
+              <td> {user.lastName} </td>
+            </tr>
+            <tr>
+              <td> Email: </td>
+              <td> {user.email} </td>
+            </tr>
+            <tr>
+              <td> Rollen: </td>
+              <td><ul>{user.roles.map(userToJSX)}</ul></td>
+            </tr>
+            <tr>
+            <tr>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+            <td>&nbsp;</td>
+            </tr>
+            </tr>
+            <tr>
+              <td></td>
+              <td className="lastcell"><input type="submit" className="logout" value="Logout" onClick={this.logout} /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  }
 }
 
 const userToJSX = (role, i) => <li key={role.id + i}>
-{role.name}
-</li>;
+    {role.name}
+  </li>;

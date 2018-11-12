@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   Route, Switch, Redirect, withRouter
 } from 'react-router-dom';
-import HelloWorld from '../HelloWorld';
+import AuthRequired from '../AuthRequired';
 import Login from '../Login';
 import Navbar from '../Navbar';
 import Welcome from '../Welcome';
@@ -11,15 +11,16 @@ import './App.css';
 
 export default class App extends Component {
   render() {
-      let header;
     return (
-      <div>
-          <Navbar />
-        <Switch>
-          {/*<Route component={Login} /> /!* Index page (/) *!/*/}
-          <Route component={Welcome} /> /* Index page (/) */}
-        </Switch>
-      </div>
+      <>
+        <Navbar />
+        <AuthRequired>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route component={Welcome} />
+          </Switch>
+        </AuthRequired>
+      </>
     );
   }
 }
