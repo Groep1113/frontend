@@ -18,9 +18,6 @@ export default class Login extends Component {
     render() {
         return (
             <>
-                <div className="title">
-                    <b>Login pagina</b>
-                </div>
                 <div className="login">
                     <table>
                         <tbody>
