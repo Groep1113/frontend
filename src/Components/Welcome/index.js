@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { withRouter, Redirect } from 'react-router-dom';
 import QueryHOC from '../HOC/QueryHOC';
 import './welcome.css';
+import client from '../../apollo';
 
 const query = gql`{
   users {
@@ -17,6 +18,7 @@ export default class Welcome extends Component {
 
   logout() {
     localStorage.clear();
+    client.resetStore();
     this.props.history.push("/login");
   }
 
