@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import QueryHOC from '../HOC/QueryHOC';
 import './welcome.css';
 
@@ -12,7 +12,7 @@ const query = gql`{
 
 @QueryHOC(query)
 @withRouter
-export default class Navbar extends Component {
+export default class Welcome extends Component {
   logout = this.logout.bind(this);
 
   logout() {
@@ -21,11 +21,15 @@ export default class Navbar extends Component {
   }
 
   render() {
-    const { loading, error, data} = this.props.queryResults;
+    const { loading, error, data } = this.props.queryResults;
     if (loading) return "Loading graphql query..";
-    if (error) return `GraphQL query resulted in ${error}`;
+    if (error) {
+      console.error("" + error);
+      localStorage.clear();
+      return <Redirect to="/login" />;
+    }
+
     const { user } = data;
-    
     return (
       <div className="welcome">
         <table>
@@ -45,14 +49,6 @@ export default class Navbar extends Component {
             <tr>
               <td> Rollen: </td>
               <td><ul>{user.roles.map(userToJSX)}</ul></td>
-            </tr>
-            <tr>
-            <tr>
-              <td>&nbsp;</td>
-            </tr>
-            <tr>
-            <td>&nbsp;</td>
-            </tr>
             </tr>
             <tr>
               <td></td>

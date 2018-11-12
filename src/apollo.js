@@ -4,17 +4,6 @@ import { HttpLink } from 'apollo-link-http';
 import { ApolloLink, concat } from 'apollo-link';
 import { onError } from 'apollo-link-error';
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors)
-    graphQLErrors.map(({ message, locations, path }) =>
-      console.error(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-      ),
-    );
-
-  if (networkError) console.error(`[Network error]: ${networkError}`);
-});
-
 const httpLink = new HttpLink({
   // @TODO: backend url as config option or environment variable
   uri: "http://localhost:9000/graphql"
