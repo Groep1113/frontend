@@ -47,9 +47,20 @@ export default class Navbar extends Component {
               <td> Rollen: </td>
               <td><ul>{user.roles.map(userToJSX)}</ul></td>
             </tr>
+            <tr>
+            <tr>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+            <td>&nbsp;</td>
+            </tr>
+            </tr>
+            <tr>
+              <td></td>
+              <td className="lastcell"><input type="submit" className="logout" value="Logout" onClick={this.logout} /></td>
+            </tr>
           </tbody>
         </table>
-          <input type="submit" className="logout" value="Logout" onClick={this.logout} />
       </div>
     );
   }
