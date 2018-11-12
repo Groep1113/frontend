@@ -13,3 +13,7 @@
 .welcome td {
   min-width: 200px;
 }
+
+input[type="submit"] {
+    width: 50%;
+}
