@@ -5,7 +5,7 @@ import QueryHOC from '../HOC/QueryHOC';
 import './welcome.css';
 
 const query = gql`{
-  user(id: 1) {
+  user(id:3) {
     firstName lastName email roles { name }
   }
 }`;

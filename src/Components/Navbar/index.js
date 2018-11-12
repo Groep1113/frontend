@@ -5,8 +5,8 @@ import QueryHOC from '../HOC/QueryHOC';
 import { Route, Switch } from 'react-router-dom';
 
 const query = gql`{
-  user(id:1) {
-    firstName lastName email roles { name   }
+  user(id:3) {
+    firstName
   }
 }`;
 
