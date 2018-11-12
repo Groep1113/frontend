@@ -59,7 +59,7 @@ export default class Login extends Component {
                                 </td>
                                 <td>
                                     <br />
-                                    <input type="submit" className="ok" value="OK"
+                                    <input type="submit" className="ok" value="Log in"
                                       onClick={this.onSubmit} />
                                 </td>
                             </tr>
