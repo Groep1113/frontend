@@ -44,7 +44,7 @@ export default class Navbar extends Component {
               <td> {user.email} </td>
             </tr>
             <tr>
-              <td> Rol: </td>
+              <td> Rollen: </td>
               <td><ul>{user.roles.map(userToJSX)}</ul></td>
             </tr>
           </tbody>
