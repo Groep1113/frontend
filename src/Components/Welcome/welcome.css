@@ -1,9 +1,9 @@
 .welcome {
   position: absolute;
-  top: 45%;
+  top: 40%;
   left: 40%;
   margin: auto;
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
 .welcome tr {
