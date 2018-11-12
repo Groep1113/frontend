@@ -49,7 +49,7 @@ export default class Navbar extends Component {
             </tr>
           </tbody>
         </table>
-          <input type="submit" value="Logout" onClick={this.logout} />
+          <input type="submit" className="logout" value="Logout" onClick={this.logout} />
       </div>
     );
   }
