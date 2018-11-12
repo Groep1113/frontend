@@ -25,8 +25,7 @@ export default class Navbar extends Component {
     if (loading) return "Loading graphql query..";
     if (error) return `GraphQL query resulted in ${error}`;
     const { user } = data;
-
-    console.log("BasicAuth = ", atob(localStorage.getItem("BasicAuth")), localStorage.getItem("BasicAuth"));
+    
     return (
       <div className="welcome">
         <table>
