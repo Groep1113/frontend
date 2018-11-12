@@ -5,7 +5,7 @@ import QueryHOC from '../HOC/QueryHOC';
 import { Route, Switch } from 'react-router-dom';
 
 const query = gql`{
-  user(id:3) {
+  users {
     firstName
   }
 }`;
@@ -16,7 +16,7 @@ class UserMessage extends Component {
     const { loading, error, data} = this.props.queryResults;
     if (loading) return "Gegevens worden geladen..";
     if (error) return "";
-    const { user } = data;
+    const user = data.users[0];
     return (
       <div>
         Welkom, {user.firstName}
