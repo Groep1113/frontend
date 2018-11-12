@@ -9,7 +9,7 @@ import './index.css' // global base css
 
 const client = new ApolloClient({
   // @TODO: backend url as config option or environment variable
-  uri: "http://localhost:9000/graphql"
+  uri: "http://104.248.195.241:9000/graphql"
 });
 
 ReactDOM.render(

@@ -1,11 +1,11 @@
 version: "3"
 services:
   web:
-    build: .
+    image: lalleball/htg-it-wms-web
     ports:
       - "80:80"
   scala:
-    image: htg-it-wms:0.1.0
+    image: lalleball/htg-it-wms:0.1.0
     restart: always
     networks: 
       - backend
@@ -14,7 +14,7 @@ services:
     depends_on:
       - "mysql"
   nginx_proxy:
-    build: ./nginx_reverse_proxy/
+    image: lalleball/nginx_reverse_proxy
     ports:
       - "9000:9001"
     networks:
