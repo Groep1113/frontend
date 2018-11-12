@@ -4,7 +4,7 @@ import './login.css';
 
 @withRouter
 export default class Login extends Component {
-    state = { email:"@htg.nl", password:"" };
+    state = { email:"@bs-htg.nl", password:"" };
     onSubmit = this.onSubmit.bind(this)
 
     onSubmit(event) {
