@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Route, Switch, Redirect, withRouter
+  Route, Switch,
 } from 'react-router-dom';
 import AuthRequired from '../AuthRequired';
 import Login from '../Login';

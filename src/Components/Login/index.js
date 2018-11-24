@@ -4,19 +4,20 @@ import './login.css';
 
 @withRouter
 export default class Login extends Component {
-    state = { email:"@bs-htg.nl", password:"" };
+    state = { email: '@bs-htg.nl', password: '' };
+
     onSubmit = this.onSubmit.bind(this)
 
     onSubmit(event) {
       event.preventDefault();
-      localStorage.setItem("loggedIn", true);
+      localStorage.setItem('loggedIn', true);
       const { email, password } = this.state;
-      localStorage.setItem("BasicAuth", btoa(`${email}:${password}`));
-      this.props.history.push("/"); // redirect to dashboard
+      localStorage.setItem('BasicAuth', btoa(`${email}:${password}`));
+      this.props.history.push('/'); // redirect to dashboard
     }
 
     render() {
-        return (
+      return (
             <>
                 <div className="login">
                     <table>
@@ -30,8 +31,8 @@ export default class Login extends Component {
                                 </td>
                                 <td>
                                     <input type="text" name="email" value={this.state.email}
-                                        onChange={({ target: {value} }) => {
-                                            this.setState({ email: value });
+                                        onChange={({ target: { value } }) => {
+                                          this.setState({ email: value });
                                         }} />
                                 </td>
                             </tr>
@@ -45,7 +46,7 @@ export default class Login extends Component {
                                 <td>
                                     <input type="password" name="password"
                                       value={this.state.password}
-                                      onChange={({ target: {value} }) => {
+                                      onChange={({ target: { value } }) => {
                                         this.setState({ password: value });
                                       }}/>
                                 </td>
@@ -67,6 +68,6 @@ export default class Login extends Component {
                     </table>
                 </div>
             </>
-        );
+      );
     }
 }
