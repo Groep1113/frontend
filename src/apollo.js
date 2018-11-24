@@ -11,7 +11,6 @@ const httpLink = new HttpLink({
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the HTTP Basic Auth to the headers
-  const { localStorage } = this.window;
   operation.setContext({
     headers: {
       Authorization: `Basic ${localStorage.getItem('BasicAuth')}` || null,
