@@ -49,6 +49,9 @@ workflows:
   build_accept_deploy:
     jobs:
       - prepare
+      - lint:
+        requires:
+          - prepare
       - build:
-          requires:
-            - prepare
+        requires:
+          - prepare
