@@ -33,6 +33,17 @@ jobs:
           root: .
           paths:
             - build
+  eslint:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run: npm run lint
+      - persist_to_workspace:
+          root: .
+          paths:
+            - build
 workflows:
   version: 2
   build_accept_deploy:
