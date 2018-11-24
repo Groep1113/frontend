@@ -49,7 +49,7 @@ workflows:
   build_accept_deploy:
     jobs:
       - prepare
-      - lint:
+      - eslint:
           requires:
             - prepare
       - build:
