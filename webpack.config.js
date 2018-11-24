@@ -100,14 +100,20 @@ module.exports = {
   module: {
     rules: [
       {
+        enforce: "pre",
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'eslint-loader',
+      },
+      {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env']
-          }
-        }
+          },
+        },
       },
       {
         test: /\.svg$/,
@@ -119,7 +125,7 @@ module.exports = {
           loader: MiniCssExtractPlugin.loader,
           options: {
             publicPath: '/'
-          }
+          },
         },
         "css-loader"
       ]},
@@ -130,10 +136,10 @@ module.exports = {
           options: {
             limit: 10000,
             mimetype: 'application/octet-stream'
-          }
-        }]
-      }
-    ]
+          },
+        }],
+      },
+    ],
   },
 
   optimization: optimization,
