@@ -4,7 +4,7 @@ import './login.css';
 
 @withRouter
 export default class Login extends Component {
-    state = { email: '@bs-htg.nl', password: '' };
+    state = { email: 'admin@bs-htg.nl', password: 'habbo123' };
 
     onSubmit = this.onSubmit.bind(this)
 
@@ -19,54 +19,54 @@ export default class Login extends Component {
     render() {
       return (
             <>
-                <div className="login">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
+              <div className="login">
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>
                                     E-mail:
-                                </td>
-                                <td>
+                      </td>
+                      <td>
                                     &nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <input type="text" name="email" value={this.state.email}
-                                        onChange={({ target: { value } }) => {
-                                          this.setState({ email: value });
-                                        }} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
+                      </td>
+                      <td>
+                        <input type="text" name="email" value={this.state.email}
+                          onChange={({ target: { value } }) => {
+                            this.setState({ email: value });
+                          }} />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
                                     Wachtwoord:
-                                </td>
-                                <td>
+                      </td>
+                      <td>
                                     &nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <input type="password" name="password"
-                                      value={this.state.password}
-                                      onChange={({ target: { value } }) => {
-                                        this.setState({ password: value });
-                                      }}/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
+                      </td>
+                      <td>
+                        <input type="password" name="password"
+                          value={this.state.password}
+                          onChange={({ target: { value } }) => {
+                            this.setState({ password: value });
+                          }}/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
                                     &nbsp;
-                                </td>
-                                <td>
+                      </td>
+                      <td>
                                     &nbsp;
-                                </td>
-                                <td>
-                                    <br />
-                                    <input type="submit" className="ok" value="Log in"
-                                      onClick={this.onSubmit} />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                      </td>
+                      <td>
+                        <br />
+                        <input type="submit" className="ok" value="Log in"
+                          onClick={this.onSubmit} />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </>
       );
     }
