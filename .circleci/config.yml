@@ -50,8 +50,8 @@ workflows:
     jobs:
       - prepare
       - lint:
-        requires:
-          - prepare
+          requires:
+            - prepare
       - build:
-        requires:
-          - prepare
+          requires:
+            - prepare
