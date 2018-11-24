@@ -19,14 +19,13 @@ export default class Welcome extends Component {
   logout() {
     localStorage.clear();
     client.resetStore();
-    this.props.history.push("/login");
+    this.props.history.push('/login');
   }
 
   render() {
     const { loading, error, data } = this.props.queryResults;
-    if (loading) return "Loading graphql query..";
+    if (loading) return 'Loading graphql query..';
     if (error) {
-      console.error("" + error);
       localStorage.clear();
       return <Redirect to="/login" />;
     }
