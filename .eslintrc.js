@@ -21,5 +21,8 @@ module.exports = {
     "import/no-named-as-default-member": 0,
     // This is an unrealistic expectation when using react lifecycle methods
     "class-methods-use-this": 0,
+    // 2 space indentation
+    "indent": [2, 2],
+    "react/jsx-indent": [2, 2]
   },
 }

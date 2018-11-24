@@ -22,7 +22,8 @@
     "build": "cross-env NODE_ENV=production ./node_modules/.bin/webpack -p --mode production",
     "build:stats": "./node_modules/.bin/webpack -p --mode production --profile --json > stats.json",
     "build:clean": "rimraf ./build",
-    "lint": "./node_modules/.bin/eslint src/"
+    "lint": "./node_modules/.bin/eslint src/",
+    "lint:fix": "./node_modules/.bin/eslint src/ --fix"
   },
   "browserslist": [
     ">0.2%",
