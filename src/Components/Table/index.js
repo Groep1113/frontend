@@ -8,7 +8,6 @@ export default class Table extends Component {
   render() {
     let { data, headers } = this.props;
     const { columns } = this.props;
-    console.log(columns);
     headers = headers.map(headerToJSX);
     data = mapDataToJSXRows(data, columns);
     return (
