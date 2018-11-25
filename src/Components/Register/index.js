@@ -1,30 +1,42 @@
+/* eslint-disable guard-for-in,prefer-const */
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { createTable } from '../App';
+import { Redirect, withRouter } from 'react-router-dom';
+import gql from 'graphql-tag';
 import './register.css';
 import Table from '../Table';
+import QueryHOC from '../HOC/QueryHOC';
 
-const firstRowTable = ['Product', 'Type', 'Locatie', 'Leverancier'];
-const query = [['printer 1', 'printer', '5G', 'bol.com'], ['desktop 1', 'desktop', '4G', 'amazon'], ['scanner 1', 'scanner', '3G', 'coolblue']];
-const object = [
-  {
-    product: 'printer 1', type: 'printer', locatie: '5G', leverancier: 'bol.com',
-  },
-  {
-    product: 'scanner 1', type: 'scanner', locatie: '3G', leverancier: 'coolblue',
-  },
-  {
-    product: 'desktop 1', type: 'desktop', locatie: '4G', leverancier: 'amazon',
-  }];
+const query = gql`{
+  items {
+    name code locations {code} recommended_stock 
+  }
+}`;
 
+const columnFormatting = ['name', 'code', ({ locations }) => formattingLocations(locations[0]), 'recommended_stock'];
+const firstRowTable = ['Product', 'Type', 'Locatie', 'Aanbevolen voorraad'];
+
+@QueryHOC(query)
 @withRouter
 export default class Register extends Component {
   render() {
+    const { loading, error, data } = this.props.queryResults;
+    if (loading) return 'Loading graphql query..';
+    if (error) {
+      return 'Something went wrong';
+    }
     return (
       <div className = "register">
-        <Table data = {object} />
-        {createTable(firstRowTable, query)}
+        <div className='header'>
+          <h3>
+            Huidige producten:
+          </h3>
+        </div>
+        <Table data = {data.items} headers = {firstRowTable} columns = {columnFormatting}/>
       </div>
     );
   }
+}
+
+function formattingLocations(locations) {
+  return locations.code;
 }
