@@ -51,10 +51,6 @@ export default class Welcome extends Component {
               <td> Rollen: </td>
               <td><ul>{user.roles.map(userToJSX)}</ul></td>
             </tr>
-            <tr>
-              <td></td>
-              <td className="lastcell"><input type="submit" className="logout" value="Logout" onClick={this.logout} /></td>
-            </tr>
           </tbody>
         </table>
       </div>
