@@ -14,7 +14,6 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import QueryHOC from '../HOC/QueryHOC';
 import client from '../../apollo';
 
-
 const query = gql`{
   users {
     firstName
