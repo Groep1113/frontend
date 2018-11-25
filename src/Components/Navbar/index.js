@@ -28,12 +28,12 @@ class UserMessage extends Component {
 export default class Navbar extends Component {
   render() {
     return (
-        <div className="navbar">
-          <Switch>
-            <Route path="/login" render={() => 'Login'} />
-            <Route path="/" component={UserMessage} />
-          </Switch>
-        </div>
+      <div className="navbar">
+        <Switch>
+          <Route path="/login" render={() => 'Login'} />
+          <Route path="/" component={UserMessage} />
+        </Switch>
+      </div>
     );
   }
 }

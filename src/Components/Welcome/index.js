@@ -63,5 +63,5 @@ export default class Welcome extends Component {
 }
 
 const userToJSX = (role, i) => <li key={role.id + i}>
-    {role.name}
-  </li>;
+  {role.name}
+</li>;
