@@ -60,7 +60,7 @@ export default class ProductRegistration extends Component {
       return 'Something went wrong';
     }
     return (
-      <div className = "register">
+      <div className = 'register'>
         <div className='header'>
           <h3>
             Huidige producten:
