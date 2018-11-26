@@ -11,7 +11,7 @@ const query = gql`{
   }
 }`;
 
-const columnFormatting = ['name', 'code', ({ locations }) => formattingLocations(locations[0]), 'recommended_stock'];
+const columnFormatting = ['name', 'code', ({ locations }) => locations.reduce((accum, { code }) => `${accum}, ${code}`, '').substring(2), 'recommended_stock'];
 const firstRowTable = ['Product', 'Type', 'Locatie', 'Aanbevolen voorraad'];
 
 @QueryHOC(query)
@@ -34,8 +34,4 @@ export default class ProductRegistration extends Component {
       </div>
     );
   }
-}
-
-function formattingLocations(locations) {
-  return locations.code;
 }
