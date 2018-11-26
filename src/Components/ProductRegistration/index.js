@@ -1,6 +1,5 @@
-/* eslint-disable guard-for-in,prefer-const */
 import React, { Component } from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import gql from 'graphql-tag';
 import './productregistration.css';
 import Table from '../Table';

@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign,prefer-destructuring */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import './table.css';
@@ -33,7 +32,8 @@ const mapDataToJSXRows = (data, columns) => data.map((row, i) => (
   </tr>
 ));
 
-const mapColumnsToJSX = (row, columns) => columns.map((col, i) => {
+const mapColumnsToJSX = (row, columns) => columns.map((x, i) => {
+  let col = x;
   if (typeof col === 'string') col = row[col];
   if (typeof col === 'function') col = col(row);
   return (
@@ -43,7 +43,8 @@ const mapColumnsToJSX = (row, columns) => columns.map((col, i) => {
   );
 });
 
-const headerToJSX = (header, i) => {
+const headerToJSX = (headerInfo, i) => {
+  let header = headerInfo;
   if (typeof header === 'string') header = { value: header };
 
   return (
