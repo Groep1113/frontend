@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import gql from 'graphql-tag';
-import './register.css';
+import './productregistration.css';
 import Table from '../Table';
 import QueryHOC from '../HOC/QueryHOC';
 
@@ -17,7 +17,7 @@ const firstRowTable = ['Product', 'Type', 'Locatie', 'Aanbevolen voorraad'];
 
 @QueryHOC(query)
 @withRouter
-export default class Register extends Component {
+export default class ProductRegistration extends Component {
   render() {
     const { loading, error, data } = this.props.queryResults;
     if (loading) return 'Loading graphql query..';
