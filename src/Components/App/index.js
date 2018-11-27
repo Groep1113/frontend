@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import AuthRequired from '../AuthRequired';
 import Login from '../Login';
 import Navbar from '../Navbar';
 import Welcome from '../Welcome';
 import Register from '../Register';
 
-import './App.css';
+const theme = createMuiTheme({
+  // edit stuff about the ui theme here
+  typography: {
+    useNextVariants: true,
+  },
+});
 
 export default class App extends Component {
   render() {
     return (
-      <div>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
         <Navbar />
         <AuthRequired>
           <Switch>
@@ -20,7 +29,7 @@ export default class App extends Component {
             <Route component={ Welcome } />
           </Switch>
         </AuthRequired>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }
