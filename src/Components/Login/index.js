@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import './login.css';
+import Button from '@material-ui/core/Button';
 
 @withRouter
 export default class Login extends Component {
@@ -60,8 +61,9 @@ export default class Login extends Component {
                       </td>
                       <td>
                         <br />
-                        <input type="submit" className="ok" value="Log in"
-                          onClick={this.onSubmit} />
+                        <Button variant="contained" color="primary" onClick={this.onSubmit}>
+                            Log in
+                        </Button>
                       </td>
                     </tr>
                   </tbody>

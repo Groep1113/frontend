@@ -1,9 +1,6 @@
-.navbar {
-  height: 50px;
-  color: white;
-  text-align: center;
-  font-size: 2rem;
-  padding-top: 15px;
-  background-color: #0a45c1;
-  font-weight: bold;
+.menuRight {
+  display: flex;
+  align-content: flex-start;
+  justify-content: flex-start;
+  margin-left: auto;
 }
