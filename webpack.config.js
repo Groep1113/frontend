@@ -1,8 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
@@ -16,38 +15,38 @@ const plugins = [
   // use app/index.html as a template to generate eventual build/index.html
   new HtmlWebpackPlugin({
     template: 'src/index.template.html',
-    alwaysWriteToDisk: true
+    alwaysWriteToDisk: true,
   }),
   // use html-webpack-harddisk-plugin to add alwaysWriteToDisk option
   new HtmlWebpackHarddiskPlugin(),
   // add `defer` attribute to matching script tags
   new ScriptExtHtmlWebpackPlugin({
-    defer: /(main.[a-z0-9]+.js|vendor.[a-z0-9]+.js|manifest.[a-z0-9]+.js)/i
+    defer: /(main.[a-z0-9]+.js|vendor.[a-z0-9]+.js|manifest.[a-z0-9]+.js)/i,
   }),
   // add a hash based on the relative path of the module
   new webpack.HashedModuleIdsPlugin(),
   // add all ExtractTextPlugin rule-test hits to a css file
-  new MiniCssExtractPlugin({filename: 'styles-[contentHash].css'}),
+  new MiniCssExtractPlugin({ filename: 'styles-[contentHash].css' }),
   // create compressed versions of files larger than 10kb
   new CompressionPlugin({
-    filename: "[path].gz[query]",
-    algorithm: "gzip",
+    filename: '[path].gz[query]',
+    algorithm: 'gzip',
     test: /\.js$|\.css$|\.html$/,
     threshold: 10240,
-    minRatio: 0.8
+    minRatio: 0.8,
   }),
 ];
 
 let optimization = {
   removeAvailableModules: false,
   removeEmptyChunks: false,
-  splitChunks: false
-}
+  splitChunks: false,
+};
 
-if (process.env.NODE_ENV == 'development') {
+if (process.env.NODE_ENV === 'development') {
   plugins.push(new webpack.HotModuleReplacementPlugin());
 }
-if (process.env.NODE_ENV != 'development') {
+if (process.env.NODE_ENV !== 'development') {
   optimization = {
     splitChunks: {
       chunks: 'all',
@@ -61,46 +60,46 @@ if (process.env.NODE_ENV != 'development') {
       cacheGroups: {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
-          priority: -10
+          priority: -10,
         },
         default: {
           minChunks: 2,
           priority: -20,
-          reuseExistingChunk: true
-        }
-      }
+          reuseExistingChunk: true,
+        },
+      },
     },
-  }
+  };
   plugins.push(
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
     })
   );
 }
 
 module.exports = {
-  devtool: process.env.NODE_ENV == 'development'
+  devtool: process.env.NODE_ENV === 'development'
     ? 'cheap-module-eval-source-map' : '',
 
   entry: './src/index.js',
 
   output: {
-    filename: process.env.NODE_ENV == 'development'
+    filename: process.env.NODE_ENV === 'development'
       ? '[name].[hash].js' : '[name].[chunkHash].js',
     publicPath: '/',
     path: path.resolve(process.cwd(), 'build'),
     // might want to switch this for debug purposes, speeds up compile time tho
-    pathinfo: false
+    pathinfo: false,
   },
 
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
   },
 
   module: {
     rules: [
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'eslint-loader',
@@ -111,37 +110,39 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            presets: ['@babel/preset-env'],
           },
         },
       },
       {
         test: /\.svg$/,
-        loader: 'svg-react-loader'
+        loader: 'svg-react-loader',
       },
       {
         test: /\.css$/,
-        use: [{
-          loader: MiniCssExtractPlugin.loader,
-          options: {
-            publicPath: '/'
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '/',
+            },
           },
-        },
-        "css-loader"
-      ]},
+          'css-loader',
+        ],
+      },
       {
         test: /\.(woff|woff2|ttf|eot)$/,
         use: [{
           loader: 'url-loader',
           options: {
             limit: 10000,
-            mimetype: 'application/octet-stream'
+            mimetype: 'application/octet-stream',
           },
         }],
       },
     ],
   },
 
-  optimization: optimization,
-  plugins: plugins
-}
+  optimization,
+  plugins,
+};

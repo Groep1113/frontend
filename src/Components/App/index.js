@@ -11,16 +11,16 @@ import './App.css';
 export default class App extends Component {
   render() {
     return (
-      <>
+      <div>
         <Navbar />
         <AuthRequired>
           <Switch>
             <Route path="/login" component={ Login } />
-            <Route component={ Register } />
+            <Route path="/product/register" component={ Register } />
             <Route component={ Welcome } />
           </Switch>
         </AuthRequired>
-      </>
+      </div>
     );
   }
 }

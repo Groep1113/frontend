@@ -1,6 +1,6 @@
 /* eslint-disable guard-for-in,prefer-const */
 import React, { Component } from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import gql from 'graphql-tag';
 import './register.css';
 import Table from '../Table';
@@ -8,7 +8,7 @@ import QueryHOC from '../HOC/QueryHOC';
 
 const query = gql`{
   items {
-    name code locations {code} recommended_stock 
+    name code locations {code} recommended_stock
   }
 }`;
 
