@@ -30,7 +30,7 @@ export default class App extends Component {
           <AuthRequired>
             <Switch>
               <Route path="/login" component={ Login } />
-              <Route component={ ProductRegistration } />
+              <Route path="/product/register" component={ ProductRegistration } />
               <Route component={ Welcome } />
             </Switch>
           </AuthRequired>
