@@ -6,3 +6,12 @@
   justify-content: space-between;
   width: 830px;
 }
+
+.dialogueWindow {
+  height: 700px;
+}
+
+.dialogueContent {
+  display: flex;
+  flex-direction: column;
+}

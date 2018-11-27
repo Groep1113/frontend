@@ -70,41 +70,40 @@ export default class ProductRegistration extends Component {
               <AddIcon />
             </Button>
             <Dialog
+              className='dialogueWindow'
               open={this.state.open}
               onClose={this.handleClose}
               aria-labelledby='alert-dialog-title'
               aria-describedby='alert-dialog-description'
             >
               <DialogTitle id='alert-dialog-title'>Voeg een product toe:</DialogTitle>
-              <DialogContent>
-                <DialogContentText id='alert-dialog-description'>
+              <DialogContent className='dialogueContent'>
+                <div>
                   <TextField
                     id='standard-name'
                     label='Product'
                     margin='normal'
                   />
-                </DialogContentText>
-                <DialogContentText id='alert-dialog-description'>
+                </div>
+                <div>
                   <TextField
                     id='standard-name'
                     label='Type'
                     margin='normal'
                   />
-                  <DialogContentText id='alert-dialog-description'>
-                  </DialogContentText>
-                  <TextField
-                    id='standard-name'
-                    label='Locatie'
-                    margin='normal'
-                  />
-                  <DialogContentText id='alert-dialog-description'>
-                  </DialogContentText>
+                </div>
+                <TextField
+                  id='standard-name'
+                  label='Locatie'
+                  margin='normal'
+                />
+                <div>
                   <TextField
                     id='standard-name'
                     label='Aanbevolen voorraad'
                     margin='normal'
                   />
-                </DialogContentText>
+                </div>
               </DialogContent>
               <DialogActions>
                 <Button onClick={this.handleClose} color="primary">
