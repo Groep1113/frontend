@@ -8,7 +8,6 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 import TextField from '@material-ui/core/TextField';
 import QueryHOC from '../HOC/QueryHOC';
