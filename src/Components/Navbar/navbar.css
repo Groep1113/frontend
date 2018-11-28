@@ -9,3 +9,10 @@
   align-items: center;
   padding: 1rem;
 }
+
+.menuRight {
+  display: flex;
+  align-content: flex-start;
+  justify-content: flex-start;
+  margin-left: auto;
+}

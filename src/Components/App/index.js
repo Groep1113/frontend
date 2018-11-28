@@ -7,12 +7,20 @@ import AuthRequired from '../AuthRequired';
 import Login from '../Login';
 import Navbar from '../Navbar';
 import Welcome from '../Welcome';
-import Register from '../Register';
+import ProductRegistration from '../ProductRegistration';
+
+// import './App.css';
 
 const theme = createMuiTheme({
-  // edit stuff about the ui theme here
+  // because we apparently use typography and the old variant types will be
+  // deprecated with the next release, to have a smooth transition:
   typography: {
     useNextVariants: true,
+  },
+  palette: {
+    primary: {
+      main: '#0a45c1',
+    },
   },
 });
 
@@ -25,7 +33,7 @@ export default class App extends Component {
         <AuthRequired>
           <Switch>
             <Route path="/login" component={ Login } />
-            <Route path="/product/register" component={ Register } />
+            <Route path="/product/register" component={ ProductRegistration } />
             <Route component={ Welcome } />
           </Switch>
         </AuthRequired>

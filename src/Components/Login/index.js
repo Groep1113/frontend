@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import gql from 'graphql-tag';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
@@ -58,7 +58,6 @@ const mutation = gql`
 `;
 
 @MutationHOC(mutation)
-@withRouter
 @withStyles(styles)
 export default class Login extends Component {
   state = { email: '@bs-htg.nl', password: '', anchorEl: null }
@@ -80,7 +79,6 @@ export default class Login extends Component {
 
   loginRedirect({ login: { token } }) {
     localStorage.setItem('authToken', token);
-
     return <Redirect to="/" />;
   }
 

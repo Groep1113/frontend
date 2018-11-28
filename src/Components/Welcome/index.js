@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { withRouter } from 'react-router-dom';
 import QueryHOC from '../HOC/QueryHOC';
-import './welcome.css';
 import client from '../../apollo';
+import './welcome.css';
 
 const query = gql`{
   secure {
