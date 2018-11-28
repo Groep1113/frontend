@@ -13,8 +13,10 @@ import QueryHOC from '../HOC/QueryHOC';
 import Table from '../Table';
 
 const query = gql`{
-  items {
-    name code locations {code} recommended_stock 
+  secure {
+    items {
+      name code locations {code} recommended_stock
+    }
   }
 }`;
 
@@ -24,28 +26,30 @@ const firstRowTable = ['Product', 'Type', 'Locatie', 'Aanbevolen voorraad'];
 @QueryHOC(query)
 @withRouter
 export default class ProductRegistration extends Component {
-  state = {
-    open: false,
-  };
+  state = { open: false }
 
-  handleClickOpen = () => {
+  handleClickOpen = this.handleClickOpen.bind(this)
+
+  handleClose = this.handleClose.bind(this)
+
+  handleClickOpen() {
     this.setState({
       open: true,
     });
-  };
+  }
 
-  handleClose = () => {
+  handleClose() {
     this.setState({ open: false });
-  };
+  }
 
   render() {
     const { loading, error, data } = this.props.queryResults;
-    if (loading) return 'Loading graphql query..';
+    if (loading) return 'Gegevens worden geladen..';
     if (error) {
-      return 'Something went wrong';
+      return <div>Er ging iets fout.<br />{error.message}</div>;
     }
     return (
-      <div className = 'register'>
+      <div className='register'>
         <div className='header'>
           <h3>
             Huidige producten:

@@ -4,7 +4,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -71,47 +70,34 @@ export class NavbarContent extends Component {
     const open = Boolean(anchorEl);
     const user = data.secure.users[0];
     return (
-      <div className='navbar'>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" color="inherit" className='typography'>
-              Welkom, {user.firstName}
-            </Typography>
-            <div className='menuRight'>
-              <div>
-                <IconButton
-                  className='button'
-                  color="inherit"
-                  aria-label="Menu"
-                >
-                  <MenuIcon />
-                </IconButton>
-              </div>
-              <div>
-                <IconButton
-                  aria-owns={open ? 'menu-appbaraccount' : undefined}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbaraccount"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                  transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <MenuItem onClick={this.handleClose}>Account</MenuItem>
-                  <MenuItem onClick={this.logout}>Log uit</MenuItem>
-                </Menu>
-              </div>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" color="inherit" className='typography'>
+            Welkom, {user.firstName}
+          </Typography>
+          <div className='menuRight'>
+            <div>
+              <IconButton
+                aria-owns={open ? 'menu-appbaraccount' : undefined}
+                aria-haspopup="true"
+                onClick={this.handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbaraccount"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={this.handleClose}
+              >
+                <MenuItem onClick={this.handleClose}>Account</MenuItem>
+                <MenuItem onClick={this.logout}>Log uit</MenuItem>
+              </Menu>
             </div>
-          </Toolbar>
-        </AppBar>
-      </div>
+          </div>
+        </Toolbar>
+      </AppBar>
     );
   }
 }

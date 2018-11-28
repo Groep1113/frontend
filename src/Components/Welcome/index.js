@@ -26,9 +26,9 @@ export default class Welcome extends Component {
 
   render() {
     const { loading, error, data } = this.props.queryResults;
-    if (loading) return 'Loading graphql query..';
+    if (loading) return 'Gegevens worden geladen..';
     if (error) {
-      return error.message;
+      return `Er ging iets mis met het laden van gegevens.\n${error.message}`;
     }
 
     const user = data.secure.users[0];

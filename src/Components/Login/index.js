@@ -104,11 +104,13 @@ export default class Login extends Component {
           <form onSubmit={this.handleSubmit} className={classes.inputContainer}>
             <LoginTextField
               name="E-mail"
+              type="email"
               className={classes.textField}
               stateVal={this.state.email}
               changeFunc={e => this.handleOnChange('email', e)} />
             <LoginTextField
-              name="Password"
+              name="Wachtwoord"
+              type="password"
               className={classes.textField}
               stateVal={this.state.password}
               changeFunc={e => this.handleOnChange('password', e)} />
@@ -144,13 +146,14 @@ export default class Login extends Component {
 }
 
 const LoginTextField = ({
-  name, className, stateVal, changeFunc,
+  name, type, className, stateVal, changeFunc,
 }) => (
   <TextField
     id={name}
-    type={name}
+    type={type}
     label={name}
     className={className}
+    required={true}
     value={stateVal}
     onChange={changeFunc} />
 );
