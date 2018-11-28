@@ -5,8 +5,9 @@ import { Redirect, withRouter } from 'react-router-dom';
 export default class AuthRequired extends Component {
   render() {
     const { location: { pathname } } = this.props;
-    const loggedIn = localStorage.getItem('loggedIn');
-    if (!loggedIn && pathname !== '/login') return <Redirect to="/login" />;
+    const token = localStorage.getItem('authToken');
+    if (token === null && pathname !== '/login') return <Redirect to="/login" />;
+    if (token !== null && pathname === '/login') return <Redirect to="/" />;
 
     const { children } = this.props;
     return <div>{children}</div>;

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import QueryHOC from '../HOC/QueryHOC';
-import './welcome.css';
 import client from '../../apollo';
+import './welcome.css';
 
 const query = gql`{
-  users {
-    firstName lastName email roles { name }
+  secure {
+    users {
+      firstName lastName email roles { name }
+    }
   }
 }`;
 
@@ -24,13 +26,12 @@ export default class Welcome extends Component {
 
   render() {
     const { loading, error, data } = this.props.queryResults;
-    if (loading) return 'Loading graphql query..';
+    if (loading) return 'Gegevens worden geladen..';
     if (error) {
-      localStorage.clear();
-      return <Redirect to="/login" />;
+      return `Er ging iets mis met het laden van gegevens.\n${error.message}`;
     }
 
-    const user = data.users[0];
+    const user = data.secure.users[0];
     return (
       <div className="welcome">
         <table>
@@ -50,6 +51,12 @@ export default class Welcome extends Component {
             <tr>
               <td> Rollen: </td>
               <td><ul>{user.roles.map(userToJSX)}</ul></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td className="lastcell">
+                <input type="submit" className="logout" value="Logout" onClick={this.logout} />
+              </td>
             </tr>
           </tbody>
         </table>

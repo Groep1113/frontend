@@ -4,7 +4,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -12,12 +11,6 @@ import gql from 'graphql-tag';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import QueryHOC from '../HOC/QueryHOC';
 import client from '../../apollo';
-
-const query = gql`{
-  users {
-    firstName
-  }
-}`;
 
 export default class Navbar extends Component {
   render() {
@@ -32,6 +25,14 @@ export default class Navbar extends Component {
   }
 }
 
+const query = gql`{
+  secure {
+    users {
+      firstName
+    }
+  }
+}`;
+
 @QueryHOC(query)
 @withRouter
 export class NavbarContent extends Component {
@@ -42,76 +43,61 @@ export class NavbarContent extends Component {
 
   logout = this.logout.bind(this);
 
+  handleMenu = this.handleMenu.bind(this);
+
+  handleClose = this.handleClose.bind(this);
+
   logout() {
     localStorage.clear();
     client.resetStore();
     this.props.history.push('/login');
   }
 
-  handleMenu = (event) => {
+  handleMenu(event) {
     this.setState({ anchorEl: event.currentTarget });
-  };
+  }
 
-  handleClose = () => {
+  handleClose() {
     this.setState({ anchorEl: null });
-  };
+  }
 
   render() {
-    const { anchorEl } = this.state;
-    const open = Boolean(anchorEl);
     const { loading, error, data } = this.props.queryResults;
     if (loading) return 'Gegevens worden geladen..';
     if (error) return 'Er ging iets fout';
-    const user = data.users[0];
 
+    const { anchorEl } = this.state;
+    const open = Boolean(anchorEl);
+    const user = data.secure.users[0];
     return (
-      <div className='navbar'>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" color="inherit" className='typography'>
-                Welkom, {user.firstName}
-            </Typography>
-            <div className='menuRight'>
-              <div>
-                <IconButton
-                  className='button'
-                  color="inherit"
-                  aria-label="Menu"
-                >
-                  <MenuIcon />
-                </IconButton>
-              </div>
-              <div>
-                <IconButton
-                  aria-owns={open ? 'menu-appbaraccount' : undefined}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbaraccount"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <MenuItem onClick={this.handleClose}>Account</MenuItem>
-                  <MenuItem onClick={this.logout}>Log uit</MenuItem>
-                </Menu>
-              </div>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" color="inherit" className='typography'>
+            Welkom, {user.firstName}
+          </Typography>
+          <div className='menuRight'>
+            <div>
+              <IconButton
+                aria-owns={open ? 'menu-appbaraccount' : undefined}
+                aria-haspopup="true"
+                onClick={this.handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbaraccount"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={this.handleClose}
+              >
+                <MenuItem onClick={this.handleClose}>Account</MenuItem>
+                <MenuItem onClick={this.logout}>Log uit</MenuItem>
+              </Menu>
             </div>
-          </Toolbar>
-        </AppBar>
-      </div>
+          </div>
+        </Toolbar>
+      </AppBar>
     );
   }
 }

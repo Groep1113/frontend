@@ -1,6 +1,17 @@
+.navbar {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 1rem;
+}
+
 .menuRight {
   display: flex;
   align-content: flex-start;
   justify-content: flex-start;
   margin-left: auto;
+}
+
+#menu-appbaraccount {
+  margin-top: 3rem;
 }
