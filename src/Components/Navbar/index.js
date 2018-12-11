@@ -26,10 +26,8 @@ export default class Navbar extends Component {
 }
 
 const query = gql`{
-  secure {
-    users {
-      firstName
-    }
+  users {
+    firstName
   }
 }`;
 
@@ -68,7 +66,7 @@ export class NavbarContent extends Component {
 
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
-    const user = data.secure.users[0];
+    const user = data.users[0];
     return (
       <AppBar position="static">
         <Toolbar>

@@ -50,7 +50,7 @@ const styles = ({ spacing, mixins }) => ({
 });
 
 const mutation = gql`
-  mutation login($email: String!, $password: String!) {
+  mutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
     }
@@ -69,7 +69,8 @@ export default class Login extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    this.props.mutateFunc({ variables: { ...this.state } });
+    const { email, password } = this.state;
+    this.props.mutateFunc({ variables: { email, password } });
     this.setState({ anchorEl: event.currentTarget });
   }
 
