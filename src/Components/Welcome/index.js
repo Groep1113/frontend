@@ -6,10 +6,8 @@ import client from '../../apollo';
 import './welcome.css';
 
 const query = gql`{
-  secure {
-    users {
-      firstName lastName email roles { name }
-    }
+  users {
+    firstName lastName email roles { name }
   }
 }`;
 
@@ -31,7 +29,7 @@ export default class Welcome extends Component {
       return `Er ging iets mis met het laden van gegevens.\n${error.message}`;
     }
 
-    const user = data.secure.users[0];
+    const user = data.users[0];
     return (
       <div className="welcome">
         <table>

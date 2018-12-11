@@ -10,26 +10,33 @@ const httpLink = new HttpLink({
 });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
+  // Dont know why this started bugging out, but sometimes this is undefined..
+  if (!operation) return forward();
+
   // add the HTTP Bearer Auth to the headers
   const token = localStorage.getItem('authToken');
   if (token === null) return forward(operation);
 
   operation.setContext({
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('authToken')}` || null,
+      Authorization: `Bearer ${token}`,
     },
   });
 
   return forward(operation);
 });
 
-const errorLink = onError(({ forward, graphQLErrors }) => {
-  if (graphQLErrors.filter(({ message }) => message === 'Unauthorized.')) {
+const errorLink = onError(({ forward, operation, graphQLErrors }) => {
+  if (
+    graphQLErrors
+    && graphQLErrors.filter(({ message }) => message === 'Unauthorized.').length
+  ) {
     localStorage.clear();
     window.location.replace('/');
   }
 
-  forward();
+  if (operation) return forward(operation);
+  return forward();
 });
 
 const client = new ApolloClient({

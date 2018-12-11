@@ -13,10 +13,8 @@ import QueryHOC from '../HOC/QueryHOC';
 import Table from '../Table';
 
 const query = gql`{
-  secure {
-    items {
-      name code locations {code} recommended_stock
-    }
+  items {
+    name code locations {code} recommended_stock
   }
 }`;
 
