@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import gql from 'graphql-tag';
 import './productregistration.css';
 import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Dialog from '@material-ui/core/Dialog/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
@@ -52,9 +53,9 @@ export default class ProductRegistration extends Component {
           <h3>
             Huidige producten:
           </h3>
-          <Button variant='fab' color='primary' className='add' onClick={this.handleClickOpen}>
+          <Fab color='primary' className='add' onClick={this.handleClickOpen}>
             <AddIcon />
-          </Button>
+          </Fab>
           <Dialog
             className='dialogueWindow'
             open={this.state.open}
