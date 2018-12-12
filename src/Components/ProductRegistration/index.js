@@ -39,11 +39,12 @@ export default class ProductRegistration extends Component {
     });
   }
 
-  handleChange() {
+  handleChange = (event) => {
     this.setState({
       open: false,
+      product: event.target.value,
     });
-    // console.log(this.state.product);
+    console.log(this.state.product);
   }
 
   handleClose() {
@@ -77,27 +78,35 @@ export default class ProductRegistration extends Component {
               <div>
                 <TextField
                   id='product'
+                  name='product'
                   label='Product'
                   margin='normal'
+                  value={this.state.product}
                 />
               </div>
               <div>
                 <TextField
                   id='type'
+                  name='type'
                   label='Type'
                   margin='normal'
+                  value={this.state.type}
                 />
               </div>
               <TextField
                 id='location'
+                name='location'
                 label='Locatie'
                 margin='normal'
+                value={this.state.location}
               />
               <div>
                 <TextField
                   id='stock'
+                  name='stock'
                   label='Aanbevolen voorraad'
                   margin='normal'
+                  value={this.state.stock}
                 />
               </div>
             </DialogContent>
@@ -105,7 +114,7 @@ export default class ProductRegistration extends Component {
               <Button onClick={this.handleClose} color="primary">
                   Cancel
               </Button>
-              <Button onClick={this.handleChange} color="primary" autoFocus>
+              <Button onClick={e => this.handleChange(e)} color="primary" autoFocus>
                   Ok
               </Button>
             </DialogActions>
