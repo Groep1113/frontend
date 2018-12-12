@@ -25,7 +25,9 @@ const firstRowTable = ['Product', 'Type', 'Locatie', 'Aanbevolen voorraad'];
 @QueryHOC(query)
 @withRouter
 export default class ProductRegistration extends Component {
-  state = { open: false }
+  state = {
+    open: false,
+  }
 
   handleClickOpen = this.handleClickOpen.bind(this)
 
@@ -35,6 +37,13 @@ export default class ProductRegistration extends Component {
     this.setState({
       open: true,
     });
+  }
+
+  handleChange() {
+    this.setState({
+      open: false,
+    });
+    // console.log(this.state.product);
   }
 
   handleClose() {
@@ -67,26 +76,26 @@ export default class ProductRegistration extends Component {
             <DialogContent className='dialogueContent'>
               <div>
                 <TextField
-                  id='standard-name'
+                  id='product'
                   label='Product'
                   margin='normal'
                 />
               </div>
               <div>
                 <TextField
-                  id='standard-name'
+                  id='type'
                   label='Type'
                   margin='normal'
                 />
               </div>
               <TextField
-                id='standard-name'
+                id='location'
                 label='Locatie'
                 margin='normal'
               />
               <div>
                 <TextField
-                  id='standard-name'
+                  id='stock'
                   label='Aanbevolen voorraad'
                   margin='normal'
                 />
@@ -96,7 +105,7 @@ export default class ProductRegistration extends Component {
               <Button onClick={this.handleClose} color="primary">
                   Cancel
               </Button>
-              <Button onClick={this.handleClose} color="primary" autoFocus>
+              <Button onClick={this.handleChange} color="primary" autoFocus>
                   Ok
               </Button>
             </DialogActions>
