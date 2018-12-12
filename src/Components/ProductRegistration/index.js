@@ -101,7 +101,7 @@ export default class ProductRegistration extends Component {
             </DialogActions>
           </Dialog>
         </div>
-        <Table data = {data.secure.items} headers = {firstRowTable} columns = {columnFormatting}/>
+        <Table data = {data.items} headers = {firstRowTable} columns = {columnFormatting}/>
       </div>
     );
   }
