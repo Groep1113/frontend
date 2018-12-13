@@ -5,6 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 
 import client from './apollo';
 import App from './Components/App';
+
 import './index.css'; // global base css
 
 ReactDOM.render(
