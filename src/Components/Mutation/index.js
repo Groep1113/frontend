@@ -1,3 +1,8 @@
+import React, { Component } from 'react';
+import gql from 'graphql-tag';
+import MutationHOC from '../HOC/MutationHOC';
+import QueryHOC from '../HOC/QueryHOC';
+
 const mutation = gql`  
   mutation($code: String!, $locationId: Int!, $recommended_stock: Int!, $name: String!) {
   createItem (
@@ -9,25 +14,21 @@ const mutation = gql`
     }
   }`;
 
+// @MutationHOC(mutation)
 export default class Mutation extends Component {
   render() {
-    const { product, type, location, stock } = this.props;
-    const { columns } = this.props;
-    headers = headers.map(headerToJSX);
-    data = mapDataToJSXRows(data, columns);
+    const {
+      product, type, location, stock, submit,
+    } = this.props;
+    console.log(this.props.submit);
+    // if (submit = true) {
+    //
+    // }
+
+    // return ();
     return (
-      <div className='aTable'>
-      <table>
-      <thead className='tableHeads'>
-      <tr>
-      {headers}
-      </tr>
-      </thead>
-      <tbody>
-      {data}
-      </tbody>
-      </table>
+      <div className='mutation'>
       </div>
-  );
+    );
   }
 }

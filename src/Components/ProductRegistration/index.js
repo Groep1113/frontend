@@ -12,6 +12,7 @@ import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 import TextField from '@material-ui/core/TextField';
 import QueryHOC from '../HOC/QueryHOC';
 import Table from '../Table';
+import Mutation from '../Mutation';
 
 const query = gql`{
   items {
@@ -27,11 +28,20 @@ const firstRowTable = ['Product', 'Type', 'Locatie', 'Aanbevolen voorraad'];
 export default class ProductRegistration extends Component {
   state = {
     open: false,
+    product: '',
+    type: '',
+    location: '',
+    stock: '',
+    submit: false,
   }
 
   handleClickOpen = this.handleClickOpen.bind(this)
 
   handleClose = this.handleClose.bind(this)
+
+  handleChange = this.handleChange.bind(this)
+
+  handleClick = this.handleClick.bind(this)
 
   handleClickOpen() {
     this.setState({
@@ -39,12 +49,14 @@ export default class ProductRegistration extends Component {
     });
   }
 
-  handleChange = (event) => {
+  handleChange({ target: { value } }, k) {
     this.setState({
-      open: false,
-      product: event.target.value,
+      [k]: value,
     });
-    console.log(this.state.product);
+  }
+
+  handleClick() {
+    this.setState({ submit: true });
   }
 
   handleClose() {
@@ -78,10 +90,10 @@ export default class ProductRegistration extends Component {
               <div>
                 <TextField
                   id='product'
-                  name='product'
+                  name='product[name]'
                   label='Product'
                   margin='normal'
-                  value={this.state.product}
+                  onChange={e => this.handleChange(e, 'product')}
                 />
               </div>
               <div>
@@ -90,7 +102,7 @@ export default class ProductRegistration extends Component {
                   name='type'
                   label='Type'
                   margin='normal'
-                  value={this.state.type}
+                  onChange={e => this.handleChange(e, 'type')}
                 />
               </div>
               <TextField
@@ -98,7 +110,7 @@ export default class ProductRegistration extends Component {
                 name='location'
                 label='Locatie'
                 margin='normal'
-                value={this.state.location}
+                onChange={e => this.handleChange(e, 'location')}
               />
               <div>
                 <TextField
@@ -106,7 +118,7 @@ export default class ProductRegistration extends Component {
                   name='stock'
                   label='Aanbevolen voorraad'
                   margin='normal'
-                  value={this.state.stock}
+                  onChange={e => this.handleChange(e, 'stock')}
                 />
               </div>
             </DialogContent>
@@ -114,12 +126,17 @@ export default class ProductRegistration extends Component {
               <Button onClick={this.handleClose} color="primary">
                   Cancel
               </Button>
-              <Button onClick={e => this.handleChange(e)} color="primary" autoFocus>
+              <Button onClick={this.handleClick} color="primary" autoFocus>
                   Ok
               </Button>
             </DialogActions>
           </Dialog>
         </div>
+        <Mutation
+          product = {this.state.product}
+          type = {this.state.type}
+          location = {this.state.location}
+          stock = {this.state.stock} />
         <Table data = {data.items} headers = {firstRowTable} columns = {columnFormatting}/>
       </div>
     );
