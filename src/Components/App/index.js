@@ -6,10 +6,8 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import AuthRequired from '../AuthRequired';
 import Login from '../Login';
 import Navbar from '../Navbar';
-// import Welcome from '../Welcome';
 import ProductRegistration from '../ProductRegistration';
-
-// import './App.css';
+import Dashboard from '../Dashboard';
 
 const theme = createMuiTheme({
   // because we apparently use typography and the old variant types will be
@@ -33,8 +31,8 @@ export default class App extends Component {
         <AuthRequired>
           <Switch>
             <Route path="/login" component={ Login } />
-            <Route path="/" component={ ProductRegistration } />
-            {/* <Route component={ Welcome } /> */}
+            <Route path="/products" component={ ProductRegistration } />
+            <Route path="/" component={ Dashboard } />
           </Switch>
         </AuthRequired>
       </MuiThemeProvider>
