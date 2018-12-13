@@ -31,7 +31,7 @@ export default class ProductRegistration extends Component {
     product: '',
     type: '',
     location: '',
-    stock: '',
+    recommendedStock: '',
     submit: false,
   }
 
@@ -56,7 +56,10 @@ export default class ProductRegistration extends Component {
   }
 
   handleClick() {
-    this.setState({ submit: true });
+    this.setState({
+      submit: true,
+      open: false,
+    });
   }
 
   handleClose() {
@@ -118,7 +121,7 @@ export default class ProductRegistration extends Component {
                   name='stock'
                   label='Aanbevolen voorraad'
                   margin='normal'
-                  onChange={e => this.handleChange(e, 'stock')}
+                  onChange={e => this.handleChange(e, 'recommendedStock')}
                 />
               </div>
             </DialogContent>
@@ -136,7 +139,8 @@ export default class ProductRegistration extends Component {
           product = {this.state.product}
           type = {this.state.type}
           location = {this.state.location}
-          stock = {this.state.stock} />
+          stock = {this.state.recommendedStock}
+          submit = {this.state.submit} />
         <Table data = {data.items} headers = {firstRowTable} columns = {columnFormatting}/>
       </div>
     );
