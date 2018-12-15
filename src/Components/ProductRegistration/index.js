@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import './productregistration.css';
 import QueryHOC from '../HOC/QueryHOC';
 import Table from '../Table';
-import FormProduct from '../FormProduct';
+import FormProduct from './FormProduct';
 
 const query = gql`{
   items {
