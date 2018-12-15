@@ -20,7 +20,7 @@ const mutation = gql`
     createItem (
       code: $type, 
       locationId: $location, 
-      recommended_stock: $recommendedStock, 
+      recommendedStock: $recommendedStock, 
       name: $product) {
         code
     }
