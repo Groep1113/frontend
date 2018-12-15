@@ -10,7 +10,7 @@ const query = gql`{
   items {
     name code locations {code} recommendedStock
   }
-  locations { code }
+  locations { id, code }
 }`;
 
 const columnFormatting = ['name', 'code', ({ locations }) => locations.reduce((accum, { code }) => `${accum}, ${code}`, '').substring(2), 'recommended_stock'];

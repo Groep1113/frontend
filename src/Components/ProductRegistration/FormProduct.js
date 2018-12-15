@@ -165,7 +165,7 @@ export default class FormProduct extends Component {
 const locationToJSX = (locations, i) => {
   const location = locations;
   return (
-    <MenuItem key={i} value={location.code}
+    <MenuItem key={i} value={location.id}
       className="menuItem">
       {location.code}
     </MenuItem>
