@@ -6,7 +6,7 @@ export default graphqlQuery => WrappedComponent => class MutationHOC extends Com
     return <Mutation mutation={graphqlQuery}
       children={
         (mutateFunc, data) => (
-          <WrappedComponent queryResults={data} mutateFunc={mutateFunc} />
+          <WrappedComponent queryResults={data} mutateFunc={mutateFunc} {...this.props} />
         )
       }
     />;
