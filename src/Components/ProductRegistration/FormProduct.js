@@ -9,15 +9,16 @@ import TextField from '@material-ui/core/TextField/TextField';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 import Button from '@material-ui/core/Button/Button';
 import MutationHOC from '../HOC/MutationHOC';
+import DropdownProduct from './DropdownProduct';
 
 const mutation = gql`  
-  mutation($code: String!, $locationId: Int!, $recommended_stock: Int!, $name: String!) {
-  createItem (
-    code: $code, 
-    locationId: $locationId, 
-    recommended_stock: $recommended_stock, 
-    name: $name) {
-      code
+  mutation($type: String!, $location: Int!, $recommendedStock: Int!, $product: String!) {
+    createItem (
+      code: $type, 
+      locationId: $location, 
+      recommended_stock: $recommendedStock, 
+      name: $product) {
+        code
     }
   }`;
 
@@ -109,13 +110,16 @@ export default class FormProduct extends Component {
                 onChange={e => this.handleChange(e, 'type')}
               />
             </div>
-            <TextField
-              id='location'
-              name='location'
-              label='Locatie'
-              margin='normal'
+            <DropdownProduct
               onChange={e => this.handleChange(e, 'location')}
             />
+            {/* <TextField */}
+            {/* id='location' */}
+            {/* name='location' */}
+            {/* label='Locatie' */}
+            {/* margin='normal' */}
+            {/* onChange={e => this.handleChange(e, 'location')} */}
+            {/* /> */}
             <div>
               <TextField
                 id='stock'
