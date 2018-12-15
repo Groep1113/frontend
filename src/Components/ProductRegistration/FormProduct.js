@@ -26,6 +26,13 @@ const mutation = gql`
     }
   }`;
 
+const styles = ({ spacing }) => ({
+  formControl: {
+    margin: spacing.unit,
+    minWidth: 135,
+  },
+});
+
 @MutationHOC(mutation)
 export default class FormProduct extends Component {
   state = {
