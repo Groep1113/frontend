@@ -8,8 +8,12 @@ import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import TextField from '@material-ui/core/TextField/TextField';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 import Button from '@material-ui/core/Button/Button';
+import FormControl from '@material-ui/core/FormControl/FormControl';
+import InputLabel from '@material-ui/core/InputLabel/InputLabel';
+import Select from '@material-ui/core/Select/Select';
+import MenuItem from '@material-ui/core/MenuItem/MenuItem';
+import withStyles from '@material-ui/core/styles/withStyles';
 import MutationHOC from '../HOC/MutationHOC';
-import DropdownProduct from './DropdownProduct';
 
 const mutation = gql`  
   mutation($type: String!, $location: Int!, $recommendedStock: Int!, $product: String!) {
@@ -75,6 +79,8 @@ export default class FormProduct extends Component {
   }
 
   render() {
+    let { locations } = this.props;
+    locations = locations.map(locationToJSX);
     return (
       <div className='header'>
         <h3>
@@ -110,16 +116,21 @@ export default class FormProduct extends Component {
                 onChange={e => this.handleChange(e, 'type')}
               />
             </div>
-            <DropdownProduct
-              onChange={e => this.handleChange(e, 'location')}
-            />
-            {/* <TextField */}
-            {/* id='location' */}
-            {/* name='location' */}
-            {/* label='Locatie' */}
-            {/* margin='normal' */}
-            {/* onChange={e => this.handleChange(e, 'location')} */}
-            {/* /> */}
+            <div className='dropdown'>
+              <FormControl className='productFormControl'>
+                <InputLabel htmlFor="location">Location</InputLabel>
+                <Select
+                  value={this.state.location}
+                  onChange={e => this.handleChange(e, 'location')}
+                  inputProps={{
+                    name: 'locations',
+                    id: 'locations',
+                  }}
+                >
+                  {locations}
+                </Select>
+              </FormControl>
+            </div>
             <div>
               <TextField
                 id='stock'
@@ -143,3 +154,13 @@ export default class FormProduct extends Component {
     );
   }
 }
+
+const locationToJSX = (locations, i) => {
+  const location = locations;
+  return (
+    <MenuItem key={i} value={location.code}
+      className="menuItem">
+      {location.code}
+    </MenuItem>
+  );
+};
