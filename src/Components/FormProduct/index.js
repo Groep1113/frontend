@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import Fab from '@material-ui/core/Fab/Fab';
-import AddIcon from '@material-ui/core/SvgIcon/SvgIcon';
+import AddIcon from '@material-ui/icons/Add';
 import Dialog from '@material-ui/core/Dialog/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
@@ -80,9 +80,7 @@ export default class FormProduct extends Component {
           Huidige producten:
         </h3>
         <Fab color='primary' className='add' onClick={this.handleClickOpen}>
-          <AddIcon>
-
-          </AddIcon>
+          <AddIcon />
         </Fab>
         <Dialog
           className='dialogueWindow'
