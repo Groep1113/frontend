@@ -16,9 +16,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import MutationHOC from '../HOC/MutationHOC';
 
 const mutation = gql`  
-  mutation($type: String!, $location: Int!, $recommendedStock: Int!, $product: String!) {
+  mutation($code: String!, $location: Int!, $recommendedStock: Int!, $product: String!) {
     createItem (
-      code: $type, 
+      code: $code, 
       locationId: $location, 
       recommendedStock: $recommendedStock, 
       name: $product) {
@@ -38,7 +38,7 @@ export default class FormProduct extends Component {
   state = {
     open: false,
     product: '',
-    type: '',
+    code: '',
     location: '',
     recommendedStock: '',
     submit: false,
@@ -69,14 +69,14 @@ export default class FormProduct extends Component {
       open: false,
     });
     const {
-      product, type,
+      product, code,
     } = this.state;
     let { location, recommendedStock } = this.state;
     location = parseInt(location, 10);
     recommendedStock = parseInt(recommendedStock, 10);
     this.props.mutateFunc({
       variables: {
-        type, location, recommendedStock, product,
+        code, location, recommendedStock, product,
       },
     });
   }
@@ -116,11 +116,11 @@ export default class FormProduct extends Component {
             </div>
             <div>
               <TextField
-                id='type'
-                name='type'
-                label='Type'
+                id='code'
+                name='code'
+                label='Code'
                 margin='normal'
-                onChange={e => this.handleChange(e, 'type')}
+                onChange={e => this.handleChange(e, 'code')}
               />
             </div>
             <div className='dropdown'>
