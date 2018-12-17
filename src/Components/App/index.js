@@ -8,6 +8,7 @@ import Login from '../Login';
 import Navbar from '../Navbar';
 import ProductRegistration from '../ProductRegistration';
 import Dashboard from '../Dashboard';
+import UsersView from '../UsersView';
 
 const theme = createMuiTheme({
   // because we apparently use typography and the old variant types will be
@@ -32,6 +33,7 @@ export default class App extends Component {
           <Switch>
             <Route path="/login" component={ Login } />
             <Route path="/products" component={ ProductRegistration } />
+            <Route path="/users" component={ UsersView } />
             <Route path="/" component={ Dashboard } />
           </Switch>
         </AuthRequired>

@@ -16,7 +16,7 @@ const styles = ({ spacing, mixins }) => ({
   container: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: 50,
+    marginTop: spacing.unit * 4,
     alignItems: 'center',
     flexFlow: 'column',
   },

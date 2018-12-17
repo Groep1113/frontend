@@ -9,6 +9,7 @@ const navMenuConfig = {
   items: [
     { path: '/', title: 'Dashboard' },
     { path: '/products', title: 'Producten' },
+    { path: '/users', title: 'Gebruikers (admin)' },
   ],
 };
 
