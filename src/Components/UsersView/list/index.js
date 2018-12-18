@@ -11,6 +11,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import QueryHOC from '../../HOC/QueryHOC';
 
 const query = gql` {
@@ -24,6 +26,15 @@ const styles = theme => ({
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
+  },
+  title: {
+    display: 'inline-block',
+  },
+  createBtn: {
+    float: 'right',
+  },
+  table: {
+    marginTop: theme.spacing.unit,
   },
 });
 
@@ -42,7 +53,14 @@ export default class UsersView extends Component {
 
     return (
       <Paper className={classes.paper} elevation={1}>
-        <Typography gutterBottom variant="h4" component="h3">
+        <Fab
+          size="medium" onClick={e => history.push('/users/create')}
+          className={classes.createBtn} color="primary"
+          aria-label="Nieuwe gebruiker" title="Nieuwe gebruiker"
+        >
+          <AddIcon />
+        </Fab>
+        <Typography className={classes.title} gutterBottom variant="h4" component="h3">
           Gebruikers
         </Typography>
         <Table className={classes.table}>
