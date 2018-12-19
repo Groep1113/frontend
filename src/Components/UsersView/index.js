@@ -21,8 +21,8 @@ export default class UsersView extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
+        <Route path="/users/create" component={CreateView} />
         <Switch>
-          <Route path="/users/create" component={CreateView} />
           <Route path="/users/edit" component={EditView} />
           <Route component={ListView} />
         </Switch>

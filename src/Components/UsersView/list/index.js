@@ -42,6 +42,17 @@ const styles = theme => ({
 @withStyles(styles)
 @withRouter
 export default class UsersView extends Component {
+  componentDidUpdate(prevProps, prevState) {
+    // Refetch graphql query when we create or edit a user
+    const oldPath = prevProps.location.pathname;
+    if (
+      (oldPath.includes('/users/create') || oldPath.includes('/users/edit/'))
+      && this.props.location.pathname === '/users'
+    ) {
+      this.props.queryResults.refetch();
+    }
+  }
+
   render() {
     const {
       classes, queryResults: { loading, data, error },
@@ -60,7 +71,7 @@ export default class UsersView extends Component {
         >
           <AddIcon />
         </Fab>
-        <Typography className={classes.title} gutterBottom variant="h4" component="h3">
+        <Typography className={classes.title} gutterBottom variant="h4">
           Gebruikers
         </Typography>
         <Table className={classes.table}>
