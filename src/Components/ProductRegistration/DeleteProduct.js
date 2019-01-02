@@ -31,6 +31,7 @@ export default class DeleteProduct extends Component {
         itemId,
       },
     });
+    window.location.reload();
     if (itemDeleted) {
       this.setState({ openSuccessMessage: true });
     } else {
