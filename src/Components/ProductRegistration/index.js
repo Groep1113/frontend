@@ -8,7 +8,7 @@ import FormProduct from './FormProduct';
 
 const query = gql`{
   items {
-    name code locations {code} recommendedStock
+    id name code locations {code} recommendedStock
   }
   locations { id, code }
 }`;
