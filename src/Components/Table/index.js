@@ -28,19 +28,19 @@ export default class Table extends Component {
   }
 }
 
-let rowIndex = null;
+// let rowIndex = null;
 
 function displayMessage(event) {
   console.log(`You clicked it ${event}`);
 }
 
-function getRowIndex(event) {
-  rowIndex = 1;
-  console.log(`${rowIndex} ${event}`);
+function getRowIndex(rowId) {
+  // rowIndex = 1;
+  console.log(`${rowId}`);
 }
 
 const mapDataToJSXRows = (data, columns) => data.map((row, i) => (
-  <tr className="table__row" key={row.id ? row.id : i} onMouseOver = {getRowIndex}>
+  <tr className="table__row" key={row.id ? row.id : i} onMouseOver = {e => getRowIndex(row.id)}>
     {mapColumnsToJSX(row, columns)}
     <td className='lastColumn'>
       <EditIcon className='editIcon' onClick={displayMessage}/>
