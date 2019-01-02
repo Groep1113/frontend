@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import EditIcon from '@material-ui/icons/Edit';
 import './table.css';
+import DeleteProduct from '../ProductRegistration/DeleteProduct';
 
 @withRouter
 export default class Table extends Component {
@@ -27,15 +28,14 @@ export default class Table extends Component {
     );
   }
 }
-
-// let rowIndex = null;
+let rowIndex = null;
 
 function displayMessage(event) {
   console.log(`You clicked it ${event}`);
 }
 
 function getRowIndex(rowId) {
-  // rowIndex = 1;
+  rowIndex = rowId;
   console.log(`${rowId}`);
 }
 
@@ -44,7 +44,7 @@ const mapDataToJSXRows = (data, columns) => data.map((row, i) => (
     {mapColumnsToJSX(row, columns)}
     <td className='lastColumn'>
       <EditIcon className='editIcon' onClick={displayMessage}/>
-      <DeleteRoundedIcon className='deleteIcon' onClick={displayMessage}/>
+      <DeleteProduct className='deleteIcon' row = {row.id}/>
     </td>
   </tr>
 ));
