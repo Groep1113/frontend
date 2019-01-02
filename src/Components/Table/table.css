@@ -25,6 +25,18 @@
   background: #f6f6f6
 }
 
+.aTable tr:hover {
+  background: grey;
+}
+
 .aTable th {
-  background:  #a5bff5;
+  background: #a5bff5;
+}
+
+.lastColumn {
+  background: #fafafa;
+}
+
+.editIcon:hover, .deleteIcon:hover {
+  transform: scale(1.6);
 }

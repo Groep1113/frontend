@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
+import EditIcon from '@material-ui/icons/Edit';
 import './table.css';
 
 @withRouter
@@ -26,9 +28,24 @@ export default class Table extends Component {
   }
 }
 
+let rowIndex = null;
+
+function displayMessage(event) {
+  console.log(`You clicked it ${event}`);
+}
+
+function getRowIndex(event) {
+  rowIndex = 1;
+  console.log(`${rowIndex} ${event}`);
+}
+
 const mapDataToJSXRows = (data, columns) => data.map((row, i) => (
-  <tr className="table__row" key={row.id ? row.id : i}>
+  <tr className="table__row" key={row.id ? row.id : i} onMouseOver = {getRowIndex}>
     {mapColumnsToJSX(row, columns)}
+    <td className='lastColumn'>
+      <EditIcon className='editIcon' onClick={displayMessage}/>
+      <DeleteRoundedIcon className='deleteIcon' onClick={displayMessage}/>
+    </td>
   </tr>
 ));
 
