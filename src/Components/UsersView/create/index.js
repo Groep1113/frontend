@@ -23,16 +23,6 @@ const mutation = gql`mutation (
 }`;
 
 const styles = ({ spacing }) => ({
-  inputGroup: {
-    marginBottom: spacing.unit,
-  },
-  datePart: {
-    width: 100,
-    marginRight: spacing.unit,
-  },
-  birthSubtitle: {
-    marginTop: spacing.unit * 2,
-  },
 });
 
 @MutationHOC(mutation)
@@ -59,7 +49,7 @@ export default class CreateUser extends Component {
   }
 
   render() {
-    const { classes, queryResults: { data, loading, error } } = this.props;
+    const { classes, mutateResults: { data, loading, error } } = this.props;
     if (loading) return 'Laden..';
     if (!error && data) return <Redirect to='/users' />;
     return (

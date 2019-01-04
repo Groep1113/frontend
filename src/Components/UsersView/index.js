@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import ListView from './list';
@@ -22,10 +22,8 @@ export default class UsersView extends Component {
     return (
       <div className={classes.root}>
         <Route path="/users/create" component={CreateView} />
-        <Switch>
-          <Route path="/users/edit" component={EditView} />
-          <Route component={ListView} />
-        </Switch>
+        <Route path="/users/edit/:id" component={EditView} />
+        <Route component={ListView} />
       </div>
     );
   }

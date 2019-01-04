@@ -12,26 +12,26 @@ import FormControl from '@material-ui/core/FormControl/FormControl';
 import InputLabel from '@material-ui/core/InputLabel/InputLabel';
 import Select from '@material-ui/core/Select/Select';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
-import withStyles from '@material-ui/core/styles/withStyles';
+// import withStyles from '@material-ui/core/styles/withStyles';
 import MutationHOC from '../HOC/MutationHOC';
 
-const mutation = gql`  
+const mutation = gql`
   mutation($code: String!, $location: Int!, $recommendedStock: Int!, $product: String!) {
     createItem (
-      code: $code, 
-      locationId: $location, 
-      recommendedStock: $recommendedStock, 
+      code: $code,
+      locationId: $location,
+      recommendedStock: $recommendedStock,
       name: $product) {
         code
     }
   }`;
 
-const styles = ({ spacing }) => ({
-  formControl: {
-    margin: spacing.unit,
-    minWidth: 135,
-  },
-});
+// const styles = ({ spacing }) => ({
+//   formControl: {
+//     margin: spacing.unit,
+//     minWidth: 135,
+//   },
+// });
 
 @MutationHOC(mutation)
 export default class FormProduct extends Component {
