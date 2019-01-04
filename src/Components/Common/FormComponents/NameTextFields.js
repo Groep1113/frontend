@@ -8,26 +8,29 @@ import TextField from '@material-ui/core/TextField';
  *  - resulting onChange event object
  *  - a key in string form, for the name part ('firstName'|'lastname')
  *
- * @param  function    @material-ui/core/styles/withStyles function
- * @param  function    onChange function to call
+ * @param  function    classes: @material-ui/core/styles/withStyles function (optional)
+ * @param  function    onChange: function to call onChange
+ * @param  object      initValues: initial values for the firstName and lastName (optional)
  * @return jsx         React component
  */
-export default ({ classes, changeFunc }) => (
-  <div className={classes.inputGroup}>
+export default ({ classes, onChange, initValues }) => (
+  <div className={classes ? classes.inputGroup : ''}>
     <TextField
       id='firstName'
+      value={initValues ? initValues.firstName : ''}
       name='firstName'
       label='Voornaam'
       style={{ marginRight: 8 }}
       fullWidth={false}
-      onChange={e => changeFunc(e, 'firstName')}
+      onChange={e => onChange(e, 'firstName')}
     />
     <TextField
       id='lastName'
+      value={initValues ? initValues.lastName : ''}
       name='lastName'
       label='Achternaam'
       fullWidth={false}
-      onChange={e => changeFunc(e, 'lastName')}
+      onChange={e => onChange(e, 'lastName')}
     />
   </div>
 );
