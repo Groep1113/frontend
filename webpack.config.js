@@ -10,8 +10,6 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const plugins = [
   // Do not crash on errors
   new webpack.NoEmitOnErrorsPlugin(),
-  // Always uglify javascript source code
-  new UglifyJsPlugin({ parallel: true }),
   // use app/index.html as a template to generate eventual build/index.html
   new HtmlWebpackPlugin({
     template: 'src/index.template.html',
@@ -70,11 +68,12 @@ if (process.env.NODE_ENV !== 'development') {
       },
     },
   };
-  plugins.push(
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
-    })
-  );
+  const defineEnvPlugin = new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+  });
+  plugins.push(defineEnvPlugin);
+  // uglify javascript source code (prod only to speed up build times)
+  plugins.push(new UglifyJsPlugin({ parallel: true }));
 }
 
 module.exports = {
