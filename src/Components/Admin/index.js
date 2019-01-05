@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import gql from 'graphql-tag';
-import './location.css';
+import './admin.css';
 import QueryHOC from '../HOC/QueryHOC';
 import Table from '../Table';
+import AddLocation from './AddLocation';
 
 const query = gql`{
   locations { id, code }
@@ -13,7 +14,7 @@ const firstRowTable = ['Locatie'];
 
 @QueryHOC(query)
 @withRouter
-export default class Location extends Component {
+export default class Admin extends Component {
   render() {
     const { loading, error, data } = this.props.queryResults;
     if (loading) return 'Gegevens worden geladen..';
@@ -23,6 +24,7 @@ export default class Location extends Component {
     const { locations } = data;
     return (
       <div className='location'>
+        <AddLocation />
         <Table data = {locations} headers = {firstRowTable} columns = {['code']}/>
       </div>
     );
