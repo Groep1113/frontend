@@ -9,14 +9,16 @@ import TextField from '@material-ui/core/TextField';
  *  - a key in string form, for the name part ('firstName'|'lastname')
  *
  * @param  function    classes: @material-ui/core/styles/withStyles function (optional)
+ *    available keys for styling: container, input
  * @param  function    onChange: function to call onChange
  * @param  object      initValues: initial values for the firstName and lastName (optional)
  * @return jsx         React component
  */
 export default ({ classes, onChange, initValues }) => (
-  <div className={classes ? classes.inputGroup : ''}>
+  <div className={classes && classes.container ? classes.container : ''}>
     <TextField
       id='firstName'
+      className={classes && classes.input ? classes.input : ''}
       value={initValues ? initValues.firstName : ''}
       name='firstName'
       label='Voornaam'
@@ -26,6 +28,7 @@ export default ({ classes, onChange, initValues }) => (
     />
     <TextField
       id='lastName'
+      className={classes && classes.input ? classes.input : ''}
       value={initValues ? initValues.lastName : ''}
       name='lastName'
       label='Achternaam'

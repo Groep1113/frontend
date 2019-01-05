@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import NameTextFields from '../../Common/FormComponents/NameTextFields';
 import MutationHOC from '../../HOC/MutationHOC';
 import QueryHOC from '../../HOC/QueryHOC';
+import UserRolesUpdater from './UserRolesUpdater';
+import LoadingIndicator from '../../Common/FormComponents/LoadingIndicator';
 
 const mutation = gql`mutation (
   $id: Int!, $firstName: String, $lastName: String, $password: String, $email: String
@@ -26,7 +28,8 @@ const mutation = gql`mutation (
 // so we will use this.props.queryResults.refetch function to supply it a value
 const query = gql`query ($id: Int!) {
   user(id: $id) {
-    firstName, lastName, email, token
+    firstName, lastName, email, token,
+    roles { id, name }
   }
 }`;
 
@@ -73,8 +76,8 @@ export default class EditUser extends Component {
 
   render() {
     const { mutateResults, queryResults } = this.props;
-    if (mutateResults.loading || queryResults.loading) return 'Laden..';
     if (mutateResults.data) return <Redirect to='/users' />; // finished editing
+    const { match: { params: { id } } } = this.props;
 
     const { firstName, lastName, email } = this.state;
     return (
@@ -92,8 +95,15 @@ export default class EditUser extends Component {
           <NameTextFields initValues={{ firstName, lastName }} onChange={this.handleChange} />
           <EmailField value={email} onChange={e => this.handleChange(e, 'email')} />
           <PasswordField onChange={e => this.handleChange(e, 'password')} />
+          <UserRolesUpdater
+            current={queryResults.data.user ? queryResults.data.user.roles : null}
+            refetchUser={queryResults.refetch}
+            userId={parseInt(id, 10)} />
         </DialogContent>
         <DialogActions>
+          <LoadingIndicator loading={mutateResults.loading || queryResults.loading}
+            error={mutateResults.error ? mutateResults.error : queryResults.error}
+            called={mutateResults.called} />
           <Button onClick={e => this.props.history.push('/users')} color="primary">
             Cancel
           </Button>
