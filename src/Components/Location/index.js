@@ -21,8 +21,6 @@ export default class Location extends Component {
       return <div>Er ging iets fout.<br />{error.message}</div>;
     }
     const { locations } = data;
-    const columnFormatting = [locations.reduce((accum, { code }) => `${accum}, ${code}`, '').substring(2)];
-    console.log(columnFormatting);
     return (
       <div className='location'>
         <Table data = {locations} headers = {firstRowTable} columns = {['code']}/>
