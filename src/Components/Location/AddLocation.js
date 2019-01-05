@@ -89,7 +89,7 @@ export default class AddLocation extends Component {
           aria-labelledby='alert-dialog-title'
           aria-describedby='alert-dialog-description'
         >
-          <DialogTitle id='alert-dialog-title'>Voeg een product toe:</DialogTitle>
+          <DialogTitle id='alert-dialog-title'>Voeg een locatie toe:</DialogTitle>
           <DialogContent className='dialogueContent'>
             <div>
               <TextField
