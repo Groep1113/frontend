@@ -8,6 +8,7 @@ import Login from '../Login';
 import Navbar from '../Navbar';
 import ProductRegistration from '../ProductRegistration';
 import Location from '../Location';
+import Category from '../Category';
 import Dashboard from '../Dashboard';
 
 const theme = createMuiTheme({
@@ -33,7 +34,8 @@ export default class App extends Component {
           <Switch>
             <Route path="/login" component={ Login } />
             <Route path="/products" component={ ProductRegistration } />
-            <Route path="/location" component={ Location } />
+            <Route path="/locations" component={ Location } />
+            <Route path="/categories" component={ Category } />
             <Route path="/" component={ Dashboard } />
           </Switch>
         </AuthRequired>
