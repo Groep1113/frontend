@@ -14,7 +14,7 @@ const firstRowTable = ['Code', 'Diepte (in cm\'s)', 'Hoogte (in cm\'s)', 'Breedt
 
 @QueryHOC(query)
 @withRouter
-export default class Admin extends Component {
+export default class Location extends Component {
   render() {
     const { loading, error, data } = this.props.queryResults;
     if (loading) return 'Gegevens worden geladen..';

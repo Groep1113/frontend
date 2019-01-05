@@ -67,6 +67,7 @@ export default class AddLocation extends Component {
         code, depth, height, width,
       },
     });
+    window.location.reload();
   }
 
   handleClose() {
