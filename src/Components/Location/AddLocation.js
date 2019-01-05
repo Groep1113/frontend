@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Fab from '@material-ui/core/Fab/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import './addlocation.css';
 import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import TextField from '@material-ui/core/TextField/TextField';
