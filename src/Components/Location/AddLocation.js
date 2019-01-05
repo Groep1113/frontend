@@ -61,7 +61,6 @@ export default class AddLocation extends Component {
     depth = parseInt(depth, 10);
     height = parseInt(height, 10);
     width = parseInt(width, 10);
-    console.log(`depth: ${depth}, height: ${height}, width: ${width}`);
     this.props.mutateFunc({
       variables: {
         code, depth, height, width,
