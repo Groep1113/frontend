@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import gql from 'graphql-tag';
-import './admin.css';
 import QueryHOC from '../HOC/QueryHOC';
 import Table from '../Table';
 import AddLocation from './AddLocation';
 
 const query = gql`{
-  locations { id, code }
+  locations { id, code, depth, height, width }
 }`;
 
-const firstRowTable = ['Locatie'];
+const columnFormatting = ['code', 'depth', 'height', 'width'];
+const firstRowTable = ['Code', 'Diepte (in cm\'s)', 'Hoogte (in cm\'s)', 'Breedte (in cm\'s)'];
 
 @QueryHOC(query)
 @withRouter
@@ -25,7 +25,7 @@ export default class Admin extends Component {
     return (
       <div className='location'>
         <AddLocation />
-        <Table data = {locations} headers = {firstRowTable} columns = {['code']}/>
+        <Table data = {locations} headers = {firstRowTable} columns = {columnFormatting}/>
       </div>
     );
   }
