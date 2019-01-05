@@ -6,11 +6,9 @@ import Paper from '@material-ui/core/Paper';
 import Popover from '@material-ui/core/Popover';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Done from '@material-ui/icons/Done';
-import Clear from '@material-ui/icons/Clear';
 import Typography from '@material-ui/core/Typography';
 import MutationHOC from '../HOC/MutationHOC';
+import LoadingIndicator from '../Common/FormComponents/LoadingIndicator';
 
 const styles = ({ spacing, mixins }) => ({
   container: {
@@ -30,10 +28,6 @@ const styles = ({ spacing, mixins }) => ({
     minWidth: 400,
     marginTop: spacing.unit * 2,
     marginBottom: spacing.unit * 2,
-  },
-  progress: {
-    width: 32,
-    height: 32,
   },
   inputContainer: {
     display: 'flex',
@@ -122,11 +116,10 @@ export default class Login extends Component {
               className={classes.submit}
               size="large">
               <span>Login</span>
-              <LoginProgress
+              <LoadingIndicator
                 loading={loading}
                 called={called}
-                error={error}
-                className={classes.progress} />
+                error={error} />
             </Button>
 
             <Popover
@@ -158,12 +151,3 @@ const LoginTextField = ({
     value={stateVal}
     onChange={changeFunc} />
 );
-
-const LoginProgress = ({
-  loading, called, error, className,
-}) => {
-  if (loading) return <CircularProgress color="secondary" size={32} className={className} />;
-  if (error) return <Clear size={32} color="secondary" className={className} />;
-  if (called) return <Done size={32} color="secondary" className={className} />;
-  return <span className={className}>&nbsp;</span>;
-};
