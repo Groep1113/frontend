@@ -76,7 +76,7 @@ export default class AddLocation extends Component {
 
   render() {
     return (
-      <div className='headerLocation'>
+      <div className='header'>
         <h3>
           Huidige locaties:
         </h3>
