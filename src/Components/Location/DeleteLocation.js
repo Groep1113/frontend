@@ -95,7 +95,7 @@ export default class DeleteLocation extends Component {
             message={
               <span id="client-snackbar" className='success'>
                 <CheckCircleIcon/>
-                Het product is verwijderd.
+                De locatie is verwijderd.
               </span>
             }
             action={[
