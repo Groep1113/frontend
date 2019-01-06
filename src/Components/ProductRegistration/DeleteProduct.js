@@ -7,6 +7,10 @@ import CloseIcon from '@material-ui/icons/Close';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import IconButton from '@material-ui/core/IconButton';
+import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions/DialogActions';
+import Button from '@material-ui/core/Button/Button';
+import Dialog from '@material-ui/core/Dialog/Dialog';
 import MutationHOC from '../HOC/MutationHOC';
 
 const mutation = gql`  
@@ -17,13 +21,22 @@ mutation($itemId: Int!) {
 @MutationHOC(mutation)
 export default class DeleteProduct extends Component {
   state = {
+    open: false,
     openSuccessMessage: false,
     openErrorMessage: false,
   }
 
+  handleClickOpen = this.handleClickOpen.bind(this)
+
   handleClick = this.handleClick.bind(this)
 
   handleClose = this.handleClose.bind(this)
+
+  handleClickOpen() {
+    this.setState({
+      open: true,
+    });
+  }
 
   handleClick(itemId) {
     const itemDeleted = this.props.mutateFunc({
@@ -33,21 +46,38 @@ export default class DeleteProduct extends Component {
     });
     window.location.reload();
     if (itemDeleted) {
-      this.setState({ openSuccessMessage: true });
+      this.setState({ open: false, openSuccessMessage: true });
     } else {
-      this.setState({ openErrorMessage: true });
+      this.setState({ open: false, openErrorMessage: true });
     }
   }
 
   handleClose() {
-    this.setState({ openErrorMessage: false, openSuccessMessage: false });
+    this.setState({ open: false, openErrorMessage: false, openSuccessMessage: false });
   }
 
   render() {
     const rowIndex = this.props.row;
     return (
       <div>
-        <DeleteRoundedIcon className='deleteIcon' onClick={e => this.handleClick(rowIndex)}/>
+        <DeleteRoundedIcon className='deleteIcon' onClick={this.handleClickOpen} />
+        <Dialog
+          className='dialogueWindow'
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
+        >
+          <DialogTitle id='alert-dialog-title'>Weet je het zeker?</DialogTitle>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={e => this.handleClick(rowIndex)} color="primary" autoFocus>
+              Ja
+            </Button>
+          </DialogActions>
+        </Dialog>
         <Snackbar
           anchorOrigin={{
             vertical: 'top',
