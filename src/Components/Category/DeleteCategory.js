@@ -15,13 +15,13 @@ import { withRouter } from 'react-router-dom';
 import MutationHOC from '../HOC/MutationHOC';
 
 const mutation = gql`  
-  mutation($locationId: Int!) {
-    deleteLocation (locationId: $locationId)
+  mutation($categoryId: Int!) {
+    deleteCategory (categoryId: $categoryId)
   }`;
 
 @MutationHOC(mutation)
 @withRouter
-export default class DeleteLocation extends Component {
+export default class DeleteCategory extends Component {
   state = {
     open: false,
     openSuccessMessage: false,
@@ -41,10 +41,10 @@ export default class DeleteLocation extends Component {
   }
 
   handleClick(rowIndex) {
-    const locationId = parseInt(rowIndex, 10);
+    const categoryId = parseInt(rowIndex, 10);
     const itemDeleted = this.props.mutateFunc({
       variables: {
-        locationId,
+        categoryId,
       },
     });
     // window.location.reload();
@@ -95,7 +95,7 @@ export default class DeleteLocation extends Component {
             message={
               <span id="client-snackbar" className='success'>
                 <CheckCircleIcon/>
-                De locatie is verwijderd.
+                De categorie is verwijderd.
               </span>
             }
             action={[
