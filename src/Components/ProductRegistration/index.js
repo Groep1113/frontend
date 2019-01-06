@@ -8,13 +8,13 @@ import FormProduct from './FormProduct';
 
 const query = gql`{
   items {
-    id name code locations {code} recommendedStock
+    id name code locations {code} recommendedStock categories { name }
   }
   locations { id, code }
 }`;
 
-const columnFormatting = ['name', 'code', ({ locations }) => locations.reduce((accum, { code }) => `${accum}, ${code}`, '').substring(2), 'recommendedStock'];
-const firstRowTable = ['Product', 'Code', 'Locatie', 'Aanbevolen voorraad'];
+const columnFormatting = ['name', 'code', ({ locations }) => locations.reduce((accum, { code }) => `${accum}, ${code}`, '').substring(2), 'recommendedStock', ({ categories }) => categories.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2)];
+const firstRowTable = ['Product', 'Code', 'Locatie', 'Aanbevolen voorraad', 'Categorie'];
 
 @QueryHOC(query)
 @withRouter

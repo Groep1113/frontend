@@ -83,7 +83,7 @@ export default class FormProduct extends Component {
     let { locations } = this.props;
     locations = locations.map(locationToJSX);
     return (
-      <div className='header'>
+      <div className='headerProduct'>
         <h3>
           Huidige producten:
         </h3>
