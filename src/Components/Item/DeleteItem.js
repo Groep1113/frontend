@@ -19,7 +19,7 @@ mutation($itemId: Int!) {
 }`;
 
 @MutationHOC(mutation)
-export default class DeleteProduct extends Component {
+export default class DeleteItem extends Component {
   state = {
     open: false,
     openSuccessMessage: false,
