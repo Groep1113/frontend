@@ -14,7 +14,7 @@ import Select from '@material-ui/core/Select/Select';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
 import MutationHOC from '../HOC/MutationHOC';
 
-import './formproduct.css';
+import './additem.css';
 
 const mutation = gql`  
   mutation($code: String!, $location: Int!, $recommendedStock: Int!, $product: String!) {
@@ -28,7 +28,7 @@ const mutation = gql`
   }`;
 
 @MutationHOC(mutation)
-export default class FormProduct extends Component {
+export default class AddItem extends Component {
   state = {
     open: false,
     product: '',
@@ -83,7 +83,7 @@ export default class FormProduct extends Component {
     let { locations } = this.props;
     locations = locations.map(locationToJSX);
     return (
-      <div className='header'>
+      <div className='headerProduct'>
         <h3>
           Huidige producten:
         </h3>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import './table.css';
-import DeleteProduct from '../ProductRegistration/DeleteProduct';
+import DeleteItem from '../Item/DeleteItem';
 import DeleteLocation from '../Location/DeleteLocation';
 import DeleteCategory from '../Category/DeleteCategory';
 import UpdateCategory from '../Category/UpdateCategory';
@@ -38,7 +38,7 @@ function displayMessage(event) {
 function addDelete(deleteVersion, rowId) {
   switch (deleteVersion) {
   case 'product':
-    return <DeleteProduct className='deleteIcon' row = {rowId}/>;
+    return <DeleteItem className='deleteIcon' row = {rowId}/>;
   case 'location':
     return <DeleteLocation className='deleteIcon' row = {rowId}/>;
   case 'category':
