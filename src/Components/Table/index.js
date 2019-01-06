@@ -11,9 +11,9 @@ import UpdateCategory from '../Category/UpdateCategory';
 export default class Table extends Component {
   render() {
     let { data, headers } = this.props;
-    const { columns, deleteVersion, updateVersion } = this.props;
+    const { columns, version } = this.props;
     headers = headers.map(headerToJSX);
-    data = mapDataToJSXRows(data, columns, deleteVersion, updateVersion);
+    data = mapDataToJSXRows(data, columns, version);
     return (
       <div className='aTable'>
         <table>
@@ -59,12 +59,12 @@ function addUpdate(updateVersion, rowId) {
   }
 }
 
-const mapDataToJSXRows = (data, columns, deleteVersion, updateVersion) => data.map((row, i) => (
+const mapDataToJSXRows = (data, columns, version) => data.map((row, i) => (
   <tr className="table__row" key={row.id ? row.id : i} >
     {mapColumnsToJSX(row, columns)}
     <td className='lastColumn'>
-      {addUpdate(updateVersion, row.id)}
-      {addDelete(deleteVersion, row.id)}
+      {addUpdate(version, row.id)}
+      {addDelete(version, row.id)}
     </td>
   </tr>
 ));

@@ -35,7 +35,7 @@ export default class Category extends Component {
     return (
       <div className='category'>
         <AddCategory />
-        <Table data = {categories} headers = {firstRowTable} columns = {columnFormatting} deleteVersion = {'category'} updateVersion = { 'category' }/>
+        <Table data = {categories} headers = {firstRowTable} columns = {columnFormatting} version = {'category'} />
       </div>
     );
   }
