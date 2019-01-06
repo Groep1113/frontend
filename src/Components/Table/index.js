@@ -4,6 +4,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import './table.css';
 import DeleteProduct from '../ProductRegistration/DeleteProduct';
 import DeleteLocation from '../Location/DeleteLocation';
+import DeleteCategory from '../Category/DeleteCategory';
 
 @withRouter
 export default class Table extends Component {
@@ -39,6 +40,8 @@ function addDelete(deleteVersion, rowId) {
     return <DeleteProduct className='deleteIcon' row = {rowId}/>;
   case 'location':
     return <DeleteLocation className='deleteIcon' row = {rowId}/>;
+  case 'category':
+    return <DeleteCategory className='deleteIcon' row = {rowId}/>;
   default:
     return null;
   }
