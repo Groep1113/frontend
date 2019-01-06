@@ -26,11 +26,12 @@ export default class SupplierList extends Component {
     if (loading) return 'Loading data..';
     if (error) return `Foutmelding bij data ophaling: ${error.message}`;
 
-    const headers = ['Id', 'Naam', 'Edit'];
+    const headers = ['Id', 'Naam', 'Edit', 'Delete'];
     const columns = ['id', 'name'];
     return (
       <div className={this.props.classes.root}>
         <GenericListView
+          editIcon={true} deleteIcon={true}
           refetchFunc={refetch}
           basePath="/suppliers/"
           fabLabel="Leverancier toevoegen"

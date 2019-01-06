@@ -53,9 +53,11 @@ GenericDialog.propTypes = {
   cancelPath: PropTypes.string.isRequired,
   onConfirm: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([
-    PropTypes.element, PropTypes.string, PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.element),
   ]).isRequired,
   loading: PropTypes.bool,
-  error: PropTypes.bool,
+  error: PropTypes.any,
   called: PropTypes.any,
 };

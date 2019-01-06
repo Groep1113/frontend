@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -42,6 +43,7 @@ export default class GenericListView extends Component {
       (
         oldPath.includes(`${this.props.basePath}create`)
         || oldPath.includes(`${this.props.basePath}edit`)
+        || oldPath.includes(`${this.props.basePath}delete`)
       )
       && this.props.location.pathname === this.props.basePath.replace(/\/$/, '')
     ) {
@@ -52,9 +54,12 @@ export default class GenericListView extends Component {
   render() {
     const {
       classes, history: { push }, fabLabel, tblTitle, data, headers, columns,
-      basePath,
+      basePath, editIcon, deleteIcon,
     } = this.props;
 
+    const withContext = {
+      push, basePath, columns, editIcon, deleteIcon,
+    };
     return (
       <Paper className={classes.paper} elevation={1}>
         <Fab
@@ -70,7 +75,7 @@ export default class GenericListView extends Component {
         <Table className={classes.table}>
           <CustomTableHead headers={headers} />
           <TableBody>
-            {data && data.map(rowDataToJSX, { push, basePath, columns })}
+            {data && data.map(rowDataToJSX, withContext)}
           </TableBody>
         </Table>
       </Paper>
@@ -97,19 +102,34 @@ function rowDataToJSX(row) {
         if (typeof col !== 'function') return <TableCell key={i}>{row[col]}</TableCell>;
         return <TableCell key={i}>{col(row)}</TableCell>;
       })}
-      <TableCell>
-        <IconButton
-          onClick={e => this.push(`${this.basePath}edit/${row.id}`)}
-          aria-label="edit"
-        >
-          <EditIcon />
-        </IconButton>
-      </TableCell>
+      {this.editIcon ? (
+        <TableCell>
+          <IconButton
+            onClick={e => this.push(`${this.basePath}edit/${row.id}`)}
+            aria-label="edit"
+          >
+            <EditIcon />
+          </IconButton>
+        </TableCell>
+      ) : null}
+      {this.deleteIcon ? (
+        <TableCell>
+          <IconButton
+            onClick={e => this.push(`${this.basePath}delete/${row.id}`)}
+            aria-label="delete"
+          >
+            <DeleteIcon />
+          </IconButton>
+        </TableCell>
+      ) : null}
     </TableRow>
   );
 }
 
 GenericListView.propTypes = {
+  // delete|edit: set either of these to true to include corresponding button/action
+  deleteIcon: PropTypes.bool,
+  editIcon: PropTypes.bool,
   // refetchFunc: optional function to call when returning from /edit or /create paths
   refetchFunc: PropTypes.func,
   // basePath: use this to form edit and create links

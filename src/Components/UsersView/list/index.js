@@ -39,6 +39,7 @@ export default class UsersView extends Component {
     const columns = ['id', 'firstName', 'lastName', 'email'];
     return (
       <GenericListView
+        editIcon={true} deleteIcon={false}
         refetchFunc={refetch}
         basePath="/users/"
         fabLabel="Gebruiker toevoegen"
