@@ -5,7 +5,7 @@ export default graphqlQuery => WrappedComponent => class QueryHOC extends Compon
   render() {
     return <Query query={graphqlQuery}
       children={
-        data => <WrappedComponent queryResults={data} />
+        data => <WrappedComponent queryResults={data} {...this.props} />
       }
     />;
   }

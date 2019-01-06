@@ -12,8 +12,9 @@ import FormControl from '@material-ui/core/FormControl/FormControl';
 import InputLabel from '@material-ui/core/InputLabel/InputLabel';
 import Select from '@material-ui/core/Select/Select';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
-import withStyles from '@material-ui/core/styles/withStyles';
 import MutationHOC from '../HOC/MutationHOC';
+
+import './formproduct.css';
 
 const mutation = gql`  
   mutation($code: String!, $location: Int!, $recommendedStock: Int!, $product: String!) {
@@ -25,13 +26,6 @@ const mutation = gql`
         code
     }
   }`;
-
-const styles = ({ spacing }) => ({
-  formControl: {
-    margin: spacing.unit,
-    minWidth: 135,
-  },
-});
 
 @MutationHOC(mutation)
 export default class FormProduct extends Component {
@@ -124,9 +118,10 @@ export default class FormProduct extends Component {
               />
             </div>
             <div className='dropdown'>
-              <FormControl className='productFormControl'>
+              <FormControl>
                 <InputLabel htmlFor="location">Location</InputLabel>
                 <Select
+                  className='productFormControl'
                   value={this.state.location}
                   onChange={e => this.handleChange(e, 'location')}
                   inputProps={{
