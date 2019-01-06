@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import './table.css';
 import DeleteProduct from '../ProductRegistration/DeleteProduct';
+import DeleteLocation from '../Location/DeleteLocation';
+import DeleteCategory from '../Category/DeleteCategory';
 
 @withRouter
 export default class Table extends Component {
@@ -32,8 +34,10 @@ function addDelete(deleteVersion, rowId) {
   switch (deleteVersion) {
   case 'product':
     return <DeleteProduct className='deleteIcon' row = {rowId}/>;
-  case 'anderDing':
-    return 'anderDing';
+  case 'location':
+    return <DeleteLocation className='deleteIcon' row = {rowId}/>;
+  case 'category':
+    return <DeleteCategory className='deleteIcon' row = {rowId}/>;
   default:
     return null;
   }
