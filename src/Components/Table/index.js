@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import './table.css';
 import DeleteProduct from '../ProductRegistration/DeleteProduct';
+import DeleteLocation from '../Location/DeleteLocation';
 
 @withRouter
 export default class Table extends Component {
@@ -27,30 +28,24 @@ export default class Table extends Component {
     );
   }
 }
-let rowIndex = null;
 
 function displayMessage(event) {
   console.log(`You clicked it ${event}`);
-}
-
-function getRowIndex(rowId) {
-  rowIndex = rowId;
-  console.log(`${rowId}`);
 }
 
 function addDelete(deleteVersion, rowId) {
   switch (deleteVersion) {
   case 'product':
     return <DeleteProduct className='deleteIcon' row = {rowId}/>;
-  case 'anderDing':
-    return 'anderDing';
+  case 'location':
+    return <DeleteLocation className='deleteIcon' row = {rowId}/>;
   default:
     return null;
   }
 }
 
 const mapDataToJSXRows = (data, columns, deleteVersion) => data.map((row, i) => (
-  <tr className="table__row" key={row.id ? row.id : i} onMouseOver = {e => getRowIndex(row.id)}>
+  <tr className="table__row" key={row.id ? row.id : i} >
     {mapColumnsToJSX(row, columns)}
     <td className='lastColumn'>
       <EditIcon className='editIcon' onClick={displayMessage}/>

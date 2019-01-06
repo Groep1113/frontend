@@ -25,7 +25,7 @@ export default class Location extends Component {
     return (
       <div className='location'>
         <AddLocation />
-        <Table data = {locations} headers = {firstRowTable} columns = {columnFormatting}/>
+        <Table data = {locations} headers = {firstRowTable} columns = {columnFormatting} deleteVersion={'location'}/>
       </div>
     );
   }
