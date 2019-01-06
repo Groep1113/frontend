@@ -28,7 +28,7 @@ export default class ProductRegistration extends Component {
     return (
       <div className='register'>
         <FormProduct locations = {data.locations} />
-        <Table data = {data.items} headers = {firstRowTable} columns = {columnFormatting} deleteVersion={'product'}/>
+        <Table data = {data.items} headers = {firstRowTable} columns = {columnFormatting} deleteVersion={'product'} updateVersion={'product'} />
       </div>
     );
   }
