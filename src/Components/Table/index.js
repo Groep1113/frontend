@@ -5,14 +5,15 @@ import './table.css';
 import DeleteProduct from '../ProductRegistration/DeleteProduct';
 import DeleteLocation from '../Location/DeleteLocation';
 import DeleteCategory from '../Category/DeleteCategory';
+import UpdateCategory from '../Category/UpdateCategory';
 
 @withRouter
 export default class Table extends Component {
   render() {
     let { data, headers } = this.props;
-    const { columns, deleteVersion } = this.props;
+    const { columns, version } = this.props;
     headers = headers.map(headerToJSX);
-    data = mapDataToJSXRows(data, columns, deleteVersion);
+    data = mapDataToJSXRows(data, columns, version);
     return (
       <div className='aTable'>
         <table>
@@ -47,12 +48,23 @@ function addDelete(deleteVersion, rowId) {
   }
 }
 
-const mapDataToJSXRows = (data, columns, deleteVersion) => data.map((row, i) => (
+function addUpdate(updateVersion, rowId) {
+  switch (updateVersion) {
+  case 'product':
+    return <EditIcon className='editIcon' onClick={displayMessage}/>;
+  case 'category':
+    return <UpdateCategory className='deleteIcon' row = {rowId}/>;
+  default:
+    return null;
+  }
+}
+
+const mapDataToJSXRows = (data, columns, version) => data.map((row, i) => (
   <tr className="table__row" key={row.id ? row.id : i} >
     {mapColumnsToJSX(row, columns)}
     <td className='lastColumn'>
-      <EditIcon className='editIcon' onClick={displayMessage}/>
-      {addDelete(deleteVersion, row.id)}
+      {addUpdate(version, row.id)}
+      {addDelete(version, row.id)}
     </td>
   </tr>
 ));
