@@ -7,6 +7,8 @@ import AuthRequired from '../AuthRequired';
 import Login from '../Login';
 import Navbar from '../Navbar';
 import ProductRegistration from '../ProductRegistration';
+import Location from '../Location';
+import Category from '../Category';
 import Dashboard from '../Dashboard';
 import UsersView from '../UsersView';
 
@@ -34,6 +36,8 @@ export default class App extends Component {
             <Route path="/login" component={ Login } />
             <Route path="/products" component={ ProductRegistration } />
             <Route path="/users" component={ UsersView } />
+            <Route path="/locations" component={ Location } />
+            <Route path="/categories" component={ Category } />
             <Route path="/" component={ Dashboard } />
           </Switch>
         </AuthRequired>
