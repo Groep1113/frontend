@@ -8,7 +8,7 @@ import FormProduct from './FormProduct';
 
 const query = gql`{
   items {
-    name code locations {code} recommendedStock
+    id name code locations {code} recommendedStock
   }
   locations { id, code }
 }`;
@@ -28,7 +28,7 @@ export default class ProductRegistration extends Component {
     return (
       <div className='register'>
         <FormProduct locations = {data.locations} />
-        <Table data = {data.items} headers = {firstRowTable} columns = {columnFormatting}/>
+        <Table data = {data.items} headers = {firstRowTable} columns = {columnFormatting} deleteVersion={'product'}/>
       </div>
     );
   }

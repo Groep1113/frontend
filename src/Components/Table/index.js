@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import EditIcon from '@material-ui/icons/Edit';
 import './table.css';
+import DeleteProduct from '../ProductRegistration/DeleteProduct';
 
 @withRouter
 export default class Table extends Component {
   render() {
     let { data, headers } = this.props;
-    const { columns } = this.props;
+    const { columns, deleteVersion } = this.props;
     headers = headers.map(headerToJSX);
-    data = mapDataToJSXRows(data, columns);
+    data = mapDataToJSXRows(data, columns, deleteVersion);
     return (
       <div className='aTable'>
         <table>
@@ -25,10 +27,35 @@ export default class Table extends Component {
     );
   }
 }
+let rowIndex = null;
 
-const mapDataToJSXRows = (data, columns) => data.map((row, i) => (
-  <tr className="table__row" key={row.id ? row.id : i}>
+function displayMessage(event) {
+  console.log(`You clicked it ${event}`);
+}
+
+function getRowIndex(rowId) {
+  rowIndex = rowId;
+  console.log(`${rowId}`);
+}
+
+function addDelete(deleteVersion, rowId) {
+  switch (deleteVersion) {
+  case 'product':
+    return <DeleteProduct className='deleteIcon' row = {rowId}/>;
+  case 'anderDing':
+    return 'anderDing';
+  default:
+    return null;
+  }
+}
+
+const mapDataToJSXRows = (data, columns, deleteVersion) => data.map((row, i) => (
+  <tr className="table__row" key={row.id ? row.id : i} onMouseOver = {e => getRowIndex(row.id)}>
     {mapColumnsToJSX(row, columns)}
+    <td className='lastColumn'>
+      <EditIcon className='editIcon' onClick={displayMessage}/>
+      {addDelete(deleteVersion, row.id)}
+    </td>
   </tr>
 ));
 
