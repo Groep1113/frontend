@@ -21,23 +21,22 @@ const styles = theme => ({
 export default class SupplierList extends Component {
   render() {
     const {
-      queryResults: {
-        data, loading, error, refetch,
-      }, classes,
-    } = this.props;
+      data, loading, error, refetch,
+    } = this.props.queryResults;
     if (loading) return 'Loading data..';
     if (error) return `Foutmelding bij data ophaling: ${error.message}`;
 
+    const headers = ['Id', 'Naam', 'Edit'];
     const columns = ['id', 'name'];
     return (
-      <div className={classes.root}>
+      <div className={this.props.classes.root}>
         <GenericListView
           refetchFunc={refetch}
           basePath="/suppliers/"
           fabLabel="Leverancier toevoegen"
           tblTitle="Leveranciers"
           data={data && data.suppliers}
-          headers={[...columns, 'edit']}
+          headers={headers}
           columns={columns}
         />
       </div>
