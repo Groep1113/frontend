@@ -66,7 +66,7 @@ export default class AddCategory extends Component {
     return (
       <div className='header'>
         <h3>
-          Huidige locaties:
+          Huidige categorieën:
         </h3>
         <Fab color='primary' className='addLocation' onClick={this.handleClickOpen}>
           <AddIcon />
