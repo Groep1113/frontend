@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import gql from 'graphql-tag';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
