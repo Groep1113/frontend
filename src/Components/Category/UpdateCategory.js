@@ -63,7 +63,7 @@ export default class UpdateCategory extends Component {
         name,
       },
     });
-    // window.location.reload();
+    window.location.reload();
     if (itemDeleted) {
       this.setState({ open: false, openSuccessMessage: true });
     } else {

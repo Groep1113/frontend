@@ -47,7 +47,7 @@ export default class DeleteLocation extends Component {
         locationId,
       },
     });
-    // window.location.reload();
+    window.location.reload();
     if (itemDeleted) {
       this.setState({ open: false, openSuccessMessage: true });
     } else {
