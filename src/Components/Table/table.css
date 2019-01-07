@@ -40,4 +40,5 @@
 
 .editIcon:hover, .deleteIcon:hover {
   transform: scale(1.6);
+  cursor: pointer;
 }
