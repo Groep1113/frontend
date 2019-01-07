@@ -7,36 +7,30 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import IconButton from '@material-ui/core/IconButton';
 import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 import Button from '@material-ui/core/Button/Button';
 import Dialog from '@material-ui/core/Dialog/Dialog';
 import { withRouter } from 'react-router-dom';
-import DialogContent from '@material-ui/core/DialogContent/DialogContent';
-import TextField from '@material-ui/core/TextField/TextField';
-import EditIcon from '@material-ui/icons/Edit';
 import MutationHOC from '../HOC/MutationHOC';
 
-const mutation = gql`  
-  mutation($categoryId: Int!, $name: String!) {
-    categoryChangeName (
-      categoryId: $categoryId,
-      name: $name,
-    ) { name }
-  }`;
+const mutation = gql`
+mutation($transactionId: Int!) {
+    executeTransaction (
+      transactionId: $transactionId
+    ) { receivedDate }
+}`;
 
 @MutationHOC(mutation)
 @withRouter
-export default class UpdateCategory extends Component {
+export default class ExecuteReservation extends Component {
   state = {
     open: false,
-    category: '',
     openSuccessMessage: false,
     openErrorMessage: false,
   }
 
   handleClickOpen = this.handleClickOpen.bind(this)
-
-  handleChange = this.handleChange.bind(this)
 
   handleClick = this.handleClick.bind(this)
 
@@ -48,19 +42,11 @@ export default class UpdateCategory extends Component {
     });
   }
 
-  handleChange({ target: { value } }, k) {
-    this.setState({
-      [k]: value,
-    });
-  }
-
   handleClick(rowIndex) {
-    const categoryId = parseInt(rowIndex, 10);
-    const name = this.state.category;
+    const transactionId = parseInt(rowIndex, 10);
     const itemDeleted = this.props.mutateFunc({
       variables: {
-        categoryId,
-        name,
+        transactionId,
       },
     });
     // window.location.reload();
@@ -79,7 +65,7 @@ export default class UpdateCategory extends Component {
     const rowIndex = this.props.row;
     return (
       <div>
-        <EditIcon className='deleteIcon' onClick={this.handleClickOpen}/>
+        <CheckCircleIcon className='reservationIcon' onClick={this.handleClickOpen}/>
         <Dialog
           className='dialogueWindow'
           open={this.state.open}
@@ -87,24 +73,16 @@ export default class UpdateCategory extends Component {
           aria-labelledby='alert-dialog-title'
           aria-describedby='alert-dialog-description'
         >
-          <DialogTitle id='alert-dialog-title'>Verander de categorienaam: </DialogTitle>
-          <DialogContent className='dialogueContent'>
-            <div>
-              <TextField
-                id='category'
-                name='category'
-                label='Categorie'
-                margin='normal'
-                onChange={e => this.handleChange(e, 'category')}
-              />
-            </div>
+          <DialogTitle id='alert-dialog-title'>Reservering uitvoeren</DialogTitle>
+          <DialogContent>
+            Weet je het zeker?
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
             <Button onClick={e => this.handleClick(rowIndex)} color="primary" autoFocus>
-              Ok
+              Ja
             </Button>
           </DialogActions>
         </Dialog>
@@ -122,7 +100,7 @@ export default class UpdateCategory extends Component {
             message={
               <span id="client-snackbar" className='success'>
                 <CheckCircleIcon/>
-                De categorienaam is aangepast.
+                De reservering is uitgevoerd.
               </span>
             }
             action={[

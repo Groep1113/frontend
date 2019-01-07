@@ -50,7 +50,6 @@ export default class AddCategory extends Component {
       open: false,
     });
     const { name } = this.state;
-    console.log(name);
     this.props.mutateFunc({
       variables: {
         name,

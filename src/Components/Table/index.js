@@ -6,6 +6,7 @@ import DeleteItem from '../Item/DeleteItem';
 import DeleteLocation from '../Location/DeleteLocation';
 import DeleteCategory from '../Category/DeleteCategory';
 import UpdateCategory from '../Category/UpdateCategory';
+import ExecuteReservation from '../Reservation/ExecuteReservation';
 
 @withRouter
 export default class Table extends Component {
@@ -43,6 +44,8 @@ function addDelete(deleteVersion, rowId) {
     return <DeleteLocation className='deleteIcon' row = {rowId}/>;
   case 'category':
     return <DeleteCategory className='deleteIcon' row = {rowId}/>;
+  case 'reservation':
+    return <ExecuteReservation className='reservationIcon' row = {rowId}/>;
   default:
     return null;
   }
@@ -53,7 +56,7 @@ function addUpdate(updateVersion, rowId) {
   case 'product':
     return <EditIcon className='editIcon' onClick={displayMessage}/>;
   case 'category':
-    return <UpdateCategory className='deleteIcon' row = {rowId}/>;
+    return <UpdateCategory className='editIcon' row = {rowId}/>;
   default:
     return null;
   }
