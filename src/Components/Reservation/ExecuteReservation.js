@@ -49,7 +49,7 @@ export default class ExecuteReservation extends Component {
         transactionId,
       },
     });
-    // window.location.reload();
+    window.location.reload();
     if (itemDeleted) {
       this.setState({ open: false, openSuccessMessage: true });
     } else {

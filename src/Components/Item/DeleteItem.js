@@ -11,6 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 import Button from '@material-ui/core/Button/Button';
 import Dialog from '@material-ui/core/Dialog/Dialog';
+import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import MutationHOC from '../HOC/MutationHOC';
 
 const mutation = gql`  
@@ -68,7 +69,10 @@ export default class DeleteItem extends Component {
           aria-labelledby='alert-dialog-title'
           aria-describedby='alert-dialog-description'
         >
-          <DialogTitle id='alert-dialog-title'>Weet je het zeker?</DialogTitle>
+          <DialogTitle id='alert-dialog-title'>Product verwijderen</DialogTitle>
+          <DialogContent>
+            Weet je het zeker?
+          </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancel

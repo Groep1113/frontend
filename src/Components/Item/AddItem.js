@@ -73,6 +73,7 @@ export default class AddItem extends Component {
         code, location, recommendedStock, product,
       },
     });
+    window.location.reload();
   }
 
   handleClose() {
