@@ -29,7 +29,6 @@ export default class Item extends Component {
     const { balances } = data;
 
     const items = addAmountToItemProperties(balances, data.items);
-    console.log(items);
 
     return (
       <div className='register'>
