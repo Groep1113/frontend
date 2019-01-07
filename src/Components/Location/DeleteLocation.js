@@ -12,8 +12,8 @@ import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 import Button from '@material-ui/core/Button/Button';
 import Dialog from '@material-ui/core/Dialog/Dialog';
 import { withRouter } from 'react-router-dom';
+import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import MutationHOC from '../HOC/MutationHOC';
-import DialogContent from "@material-ui/core/DialogContent/DialogContent";
 
 const mutation = gql`  
   mutation($locationId: Int!) {

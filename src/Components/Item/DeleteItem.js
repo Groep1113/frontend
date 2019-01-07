@@ -11,8 +11,8 @@ import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 import Button from '@material-ui/core/Button/Button';
 import Dialog from '@material-ui/core/Dialog/Dialog';
+import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import MutationHOC from '../HOC/MutationHOC';
-import DialogContent from "@material-ui/core/DialogContent/DialogContent";
 
 const mutation = gql`  
 mutation($itemId: Int!) {
