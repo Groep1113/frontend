@@ -53,7 +53,7 @@ function addUpdate(updateVersion, rowId) {
   case 'product':
     return <EditIcon className='editIcon' onClick={displayMessage}/>;
   case 'category':
-    return <UpdateCategory className='deleteIcon' row = {rowId}/>;
+    return <UpdateCategory className='editIcon' row = {rowId}/>;
   default:
     return null;
   }
