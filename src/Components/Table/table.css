@@ -38,7 +38,7 @@
   background: #fafafa;
 }
 
-.editIcon:hover, .deleteIcon:hover {
+.editIcon:hover, .deleteIcon:hover, .reservationIcon:hover {
   transform: scale(1.6);
   cursor: pointer;
 }

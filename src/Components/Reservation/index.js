@@ -7,7 +7,7 @@ import AddReservation from './AddReservation';
 
 const query = gql`{
   transactions {
-    createdDate updateDate deletedDate receivedDate transactionRules { plannedDate item { name } }
+    id createdDate updateDate deletedDate receivedDate transactionRules { plannedDate item { name } }
   }
   items { id name }
 }`;
