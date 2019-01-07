@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button/Button';
 import Dialog from '@material-ui/core/Dialog/Dialog';
 import { withRouter } from 'react-router-dom';
 import MutationHOC from '../HOC/MutationHOC';
+import DialogContent from "@material-ui/core/DialogContent/DialogContent";
 
 const mutation = gql`  
   mutation($locationId: Int!) {
@@ -71,7 +72,10 @@ export default class DeleteLocation extends Component {
           aria-labelledby='alert-dialog-title'
           aria-describedby='alert-dialog-description'
         >
-          <DialogTitle id='alert-dialog-title'>Weet je het zeker?</DialogTitle>
+          <DialogTitle id='alert-dialog-title'>Locatie verwijderen</DialogTitle>
+          <DialogContent>
+            Weet je het zeker?
+          </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancel
