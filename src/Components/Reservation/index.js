@@ -3,15 +3,17 @@ import { withRouter } from 'react-router-dom';
 import gql from 'graphql-tag';
 import QueryHOC from '../HOC/QueryHOC';
 import Table from '../Table';
+import AddReservation from './AddReservation';
 
 const query = gql`{
   transactions {
-    createdDate updateDate deletedDate receivedDate transactionRules { item { name } }
+    createdDate updateDate deletedDate receivedDate transactionRules { plannedDate item { name } }
   }
+  items { id name }
 }`;
 
-const columnFormatting = [({ transactionRules }) => transactionRules.reduce((accum, { item }) => `${accum}, ${item.name}`, '').substring(2), 'createdDate', 'updateDate', 'receivedDate'];
-const firstRowTable = ['Product', 'Datum aangevraagd', 'Datum aangepast', 'Datum ontvangen'];
+const columnFormatting = [({ transactionRules }) => transactionRules.reduce((accum, { item }) => `${accum}, ${item.name}`, '').substring(2), 'createdDate', ({ transactionRules }) => transactionRules.reduce((accum, { plannedDate }) => `${accum}, ${plannedDate}`, '').substring(2), 'updateDate', 'receivedDate'];
+const firstRowTable = ['Product', 'Datum aangevraagd', 'Reserveringsdatum', 'Datum aangepast', 'Datum ontvangen'];
 
 @QueryHOC(query)
 @withRouter
@@ -23,10 +25,10 @@ export default class Reservation extends Component {
       return <div>Er ging iets fout.<br />{error.message}</div>;
     }
 
-    const { transactions } = data;
     return (
       <div className='reservation'>
-        <Table data = {transactions} headers = {firstRowTable} columns = {columnFormatting} version={'reservation'}/>
+        <AddReservation items = {data.items} />
+        <Table data = {data.transactions} headers = {firstRowTable} columns = {columnFormatting} version={'reservation'}/>
       </div>
     );
   }
