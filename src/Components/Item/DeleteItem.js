@@ -11,18 +11,16 @@ import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 import Button from '@material-ui/core/Button/Button';
 import Dialog from '@material-ui/core/Dialog/Dialog';
-import { withRouter } from 'react-router-dom';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 import MutationHOC from '../HOC/MutationHOC';
 
 const mutation = gql`  
-  mutation($locationId: Int!) {
-    deleteLocation (locationId: $locationId)
-  }`;
+mutation($itemId: Int!) {
+  deleteItem(itemId: $itemId) 
+}`;
 
 @MutationHOC(mutation)
-@withRouter
-export default class DeleteLocation extends Component {
+export default class DeleteItem extends Component {
   state = {
     open: false,
     openSuccessMessage: false,
@@ -41,11 +39,10 @@ export default class DeleteLocation extends Component {
     });
   }
 
-  handleClick(rowIndex) {
-    const locationId = parseInt(rowIndex, 10);
+  handleClick(itemId) {
     const itemDeleted = this.props.mutateFunc({
       variables: {
-        locationId,
+        itemId,
       },
     });
     window.location.reload();
@@ -64,7 +61,7 @@ export default class DeleteLocation extends Component {
     const rowIndex = this.props.row;
     return (
       <div>
-        <DeleteRoundedIcon className='deleteIcon' onClick={this.handleClickOpen}/>
+        <DeleteRoundedIcon className='deleteIcon' onClick={this.handleClickOpen} />
         <Dialog
           className='dialogueWindow'
           open={this.state.open}
@@ -72,7 +69,7 @@ export default class DeleteLocation extends Component {
           aria-labelledby='alert-dialog-title'
           aria-describedby='alert-dialog-description'
         >
-          <DialogTitle id='alert-dialog-title'>Locatie verwijderen</DialogTitle>
+          <DialogTitle id='alert-dialog-title'>Product verwijderen</DialogTitle>
           <DialogContent>
             Weet je het zeker?
           </DialogContent>
@@ -99,7 +96,7 @@ export default class DeleteLocation extends Component {
             message={
               <span id="client-snackbar" className='success'>
                 <CheckCircleIcon/>
-                De locatie is verwijderd.
+                Het product is verwijderd.
               </span>
             }
             action={[

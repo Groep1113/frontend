@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import './table.css';
-import DeleteProduct from '../ProductRegistration/DeleteProduct';
+import DeleteItem from '../Item/DeleteItem';
 import DeleteLocation from '../Location/DeleteLocation';
 import DeleteCategory from '../Category/DeleteCategory';
+import UpdateCategory from '../Category/UpdateCategory';
+import ExecuteReservation from '../Reservation/ExecuteReservation';
 
 @withRouter
 export default class Table extends Component {
   render() {
     let { data, headers } = this.props;
-    const { columns, deleteVersion } = this.props;
+    const { columns, version } = this.props;
     headers = headers.map(headerToJSX);
-    data = mapDataToJSXRows(data, columns, deleteVersion);
+    data = mapDataToJSXRows(data, columns, version);
     return (
       <div className='aTable'>
         <table>
@@ -33,22 +35,35 @@ export default class Table extends Component {
 function addDelete(deleteVersion, rowId) {
   switch (deleteVersion) {
   case 'product':
-    return <DeleteProduct className='deleteIcon' row = {rowId}/>;
+    return <DeleteItem className='deleteIcon' row = {rowId}/>;
   case 'location':
     return <DeleteLocation className='deleteIcon' row = {rowId}/>;
   case 'category':
     return <DeleteCategory className='deleteIcon' row = {rowId}/>;
+  case 'reservation':
+    return <ExecuteReservation className='reservationIcon' row = {rowId}/>;
   default:
     return null;
   }
 }
 
-const mapDataToJSXRows = (data, columns, deleteVersion) => data.map((row, i) => (
-  <tr className="table__row" key={row.id ? row.id : i}>
+function addUpdate(updateVersion, rowId) {
+  switch (updateVersion) {
+  case 'product':
+    return <EditIcon className='editIcon' />;
+  case 'category':
+    return <UpdateCategory className='editIcon' row = {rowId}/>;
+  default:
+    return null;
+  }
+}
+
+const mapDataToJSXRows = (data, columns, version) => data.map((row, i) => (
+  <tr className="table__row" key={row.id ? row.id : i} >
     {mapColumnsToJSX(row, columns)}
     <td className='lastColumn'>
-      <EditIcon className='editIcon' />
-      {addDelete(deleteVersion, row.id)}
+      {addUpdate(version, row.id)}
+      {addDelete(version, row.id)}
     </td>
   </tr>
 ));

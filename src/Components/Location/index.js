@@ -6,11 +6,11 @@ import Table from '../Table';
 import AddLocation from './AddLocation';
 
 const query = gql`{
-  locations { id, code, depth, height, width }
+  locations { id, code, depth, height, width, items { name } categories { name } }
 }`;
 
-const columnFormatting = ['code', 'depth', 'height', 'width'];
-const firstRowTable = ['Code', 'Diepte (in cm\'s)', 'Hoogte (in cm\'s)', 'Breedte (in cm\'s)'];
+const columnFormatting = ['code', 'depth', 'height', 'width', ({ items }) => items.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2), ({ categories }) => categories.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2)];
+const firstRowTable = ['Code', 'Diepte (in cm\'s)', 'Hoogte (in cm\'s)', 'Breedte (in cm\'s)', 'Item(s)', 'Categorie(ën)'];
 
 @QueryHOC(query)
 @withRouter
@@ -25,7 +25,7 @@ export default class Location extends Component {
     return (
       <div className='location'>
         <AddLocation />
-        <Table data = {locations} headers = {firstRowTable} columns = {columnFormatting} deleteVersion={'location'}/>
+        <Table data = {locations} headers = {firstRowTable} columns = {columnFormatting} version={'location'}/>
       </div>
     );
   }

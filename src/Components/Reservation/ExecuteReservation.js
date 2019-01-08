@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import gql from 'graphql-tag';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
@@ -7,47 +6,86 @@ import CloseIcon from '@material-ui/icons/Close';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import IconButton from '@material-ui/core/IconButton';
+import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions/DialogActions';
+import Button from '@material-ui/core/Button/Button';
+import Dialog from '@material-ui/core/Dialog/Dialog';
+import { withRouter } from 'react-router-dom';
 import MutationHOC from '../HOC/MutationHOC';
 
-const mutation = gql`  
-mutation($itemId: Int!) {
-  deleteItem(itemId: $itemId) 
+const mutation = gql`
+mutation($transactionId: Int!) {
+    executeTransaction (
+      transactionId: $transactionId
+    ) { receivedDate }
 }`;
 
 @MutationHOC(mutation)
-export default class DeleteProduct extends Component {
+@withRouter
+export default class ExecuteReservation extends Component {
   state = {
+    open: false,
     openSuccessMessage: false,
     openErrorMessage: false,
   }
+
+  handleClickOpen = this.handleClickOpen.bind(this)
 
   handleClick = this.handleClick.bind(this)
 
   handleClose = this.handleClose.bind(this)
 
-  handleClick(itemId) {
+  handleClickOpen() {
+    this.setState({
+      open: true,
+    });
+  }
+
+  handleClick(rowIndex) {
+    const transactionId = parseInt(rowIndex, 10);
     const itemDeleted = this.props.mutateFunc({
       variables: {
-        itemId,
+        transactionId,
       },
     });
     window.location.reload();
     if (itemDeleted) {
-      this.setState({ openSuccessMessage: true });
+      this.setState({ open: false, openSuccessMessage: true });
     } else {
-      this.setState({ openErrorMessage: true });
+      this.setState({ open: false, openErrorMessage: true });
     }
   }
 
   handleClose() {
-    this.setState({ openErrorMessage: false, openSuccessMessage: false });
+    this.setState({ open: false, openErrorMessage: false, openSuccessMessage: false });
   }
 
   render() {
     const rowIndex = this.props.row;
     return (
       <div>
-        <DeleteRoundedIcon className='deleteIcon' onClick={e => this.handleClick(rowIndex)}/>
+        <CheckCircleIcon className='reservationIcon' onClick={this.handleClickOpen}/>
+        <Dialog
+          className='dialogueWindow'
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
+        >
+          <DialogTitle id='alert-dialog-title'>Reservering uitvoeren</DialogTitle>
+          <DialogContent>
+            Weet je het zeker?
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={e => this.handleClick(rowIndex)} color="primary" autoFocus>
+              Ja
+            </Button>
+          </DialogActions>
+        </Dialog>
         <Snackbar
           anchorOrigin={{
             vertical: 'top',
@@ -62,7 +100,7 @@ export default class DeleteProduct extends Component {
             message={
               <span id="client-snackbar" className='success'>
                 <CheckCircleIcon/>
-                Het product is verwijderd.
+                De reservering is uitgevoerd.
               </span>
             }
             action={[

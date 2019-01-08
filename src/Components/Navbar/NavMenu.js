@@ -12,6 +12,7 @@ const navMenuConfig = {
     { path: '/locations', title: 'Locaties' },
     { path: '/categories', title: 'Categorieën' },
     { path: '/users', title: 'Gebruikers (admin)' },
+    { path: '/reservations', title: 'Reserveringen' },
   ],
 };
 

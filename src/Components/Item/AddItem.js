@@ -12,10 +12,10 @@ import FormControl from '@material-ui/core/FormControl/FormControl';
 import InputLabel from '@material-ui/core/InputLabel/InputLabel';
 import Select from '@material-ui/core/Select/Select';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
-// import withStyles from '@material-ui/core/styles/withStyles';
-import './formproduct.css';
 import MutationHOC from '../HOC/MutationHOC';
+// import withStyles from '@material-ui/core/styles/withStyles';
 
+import './additem.css';
 
 const mutation = gql`
   mutation($code: String!, $location: Int!, $recommendedStock: Int!, $product: String!) {
@@ -29,7 +29,7 @@ const mutation = gql`
   }`;
 
 @MutationHOC(mutation)
-export default class FormProduct extends Component {
+export default class AddItem extends Component {
   state = {
     open: false,
     product: '',
@@ -74,6 +74,7 @@ export default class FormProduct extends Component {
         code, location, recommendedStock, product,
       },
     });
+    window.location.reload();
   }
 
   handleClose() {
@@ -84,7 +85,7 @@ export default class FormProduct extends Component {
     let { locations } = this.props;
     locations = locations.map(locationToJSX);
     return (
-      <div className='header'>
+      <div className='headerProduct'>
         <h3>
           Huidige producten:
         </h3>

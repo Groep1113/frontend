@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import gql from 'graphql-tag';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
@@ -13,23 +12,31 @@ import Button from '@material-ui/core/Button/Button';
 import Dialog from '@material-ui/core/Dialog/Dialog';
 import { withRouter } from 'react-router-dom';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
+import TextField from '@material-ui/core/TextField/TextField';
+import EditIcon from '@material-ui/icons/Edit';
 import MutationHOC from '../HOC/MutationHOC';
 
 const mutation = gql`  
-  mutation($locationId: Int!) {
-    deleteLocation (locationId: $locationId)
+  mutation($categoryId: Int!, $name: String!) {
+    categoryChangeName (
+      categoryId: $categoryId,
+      name: $name,
+    ) { name }
   }`;
 
 @MutationHOC(mutation)
 @withRouter
-export default class DeleteLocation extends Component {
+export default class UpdateCategory extends Component {
   state = {
     open: false,
+    category: '',
     openSuccessMessage: false,
     openErrorMessage: false,
   }
 
   handleClickOpen = this.handleClickOpen.bind(this)
+
+  handleChange = this.handleChange.bind(this)
 
   handleClick = this.handleClick.bind(this)
 
@@ -41,11 +48,19 @@ export default class DeleteLocation extends Component {
     });
   }
 
+  handleChange({ target: { value } }, k) {
+    this.setState({
+      [k]: value,
+    });
+  }
+
   handleClick(rowIndex) {
-    const locationId = parseInt(rowIndex, 10);
+    const categoryId = parseInt(rowIndex, 10);
+    const name = this.state.category;
     const itemDeleted = this.props.mutateFunc({
       variables: {
-        locationId,
+        categoryId,
+        name,
       },
     });
     window.location.reload();
@@ -64,7 +79,7 @@ export default class DeleteLocation extends Component {
     const rowIndex = this.props.row;
     return (
       <div>
-        <DeleteRoundedIcon className='deleteIcon' onClick={this.handleClickOpen}/>
+        <EditIcon className='deleteIcon' onClick={this.handleClickOpen}/>
         <Dialog
           className='dialogueWindow'
           open={this.state.open}
@@ -72,16 +87,24 @@ export default class DeleteLocation extends Component {
           aria-labelledby='alert-dialog-title'
           aria-describedby='alert-dialog-description'
         >
-          <DialogTitle id='alert-dialog-title'>Locatie verwijderen</DialogTitle>
-          <DialogContent>
-            Weet je het zeker?
+          <DialogTitle id='alert-dialog-title'>Verander de categorienaam: </DialogTitle>
+          <DialogContent className='dialogueContent'>
+            <div>
+              <TextField
+                id='category'
+                name='category'
+                label='Categorie'
+                margin='normal'
+                onChange={e => this.handleChange(e, 'category')}
+              />
+            </div>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
             <Button onClick={e => this.handleClick(rowIndex)} color="primary" autoFocus>
-              Ja
+              Ok
             </Button>
           </DialogActions>
         </Dialog>
@@ -99,7 +122,7 @@ export default class DeleteLocation extends Component {
             message={
               <span id="client-snackbar" className='success'>
                 <CheckCircleIcon/>
-                De locatie is verwijderd.
+                De categorienaam is aangepast.
               </span>
             }
             action={[
