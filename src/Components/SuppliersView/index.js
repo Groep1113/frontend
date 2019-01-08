@@ -5,7 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import ListView from './list';
 import EditView from './edit';
 import CreateView from './create';
-// import DeleteView from './delete';
+import DeleteView from './delete';
 
 const styles = theme => ({
   root: {
@@ -22,9 +22,9 @@ export default class UsersView extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Route path="/users/create" component={CreateView} />
-        {/* <Route path="/users/delete/:id" component={DeleteView} /> */}
-        <Route path="/users/edit/:id" component={EditView} />
+        <Route path="/suppliers/create" component={CreateView} />
+        <Route path="/suppliers/edit/:id" component={EditView} />
+        <Route path="/suppliers/delete/:id" component={DeleteView} />
         <Route component={ListView} />
       </div>
     );

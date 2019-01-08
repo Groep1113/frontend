@@ -1,27 +1,20 @@
 import React, { Component } from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import gql from 'graphql-tag';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import NameTextFields from '../../Common/FormComponents/NameTextFields';
 import MutationHOC from '../../HOC/MutationHOC';
 import QueryHOC from '../../HOC/QueryHOC';
 import UserRolesUpdater from './UserRolesUpdater';
-import LoadingIndicator from '../../Common/FormComponents/LoadingIndicator';
+import GenericDialog from '../../Common/CRUD/GenericDialog';
 
 const mutation = gql`mutation (
   $id: Int!, $firstName: String, $lastName: String, $password: String, $email: String
 ) {
   updateUser(
     id: $id, firstName: $firstName, lastName: $lastName, password: $password, email: $email
-  ) {
-    id
-  }
+  ) { id }
 }`;
 
 // notice: query contains a parameter ($id: Int!)
@@ -75,43 +68,30 @@ export default class EditUser extends Component {
   }
 
   render() {
-    const { mutateResults, queryResults } = this.props;
-    if (mutateResults.data) return <Redirect to='/users' />; // finished editing
-    const { match: { params: { id } } } = this.props;
+    const {
+      mutateResults: { loading, error, data }, queryResults, mutateFunc,
+    } = this.props;
+    if (!loading && !error && data) return <Redirect to='/users' />; // finished editing
 
+    const id = parseInt(this.props.match.params.id, 10);
+    const variables = { ...this.state, id };
     const { firstName, lastName, email } = this.state;
     return (
-      <Dialog
-        className='dialogueWindow'
-        open={true}
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'
+      <GenericDialog
+        dialogTitle="Gebruiker bewerken"
+        cancelPath="/users"
+        onConfirm={() => mutateFunc({ variables })}
+        {...queryResults} called={this.props.queryResults.data}
       >
-        <DialogTitle id='alert-dialog-title'>
-          Gebruiker bewerken:
-        </DialogTitle>
-        <DialogContent className='dialogueContent'>
-          <ShowError mutateError={mutateResults.error} queryError={queryResults.error} />
-          <NameTextFields initValues={{ firstName, lastName }} onChange={this.handleChange} />
-          <EmailField value={email} onChange={e => this.handleChange(e, 'email')} />
-          <PasswordField onChange={e => this.handleChange(e, 'password')} />
-          <UserRolesUpdater
-            current={queryResults.data.user ? queryResults.data.user.roles : null}
-            refetchUser={queryResults.refetch}
-            userId={parseInt(id, 10)} />
-        </DialogContent>
-        <DialogActions>
-          <LoadingIndicator loading={mutateResults.loading || queryResults.loading}
-            error={mutateResults.error ? mutateResults.error : queryResults.error}
-            called={mutateResults.called} />
-          <Button onClick={e => this.props.history.push('/users')} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={this.updateUser} color="primary" autoFocus>
-            Ok
-          </Button>
-        </DialogActions>
-      </Dialog>
+        <ShowError mutateError={error} queryError={queryResults.error} />
+        <NameTextFields initValues={{ firstName, lastName }} onChange={this.handleChange} />
+        <EmailField value={email} onChange={e => this.handleChange(e, 'email')} />
+        <PasswordField onChange={e => this.handleChange(e, 'password')} />
+        <UserRolesUpdater
+          current={queryResults.data.user ? queryResults.data.user.roles : null}
+          refetchUser={queryResults.refetch}
+          userId={id} />
+      </GenericDialog>
     );
   }
 }

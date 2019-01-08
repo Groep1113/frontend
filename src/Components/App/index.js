@@ -11,6 +11,7 @@ import Location from '../Location';
 import Category from '../Category';
 import Dashboard from '../Dashboard';
 import UsersView from '../UsersView';
+import SuppliersView from '../SuppliersView';
 import Reservation from '../Reservation';
 
 const theme = createMuiTheme({
@@ -39,6 +40,7 @@ export default class App extends Component {
             <Route path="/products" component={ Item } />
             <Route path="/locations" component={ Location } />
             <Route path="/categories" component={ Category } />
+            <Route path="/suppliers" component={ SuppliersView } />
             <Route path="/reservations" component={ Reservation } />
             <Route path="/" component={ Dashboard } />
           </Switch>
