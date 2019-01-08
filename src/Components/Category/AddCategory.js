@@ -55,7 +55,7 @@ export default class AddCategory extends Component {
         name,
       },
     });
-    // window.location.reload();
+    window.location.reload();
   }
 
   handleClose() {
