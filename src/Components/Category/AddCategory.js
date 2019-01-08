@@ -13,7 +13,7 @@ import MutationHOC from '../HOC/MutationHOC';
 const mutation = gql`
   mutation($name: String!) {
     createCategory (
-      name: $name, 
+      name: $name,
     ) { id }
   }`;
 

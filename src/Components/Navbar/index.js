@@ -24,7 +24,7 @@ export default class Navbar extends Component {
 }
 
 const query = gql`{
-  users {
+  currentUser {
     firstName
   }
 }`;
@@ -36,7 +36,7 @@ export class NavbarContent extends Component {
     if (loading) return 'Gegevens worden geladen..';
     if (error) return 'Er ging iets fout';
 
-    const user = data.users[0];
+    const { firstName } = data.currentUser;
     return (
       <AppBar position="static">
         <Toolbar className="toolbar">
@@ -44,7 +44,7 @@ export class NavbarContent extends Component {
             <NavMenu />
           </div>
           <Typography variant="h6" color="inherit" className="typography">
-            Welkom, {user.firstName}
+            Welkom, {firstName}
           </Typography>
           <div className="menuRight">
             <LogoutMenu />

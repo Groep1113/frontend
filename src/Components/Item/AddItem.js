@@ -13,15 +13,16 @@ import InputLabel from '@material-ui/core/InputLabel/InputLabel';
 import Select from '@material-ui/core/Select/Select';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
 import MutationHOC from '../HOC/MutationHOC';
+// import withStyles from '@material-ui/core/styles/withStyles';
 
 import './additem.css';
 
-const mutation = gql`  
+const mutation = gql`
   mutation($code: String!, $location: Int!, $recommendedStock: Int!, $product: String!) {
     createItem (
-      code: $code, 
-      locationId: $location, 
-      recommendedStock: $recommendedStock, 
+      code: $code,
+      locationId: $location,
+      recommendedStock: $recommendedStock,
       name: $product) {
         code
     }

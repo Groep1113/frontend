@@ -32,10 +32,6 @@ export default class Table extends Component {
   }
 }
 
-function displayMessage(event) {
-  console.log(`You clicked it ${event}`);
-}
-
 function addDelete(deleteVersion, rowId) {
   switch (deleteVersion) {
   case 'product':
@@ -54,7 +50,7 @@ function addDelete(deleteVersion, rowId) {
 function addUpdate(updateVersion, rowId) {
   switch (updateVersion) {
   case 'product':
-    return <EditIcon className='editIcon' onClick={displayMessage}/>;
+    return <EditIcon className='editIcon' />;
   case 'category':
     return <UpdateCategory className='editIcon' row = {rowId}/>;
   default:
