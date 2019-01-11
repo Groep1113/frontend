@@ -9,8 +9,6 @@ const query = gql`{
   categories { 
     id, 
     name, 
-    items 
-      { name } 
     locations 
       { code } 
   }
@@ -18,9 +16,8 @@ const query = gql`{
 
 const columnFormatting = [
   'name',
-  ({ items }) => items.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2),
   ({ locations }) => locations.reduce((accum, { code }) => `${accum}, ${code}`, '').substring(2)];
-const firstRowTable = ['Categorie', 'Product(en)', 'Locatie(s)'];
+const firstRowTable = ['Categorie', 'Locatie(s)'];
 
 @QueryHOC(query)
 @withRouter
