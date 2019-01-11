@@ -18,7 +18,7 @@ import MutationHOC from '../HOC/MutationHOC';
 import './additem.css';
 
 const mutation = gql`
-  mutation($code: String!, $location: Int!, $recommendedStock: Int!, $product: String!) {
+  mutation($code: String, $location: Int, $recommendedStock: Int, $product: String!) {
     createItem (
       code: $code,
       locationId: $location,
