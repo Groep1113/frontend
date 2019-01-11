@@ -15,7 +15,7 @@ const query = gql`{
 }`;
 
 const columnFormatting = ['name', 'code', ({ locations }) => locations.reduce((accum, { code }) => `${accum}, ${code}`, '').substring(2), 'amount', 'recommendedStock', ({ categories }) => categories.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2)];
-const firstRowTable = ['Product', 'Code', 'Locatie', 'Voorraad', 'Aanbevolen voorraad', 'Categorie'];
+const firstRowTable = ['Product', 'Code', 'Locatie', 'Voorraad', 'Minimum voorraad', 'Categorie'];
 
 @QueryHOC(query)
 @withRouter

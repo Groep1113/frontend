@@ -139,7 +139,7 @@ export default class AddItem extends Component {
               <TextField
                 id='stock'
                 name='stock'
-                label='Aanbevolen voorraad'
+                label='Minimum voorraad'
                 margin='normal'
                 onChange={e => this.handleChange(e, 'recommendedStock')}
               />
