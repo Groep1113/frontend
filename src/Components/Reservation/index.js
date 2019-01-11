@@ -13,7 +13,7 @@ const query = gql`{
 }`;
 
 const columnFormatting = [({ transactionRules }) => transactionRules.reduce((accum, { item }) => `${accum}, ${item.name}`, '').substring(2), 'createdDate', ({ transactionRules }) => transactionRules.reduce((accum, { plannedDate }) => `${accum}, ${plannedDate}`, '').substring(2), 'updateDate', 'receivedDate'];
-const firstRowTable = ['Product', 'Datum aangevraagd', 'Reserveringsdatum', 'Datum aangepast', 'Datum ontvangen'];
+const firstRowTable = ['Product', 'Datum aangevraagd', 'Reserveringsdatum', 'Datum aangepast', 'Datum uitgeleverd'];
 
 @QueryHOC(query)
 @withRouter
