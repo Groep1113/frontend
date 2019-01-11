@@ -6,7 +6,7 @@ import Table from '../Table';
 import AddReservation from './AddReservation';
 
 const query = gql`{
-  transactions {
+  transactions(showReservations: true) {
     id createdDate updateDate deletedDate receivedDate transactionRules { plannedDate item { name } }
   }
   items { id name }
