@@ -6,14 +6,14 @@ import Table from '../Table';
 import AddReservation from './AddReservation';
 
 const query = gql`{
-  transactions {
+  transactions(showReservations: true) {
     id createdDate updateDate deletedDate receivedDate transactionRules { plannedDate item { name } }
   }
   items { id name }
 }`;
 
 const columnFormatting = [({ transactionRules }) => transactionRules.reduce((accum, { item }) => `${accum}, ${item.name}`, '').substring(2), 'createdDate', ({ transactionRules }) => transactionRules.reduce((accum, { plannedDate }) => `${accum}, ${plannedDate}`, '').substring(2), 'updateDate', 'receivedDate'];
-const firstRowTable = ['Product', 'Datum aangevraagd', 'Reserveringsdatum', 'Datum aangepast', 'Datum ontvangen'];
+const firstRowTable = ['Product', 'Datum aangevraagd', 'Reserveringsdatum', 'Datum aangepast', 'Datum uitgeleverd'];
 
 @QueryHOC(query)
 @withRouter

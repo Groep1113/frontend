@@ -18,7 +18,7 @@ import MutationHOC from '../HOC/MutationHOC';
 import './additem.css';
 
 const mutation = gql`
-  mutation($code: String!, $location: Int!, $recommendedStock: Int!, $product: String!) {
+  mutation($code: String, $location: Int, $recommendedStock: Int, $product: String!) {
     createItem (
       code: $code,
       locationId: $location,
@@ -139,7 +139,7 @@ export default class AddItem extends Component {
               <TextField
                 id='stock'
                 name='stock'
-                label='Aanbevolen voorraad'
+                label='Minimum voorraad'
                 margin='normal'
                 onChange={e => this.handleChange(e, 'recommendedStock')}
               />

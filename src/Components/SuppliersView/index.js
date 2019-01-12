@@ -17,7 +17,7 @@ const styles = theme => ({
 });
 
 @withStyles(styles)
-export default class UsersView extends Component {
+export default class SuppliersView extends Component {
   render() {
     const { classes } = this.props;
     return (

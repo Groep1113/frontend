@@ -6,11 +6,11 @@ import Table from '../Table';
 import AddLocation from './AddLocation';
 
 const query = gql`{
-  locations { id, code, depth, height, width, items { name } categories { name } }
+  locations { id, code, depth, height, width, categories { name } }
 }`;
 
-const columnFormatting = ['code', 'depth', 'height', 'width', ({ items }) => items.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2), ({ categories }) => categories.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2)];
-const firstRowTable = ['Code', 'Diepte (in cm\'s)', 'Hoogte (in cm\'s)', 'Breedte (in cm\'s)', 'Item(s)', 'Categorie(ën)'];
+const columnFormatting = ['code', 'depth', 'height', 'width', ({ categories }) => categories.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2)];
+const firstRowTable = ['Code', 'Diepte (in cm\'s)', 'Hoogte (in cm\'s)', 'Breedte (in cm\'s)', 'Categorie(ën)'];
 
 @QueryHOC(query)
 @withRouter
