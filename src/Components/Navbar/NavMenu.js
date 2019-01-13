@@ -10,6 +10,7 @@ const navMenuConfig = {
     { path: '/', title: 'Dashboard' },
     { path: '/products', title: 'Producten' },
     { path: '/locations', title: 'Locaties' },
+    { path: '/locations2', title: 'Locaties2' },
     { path: '/categories', title: 'Categorieën' },
     { path: '/suppliers', title: 'Leveranciers' },
     { path: '/users', title: 'Gebruikers (admin)' },
