@@ -43,13 +43,13 @@ export default class CategoriesEdit extends Component {
 
   render() {
     const { mutateResults: { loading, error, data }, mutateFunc } = this.props;
-    if (!loading && !error && data) return <Redirect to='/categories2' />;
+    if (!loading && !error && data) return <Redirect to='/categories' />;
 
     const variables = { ...this.state, categoryId: parseInt(this.props.match.params.id, 10) };
     return (
       <GenericDialog
         dialogTitle="Categorie bewerken"
-        cancelPath="/categories2"
+        cancelPath="/categories"
         onConfirm={() => mutateFunc({ variables })}
         {...this.props.queryResults} called={this.props.queryResults.data}
       >

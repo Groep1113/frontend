@@ -19,12 +19,12 @@ export default class CategoryDelete extends Component {
   render() {
     const { id } = this.props.match.params;
     const { mutateResults: { loading, error, data }, mutateFunc } = this.props;
-    if (!loading && !error && data) return <Redirect to='/categories2' />;
+    if (!loading && !error && data) return <Redirect to='/categories' />;
 
     return (
       <GenericDialog
         dialogTitle="Categorie verwijderen"
-        cancelPath="/categories2"
+        cancelPath="/categories"
         onConfirm={() => mutateFunc({ variables: { categoryId: parseInt(id, 10) } })}
         loading={loading} error={error} called={data}
       >

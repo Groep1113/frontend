@@ -22,12 +22,12 @@ export default class CategoriesCreate extends Component {
 
   render() {
     const { mutateResults: { loading, error, data }, mutateFunc } = this.props;
-    if (!loading && !error && data) return <Redirect to='/categories2' />;
+    if (!loading && !error && data) return <Redirect to='/categories' />;
 
     return (
       <GenericDialog
         dialogTitle="Categorie toevoegen"
-        cancelPath="/categories2"
+        cancelPath="/categories"
         onConfirm={() => mutateFunc({ variables: this.state })}
         loading={loading} error={error} called={data}
       >

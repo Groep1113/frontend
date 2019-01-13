@@ -22,9 +22,9 @@ export default class CategoriesView extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Route path="/categories2/create" component={CreateView} />
-        <Route path="/categories2/delete/:id" component={DeleteView} />
-        <Route path="/categories2/edit/:id" component={EditView} />
+        <Route path="/categories/create" component={CreateView} />
+        <Route path="/categories/delete/:id" component={DeleteView} />
+        <Route path="/categories/edit/:id" component={EditView} />
         <Route component={ListView} />
       </div>
     );

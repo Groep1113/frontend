@@ -22,8 +22,8 @@ export default class CategoriesView extends Component {
     // Refetch graphql query when we create or edit a user
     const oldPath = prevProps.location.pathname;
     if (
-      (oldPath.includes('/categories2/create') || oldPath.includes('/categories2/edit/'))
-      && this.props.location.pathname === '/categories2'
+      (oldPath.includes('/categories2/create') || oldPath.includes('/categories/edit/'))
+      && this.props.location.pathname === '/categories'
     ) {
       this.props.queryResults.refetch();
     }
@@ -43,7 +43,7 @@ export default class CategoriesView extends Component {
       <GenericListView
         editIcon={true} deleteIcon={true}
         refetchFunc={refetch}
-        basePath="/categories2/"
+        basePath="/categories/"
         fabLabel="Categorie toevoegen"
         tblTitle="Categorieën"
         data={data && data.categories}
