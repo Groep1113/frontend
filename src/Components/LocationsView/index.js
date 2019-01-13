@@ -5,7 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import ListView from './list';
 // import EditView from './edit';
 // import CreateView from './create';
-// import DeleteView from './delete';
+import DeleteView from './delete';
 
 const styles = theme => ({
   root: {
@@ -23,7 +23,7 @@ export default class LocationsView extends Component {
     return (
       <div className={classes.root}>
         {/* <Route path="/locations2/create" component={CreateView} /> */}
-        {/* <Route path="/locations2/delete/:id" component={DeleteView} /> */}
+        <Route path="/locations2/delete/:id" component={DeleteView} />
         {/* <Route path="/locations2/edit/:id" component={EditView} /> */}
         <Route component={ListView} />
       </div>
