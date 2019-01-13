@@ -3,8 +3,6 @@ import { withRouter } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import './table.css';
 import DeleteItem from '../Item/DeleteItem';
-import DeleteCategory from '../Category/DeleteCategory';
-import UpdateCategory from '../Category/UpdateCategory';
 import ExecuteReservation from '../Reservation/ExecuteReservation';
 
 @withRouter
@@ -35,8 +33,6 @@ function addDelete(deleteVersion, rowId) {
   switch (deleteVersion) {
   case 'product':
     return <DeleteItem className='deleteIcon' row = {rowId}/>;
-  case 'category':
-    return <DeleteCategory className='deleteIcon' row = {rowId}/>;
   case 'reservation':
     return <ExecuteReservation className='reservationIcon' row = {rowId}/>;
   default:
@@ -48,8 +44,6 @@ function addUpdate(updateVersion, rowId) {
   switch (updateVersion) {
   case 'product':
     return <EditIcon className='editIcon' />;
-  case 'category':
-    return <UpdateCategory className='editIcon' row = {rowId}/>;
   default:
     return null;
   }
