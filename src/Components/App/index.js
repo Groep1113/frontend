@@ -13,6 +13,7 @@ import SuppliersView from '../SuppliersView';
 import Reservation from '../Reservation';
 import LocationsView from '../LocationsView';
 import CategoriesView from '../CategoriesView';
+import ItemsView from '../ItemsView';
 
 const theme = createMuiTheme({
   // because we apparently use typography and the old variant types will be
@@ -38,6 +39,7 @@ export default class App extends Component {
             <Route path="/login" component={ Login } />
             <Route path="/users" component={ UsersView } />
             <Route path="/products" component={ Item } />
+            <Route path="/items" component={ ItemsView } />
             <Route path="/locations" component={ LocationsView } />
             <Route path="/categories" component={ CategoriesView } />
             <Route path="/suppliers" component={ SuppliersView } />
