@@ -35,8 +35,8 @@ export default class ItemsView extends Component {
     if (loading) return 'Loading data..';
     if (error) return `Foutmelding bij data ophaling: ${error.message}`;
 
-    const headers = ['Id', 'Product', 'Code', 'Locatie', 'Minimum voorraad', 'Categorie', 'Edit', 'Delete'];
-    const columns = ['id', 'name', 'code', ({ locations }) => locations.reduce((accum, { code }) => `${accum}, ${code}`, '').substring(2), 'recommendedStock', ({ categories }) => categories.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2)];
+    const headers = ['Id', 'Product', 'Code', 'Minimum voorraad', 'Locatie', 'Categorie', 'Edit', 'Delete'];
+    const columns = ['id', 'name', 'code', 'recommendedStock', ({ locations }) => locations.reduce((accum, { code }) => `${accum}, ${code}`, '').substring(2), ({ categories }) => categories.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2)];
     return (
       <GenericListView
         editIcon={true} deleteIcon={true}
