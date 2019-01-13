@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
+import './generic.css';
 import LoadingIndicator from '../FormComponents/LoadingIndicator';
 
 const styles = ({ spacing }) => ({

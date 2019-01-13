@@ -6,7 +6,7 @@ import QueryHOC from '../../HOC/QueryHOC';
 import GenericListView from '../../Common/CRUD/GenericListView';
 
 const query = gql`query{
-  locations { id, code, depth, height, width, categories { name } }
+  items { id name code locations {code} recommendedStock categories { name } }
 }`;
 
 const styles = theme => ({
@@ -15,13 +15,13 @@ const styles = theme => ({
 @QueryHOC(query)
 @withStyles(styles)
 @withRouter
-export default class LocationsView extends Component {
+export default class ItemsView extends Component {
   componentDidUpdate(prevProps, prevState) {
     // Refetch graphql query when we create or edit a user
     const oldPath = prevProps.location.pathname;
     if (
-      (oldPath.includes('/locations/create') || oldPath.includes('/locations/edit/'))
-      && this.props.location.pathname === '/locations'
+      (oldPath.includes('/items/create') || oldPath.includes('/items/edit/'))
+      && this.props.location.pathname === '/items'
     ) {
       this.props.queryResults.refetch();
     }
@@ -35,16 +35,16 @@ export default class LocationsView extends Component {
     if (loading) return 'Loading data..';
     if (error) return `Foutmelding bij data ophaling: ${error.message}`;
 
-    const headers = ['Id', 'Code', 'Diepte (in cm\'s)', 'Hoogte (in cm\'s)', 'Breedte (in cm\'s)', 'Categorie(ën)', 'Edit', 'Delete'];
-    const columns = ['id', 'code', 'depth', 'height', 'width', ({ categories }) => categories.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2)];
+    const headers = ['Id', 'Product', 'Code', 'Minimum voorraad', 'Locatie', 'Categorie', 'Edit', 'Delete'];
+    const columns = ['id', 'name', 'code', 'recommendedStock', ({ locations }) => locations.reduce((accum, { code }) => `${accum}, ${code}`, '').substring(2), ({ categories }) => categories.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2)];
     return (
       <GenericListView
         editIcon={true} deleteIcon={true}
         refetchFunc={refetch}
-        basePath="/locations/"
-        fabLabel="Locatie toevoegen"
-        tblTitle="Locaties"
-        data={data && data.locations}
+        basePath="/items/"
+        fabLabel="Item toevoegen"
+        tblTitle="Items"
+        data={data && data.items}
         headers={headers}
         columns={columns}
       />

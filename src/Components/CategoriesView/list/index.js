@@ -22,7 +22,7 @@ export default class CategoriesView extends Component {
     // Refetch graphql query when we create or edit a user
     const oldPath = prevProps.location.pathname;
     if (
-      (oldPath.includes('/categories2/create') || oldPath.includes('/categories/edit/'))
+      (oldPath.includes('/categories/create') || oldPath.includes('/categories/edit/'))
       && this.props.location.pathname === '/categories'
     ) {
       this.props.queryResults.refetch();
