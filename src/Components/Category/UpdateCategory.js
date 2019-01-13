@@ -18,10 +18,10 @@ import MutationHOC from '../HOC/MutationHOC';
 
 const mutation = gql`  
   mutation($categoryId: Int!, $name: String!) {
-    categoryChangeName (
+    updateCategory (
       categoryId: $categoryId,
       name: $name,
-    ) { name }
+    ) { id }
   }`;
 
 @MutationHOC(mutation)
