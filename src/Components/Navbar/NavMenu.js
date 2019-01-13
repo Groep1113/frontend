@@ -8,7 +8,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 const navMenuConfig = {
   items: [
     { path: '/', title: 'Dashboard' },
-    { path: '/products', title: 'Producten' },
     { path: '/items', title: 'Items' },
     { path: '/locations', title: 'Locaties' },
     { path: '/categories', title: 'Categorieën' },

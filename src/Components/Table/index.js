@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import './table.css';
-import DeleteItem from '../Item/DeleteItem';
 import ExecuteReservation from '../Reservation/ExecuteReservation';
 
 @withRouter
@@ -31,8 +30,6 @@ export default class Table extends Component {
 
 function addDelete(deleteVersion, rowId) {
   switch (deleteVersion) {
-  case 'product':
-    return <DeleteItem className='deleteIcon' row = {rowId}/>;
   case 'reservation':
     return <ExecuteReservation className='reservationIcon' row = {rowId}/>;
   default:

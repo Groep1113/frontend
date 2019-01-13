@@ -6,7 +6,6 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import AuthRequired from '../AuthRequired';
 import Login from '../Login';
 import Navbar from '../Navbar';
-import Item from '../Item';
 import Dashboard from '../Dashboard';
 import UsersView from '../UsersView';
 import SuppliersView from '../SuppliersView';
@@ -38,7 +37,6 @@ export default class App extends Component {
           <Switch>
             <Route path="/login" component={ Login } />
             <Route path="/users" component={ UsersView } />
-            <Route path="/products" component={ Item } />
             <Route path="/items" component={ ItemsView } />
             <Route path="/locations" component={ LocationsView } />
             <Route path="/categories" component={ CategoriesView } />
