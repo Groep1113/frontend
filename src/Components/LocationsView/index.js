@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import ListView from './list';
-// import EditView from './edit';
+import EditView from './edit';
 import CreateView from './create';
 import DeleteView from './delete';
 
@@ -24,7 +24,7 @@ export default class LocationsView extends Component {
       <div className={classes.root}>
         <Route path="/locations/create" component={CreateView} />
         <Route path="/locations/delete/:id" component={DeleteView} />
-        {/* <Route path="/locations/edit/:id" component={EditView} /> */}
+        <Route path="/locations/edit/:id" component={EditView} />
         <Route component={ListView} />
       </div>
     );
