@@ -24,7 +24,7 @@ export default class LocationsView extends Component {
       <div className={classes.root}>
         <Route path="/locations/create" component={CreateView} />
         <Route path="/locations/delete/:id" component={DeleteView} />
-        {/* <Route path="/locations2/edit/:id" component={EditView} /> */}
+        {/* <Route path="/locations/edit/:id" component={EditView} /> */}
         <Route component={ListView} />
       </div>
     );
