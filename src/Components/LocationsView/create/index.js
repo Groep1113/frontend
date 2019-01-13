@@ -30,12 +30,12 @@ export default class LocationCreate extends Component {
 
   render() {
     const { mutateResults: { loading, error, data }, mutateFunc } = this.props;
-    if (!loading && !error && data) return <Redirect to='/locations2' />;
+    if (!loading && !error && data) return <Redirect to='/locations' />;
 
     return (
       <GenericDialog
         dialogTitle="Locatie toevoegen"
-        cancelPath="/locations2"
+        cancelPath="/locations"
         onConfirm={() => mutateFunc({ variables: this.state })}
         loading={loading} error={error} called={data}
       >

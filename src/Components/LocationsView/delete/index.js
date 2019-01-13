@@ -19,12 +19,12 @@ export default class LocationDelete extends Component {
   render() {
     const { id } = this.props.match.params;
     const { mutateResults: { loading, error, data }, mutateFunc } = this.props;
-    if (!loading && !error && data) return <Redirect to='/locations2' />;
+    if (!loading && !error && data) return <Redirect to='/locations' />;
 
     return (
       <GenericDialog
         dialogTitle="Locatie verwijderen"
-        cancelPath="/locations2"
+        cancelPath="/locations"
         onConfirm={() => mutateFunc({ variables: { locationId: parseInt(id, 10) } })}
         loading={loading} error={error} called={data}
       >

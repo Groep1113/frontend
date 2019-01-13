@@ -20,8 +20,8 @@ export default class LocationsView extends Component {
     // Refetch graphql query when we create or edit a user
     const oldPath = prevProps.location.pathname;
     if (
-      (oldPath.includes('/locations2/create') || oldPath.includes('/locations2/edit/'))
-      && this.props.location.pathname === '/locations2'
+      (oldPath.includes('/locations/create') || oldPath.includes('/locations/edit/'))
+      && this.props.location.pathname === '/locations'
     ) {
       this.props.queryResults.refetch();
     }
@@ -41,7 +41,7 @@ export default class LocationsView extends Component {
       <GenericListView
         editIcon={true} deleteIcon={true}
         refetchFunc={refetch}
-        basePath="/locations2/"
+        basePath="/locations/"
         fabLabel="Locatie toevoegen"
         tblTitle="Locaties"
         data={data && data.locations}
