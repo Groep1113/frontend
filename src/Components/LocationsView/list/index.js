@@ -5,7 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import QueryHOC from '../../HOC/QueryHOC';
 import GenericListView from '../../Common/CRUD/GenericListView';
 
-const query = gql`{
+const query = gql`query{
   locations { id, code, depth, height, width, categories { name } }
 }`;
 
