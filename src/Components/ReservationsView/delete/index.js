@@ -5,7 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import MutationHOC from '../../HOC/MutationHOC';
 import GenericDialog from '../../Common/CRUD/GenericDialog';
 
-const mutation = gql`  mutation($transactionId: Int!) {
+const mutation = gql`mutation($transactionId: Int!) {
     deleteTransaction (transactionId: $transactionId) { id }
   }`;
 
