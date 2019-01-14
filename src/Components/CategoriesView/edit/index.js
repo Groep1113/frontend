@@ -6,11 +6,12 @@ import TextField from '@material-ui/core/TextField';
 import MutationHOC from '../../HOC/MutationHOC';
 import QueryHOC from '../../HOC/QueryHOC';
 import GenericDialog from '../../Common/CRUD/GenericDialog';
+import CategoryLocationsUpdater from './CategoryLocationsUpdater';
 
 // notice: query contains a parameter ($id: Int!)
 // so we will use this.props.queryResults.refetch function to supply it a value
 const query = gql`query ($id: Int!) {
-  category(id: $id) { name }
+  category(id: $id) { name locations { id code } }
 }`;
 
 const mutation = gql`mutation($categoryId: Int!, $name: String!) {
@@ -25,6 +26,8 @@ const styles = ({ spacing }) => ({
 @withStyles(styles)
 export default class CategoriesEdit extends Component {
   state = { name: '' };
+
+  updateCategory = this.updateCategory.bind(this);
 
   // we call refetch to supply our QueryHOC with the required param
   componentWillMount() {
@@ -41,11 +44,19 @@ export default class CategoriesEdit extends Component {
     }
   }
 
+  updateCategory() {
+    const { match: { params: { id } } } = this.props;
+    this.props.mutateFunc({
+      variables: { ...this.state, categoryId: parseInt(id, 10) },
+    });
+  }
+
   render() {
-    const { mutateResults: { loading, error, data }, mutateFunc } = this.props;
+    const { mutateResults: { loading, error, data }, queryResults, mutateFunc } = this.props;
     if (!loading && !error && data) return <Redirect to='/categories' />;
 
-    const variables = { ...this.state, categoryId: parseInt(this.props.match.params.id, 10) };
+    const categoryId = parseInt(this.props.match.params.id, 10);
+    const variables = { ...this.state, categoryId };
     return (
       <GenericDialog
         dialogTitle="Categorie bewerken"
@@ -57,6 +68,10 @@ export default class CategoriesEdit extends Component {
           id='name' name='name' label='Naam' type='name' margin='normal'
           value={this.state.name}
           onChange={e => this.setState({ name: e.target.value })} />
+        <CategoryLocationsUpdater
+          current={queryResults.data.category ? queryResults.data.category.locations : null}
+          refetchCategory={queryResults.refetch}
+          categoryId={categoryId} />
       </GenericDialog>
     );
   }
