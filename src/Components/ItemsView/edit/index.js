@@ -122,7 +122,7 @@ export default class ItemsEdit extends Component {
         <Select
           value={this.state.supplier}
           options={elementsToOptions(queryResults.data.suppliers)
-            ? queryResults.data.suppliers : null }
+            ? elementsToOptions(queryResults.data.suppliers) : null }
           onChange={e => this.setState({ supplier: e.target.value })}
         />
         <ItemLocationsUpdater
