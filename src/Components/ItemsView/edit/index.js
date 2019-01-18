@@ -154,7 +154,7 @@ function isEmpty(obj) {
 }
 
 function elementsToOptions(elements) {
-  const options = new Array();
+  const options = [];
   if (!isEmpty(elements)) {
     let i = 1;
     for (const element of elements) {
