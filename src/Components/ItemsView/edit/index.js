@@ -96,7 +96,7 @@ export default class LocationsEdit extends Component {
 }
 
 function elementsToIdList(elements) {
-  const idList = new Array();
+  const idList = [];
   for (const element of elements) {
     idList.push(element.id);
   }
