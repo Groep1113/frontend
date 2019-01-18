@@ -146,6 +146,13 @@ function elementsToIdList(elements) {
   return idList;
 }
 
+function isEmpty(obj) {
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) return false;
+  }
+  return true;
+}
+
 function elementsToOptions(elements) {
   const options = new Array();
   if (!isEmpty(elements)) {
