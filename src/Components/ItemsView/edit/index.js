@@ -43,6 +43,7 @@ export default class ItemsEdit extends Component {
     recommendedStock: '',
     locationIds: [],
     categoryIds: [],
+    selectedOption: null,
   };
 
   updateItem = this.updateItem.bind(this);
@@ -120,7 +121,7 @@ export default class ItemsEdit extends Component {
           value={this.state.recommendedStock}
           onChange={e => this.setState({ recommendedStock: e.target.value })} />
         <Select
-          value={this.state.supplier}
+          value={this.state.selectedOption}
           options={elementsToOptions(queryResults.data.suppliers)
             ? elementsToOptions(queryResults.data.suppliers) : null }
           onChange={e => this.setState({ supplier: e.target.value })}
