@@ -6,16 +6,17 @@ import TextField from '@material-ui/core/TextField';
 import MutationHOC from '../../HOC/MutationHOC';
 import QueryHOC from '../../HOC/QueryHOC';
 import GenericDialog from '../../Common/CRUD/GenericDialog';
+import ItemLocationsUpdater from './ItemLocationsUpdater';
 
 // notice: query contains a parameter ($id: Int!)
 // so we will use this.props.queryResults.refetch function to supply it a value
 const query = gql`query ($id: Int!) {
-  item(id: $id) { code, name, recommendedStock locations { id code } categories { id name } }
+  item(id: $id) { code, name, supplier { id name } recommendedStock locations { id code } categories { id name } }
 }`;
 
-const mutation = gql`mutation($supplierId: Int, $itemId: Int!, $code: String, $locationIds: [Int!]!, $name: String, $recommendedStock: Int, $categoryIds: [Int!]!) {
+const mutation = gql`mutation($supplier: Int, $itemId: Int!, $code: String, $locationIds: [Int!]!, $name: String, $recommendedStock: Int, $categoryIds: [Int!]!) {
   updateItem (
-    supplierId: $supplierId,
+    supplierId: $supplier,
     locationIds: $locationIds,
     itemId: $itemId,
     code: $code,
@@ -33,12 +34,15 @@ const styles = ({ spacing }) => ({
 @withStyles(styles)
 export default class ItemsEdit extends Component {
   state = {
+    supplier: '',
     code: '',
     name: '',
     recommendedStock: '',
     locationIds: [],
     categoryIds: [],
   };
+
+  updateItem = this.updateItem.bind(this);
 
   // we call refetch to supply our QueryHOC with the required param
   componentWillMount() {
@@ -51,26 +55,48 @@ export default class ItemsEdit extends Component {
     if (!this.props.queryResults.data) return;
     if (this.props.queryResults.data !== prevProps.queryResults.data) {
       const {
-        code, name, locations, categories, supplierId,
+        code, name, locations, categories,
       } = this.props.queryResults.data.item;
-      let { recommendedStock } = this.props.queryResults.data.item;
+      let { recommendedStock, supplier } = this.props.queryResults.data.item;
+      supplier = parseInt(supplier.id, 10);
       recommendedStock = parseInt(recommendedStock, 10);
       const locationIds = elementsToIdList(locations);
       const categoryIds = elementsToIdList(categories);
       this.setState({
-        code, name, recommendedStock, locationIds, categoryIds, supplierId,
+        code, name, recommendedStock, locationIds, categoryIds, supplier,
       });
     }
   }
 
+  updateItem() {
+    const { match: { params: { id } } } = this.props;
+    const {
+      code, name, locations, categories,
+    } = this.props.queryResults.data.item;
+    let { recommendedStock, supplier } = this.props.queryResults.data.item;
+    supplier = parseInt(supplier.id, 10);
+    recommendedStock = parseInt(recommendedStock, 10);
+    const locationIds = elementsToIdList(locations);
+    const categoryIds = elementsToIdList(categories);
+    this.props.mutateFunc({
+      variables: {
+        code,
+        name,
+        recommendedStock,
+        supplier,
+        locationIds,
+        categoryIds,
+        itemId: parseInt(id, 10),
+      },
+    });
+  }
+
   render() {
-    const { mutateResults: { loading, error, data }, mutateFunc } = this.props;
+    const { mutateResults: { loading, error, data }, queryResults, mutateFunc } = this.props;
     if (!loading && !error && data) return <Redirect to='/items' />;
 
-    console.log(this.state.locationIds);
-    console.log(this.state.categoryIds);
-
-    const variables = { ...this.state, itemId: parseInt(this.props.match.params.id, 10) };
+    const itemId = parseInt(this.props.match.params.id, 10);
+    const variables = { ...this.state, itemId };
     return (
       <GenericDialog
         dialogTitle="Item bewerken"
@@ -90,6 +116,10 @@ export default class ItemsEdit extends Component {
           id='recommendedStock' name='recommendedStock' label="Minimum voorraad" type='recommendedStock' margin='normal'
           value={this.state.recommendedStock}
           onChange={e => this.setState({ recommendedStock: e.target.value })} />
+        <ItemLocationsUpdater
+          current={queryResults.data.item ? queryResults.data.item.locations : null}
+          refetchItem={queryResults.refetch}
+          itemId={itemId} />
       </GenericDialog>
     );
   }
