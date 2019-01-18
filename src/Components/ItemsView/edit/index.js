@@ -10,15 +10,17 @@ import GenericDialog from '../../Common/CRUD/GenericDialog';
 // notice: query contains a parameter ($id: Int!)
 // so we will use this.props.queryResults.refetch function to supply it a value
 const query = gql`query ($id: Int!) {
-  item(id: $id) { code, name, recommendedStock }
+  item(id: $id) { code, name, recommendedStock locations { id code } categories { id name } }
 }`;
 
-const mutation = gql`mutation($itemId: Int!, $code: String, $name: String, $recommendedStock: Int) {
+const mutation = gql`mutation($itemId: Int!, $code: String, $locationIds: [Int!]!, $name: String, $recommendedStock: Int, $categoryIds: [Int!]!) {
   updateItem (
+    locationIds: $locationIds,
     itemId: $itemId,
     code: $code,
     name: $name,
     recommendedStock: $recommendedStock,
+    categoryIds: categoryIds
   ) { id }
 }`;
 
@@ -30,7 +32,11 @@ const styles = ({ spacing }) => ({
 @withStyles(styles)
 export default class LocationsEdit extends Component {
   state = {
-    code: '', name: '', recommendedStock: '',
+    code: '',
+    name: '',
+    recommendedStock: '',
+    locationIds: [],
+    categoryIds: [],
   };
 
   // we call refetch to supply our QueryHOC with the required param
@@ -44,10 +50,12 @@ export default class LocationsEdit extends Component {
     if (!this.props.queryResults.data) return;
     if (this.props.queryResults.data !== prevProps.queryResults.data) {
       const {
-        code, name, recommendedStock,
+        code, name, recommendedStock, locations, categories,
       } = this.props.queryResults.data.item;
+      const locationIds = elementsToIdList(locations);
+      const categoryIds = elementsToIdList(categories);
       this.setState({
-        code, name, recommendedStock,
+        code, name, recommendedStock, locationIds, categoryIds,
       });
     }
   }
@@ -55,6 +63,9 @@ export default class LocationsEdit extends Component {
   render() {
     const { mutateResults: { loading, error, data }, mutateFunc } = this.props;
     if (!loading && !error && data) return <Redirect to='/items' />;
+
+    console.log(this.state.locationIds);
+    console.log(this.state.categoryIds);
 
     const variables = { ...this.state, itemId: parseInt(this.props.match.params.id, 10) };
     return (
@@ -79,4 +90,12 @@ export default class LocationsEdit extends Component {
       </GenericDialog>
     );
   }
+}
+
+function elementsToIdList(elements) {
+  const idList = new Array();
+  for (const element of elements) {
+    idList.push(element.id);
+  }
+  return idList;
 }
