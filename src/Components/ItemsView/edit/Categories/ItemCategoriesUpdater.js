@@ -7,13 +7,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import _includes from 'lodash/includes';
-import QueryHOC from '../../HOC/QueryHOC';
-import AddLocationHOC from './AddLocationHOC';
-import RemoveLocationHOC from './RemoveLocationHOC';
+import QueryHOC from '../../../HOC/QueryHOC';
+import AddCategoryHOC from './AddCategoryHOC';
+import RemoveCategoryHOC from './RemoveCategoryHOC';
 
 const query = gql`query {
-  locations {
-    id code
+  categories {
+    id name
   }
 }`;
 
@@ -33,28 +33,28 @@ const styles = theme => ({
   },
 });
 
-@AddLocationHOC
-@RemoveLocationHOC
+@AddCategoryHOC
+@RemoveCategoryHOC
 @QueryHOC(query)
 @withStyles(styles)
-export default class ItemLocationsUpdater extends Component {
-  state = { selectedLocation: 'none' }
+export default class ItemCategoriesUpdater extends Component {
+  state = { selectedCategory: 'none' }
 
   handleDelete = this.handleDelete.bind(this);
 
   handleChange = this.handleChange.bind(this);
 
-  handleDelete(locationId) {
-    const variables = { locationId, itemId: this.props.itemId };
-    this.props.mutateRemoveLocation({ variables })
+  handleDelete(categoryId) {
+    const variables = { categoryId, itemId: this.props.itemId };
+    this.props.mutateRemoveCategory({ variables })
       .then(this.props.refetchItem)
       .then(this.forceUpdate());
   }
 
   handleChange(e) {
     if (e.target.value === 'none') return;
-    const variables = { locationId: e.target.value, itemId: this.props.itemId };
-    this.props.mutateAddLocation({ variables })
+    const variables = { categoryId: e.target.value, itemId: this.props.itemId };
+    this.props.mutateAddCategory({ variables })
       .then(this.props.refetchItem)
       .then(this.forceUpdate());
   }
@@ -65,18 +65,18 @@ export default class ItemLocationsUpdater extends Component {
     if (error) return `Error: ${error.message}`;
 
     const chips = this.props.current;
-    const locationsAvailable = data.locations
-      .filter(l => !_includes(chips && chips.map(i => i.id), l.id));
+    const categoriesAvailable = data.categories
+      .filter(c => !_includes(chips && chips.map(i => i.id), c.id));
 
     const withContext = { className: classes.chip, onDelete: this.handleDelete };
     return (
       <div>
         <Typography variant="subtitle1" className={classes.subtitle}>
-          Locaties
+          Categorieën
         </Typography>
         <Paper className={classes.root}>
-          <LocationSelect locations={locationsAvailable}
-            onChange={this.handleChange} selected={this.state.selectedLocation} />
+          <LocationSelect categories={categoriesAvailable}
+            onChange={this.handleChange} selected={this.state.selectedCategory} />
           {chips && chips.map(mapChipToJSX, withContext)}
         </Paper>
       </div>
@@ -84,32 +84,32 @@ export default class ItemLocationsUpdater extends Component {
   }
 }
 
-function mapChipToJSX({ code, id }) {
+function mapChipToJSX({ name, id }) {
   return (
     <Chip
       key={id}
-      label={code}
+      label={name}
       value={id}
-      title="Locatie verwijderen"
+      title="Categorie verwijderen"
       className={this.className}
       onDelete={e => this.onDelete(id)} />
   );
 }
 
-const LocationSelect = ({ locations, selected, onChange }) => (
+const LocationSelect = ({ categories, selected, onChange }) => (
   <Select
     value={selected}
     onChange={onChange}
     inputProps={{
-      name: 'new-location',
-      id: 'new-location-select',
+      name: 'new-category',
+      id: 'new-category-select',
     }}
   >
     <MenuItem value="none">
-      <em>Locatie toevoegen</em>
+      <em>Categorie toevoegen</em>
     </MenuItem>
-    {locations && locations.map(l => (
-      <MenuItem value={l.id} key={l.id}>{l.code}</MenuItem>
+    {categories && categories.map(c => (
+      <MenuItem value={c.id} key={c.id}>{c.name}</MenuItem>
     ))}
   </Select>
 );

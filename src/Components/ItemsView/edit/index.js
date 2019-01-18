@@ -6,7 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import MutationHOC from '../../HOC/MutationHOC';
 import QueryHOC from '../../HOC/QueryHOC';
 import GenericDialog from '../../Common/CRUD/GenericDialog';
-import ItemLocationsUpdater from './ItemLocationsUpdater';
+import ItemLocationsUpdater from './Locations/ItemLocationsUpdater';
+import ItemCategoriesUpdater from './Categories/ItemCategoriesUpdater';
 
 // notice: query contains a parameter ($id: Int!)
 // so we will use this.props.queryResults.refetch function to supply it a value
@@ -118,6 +119,10 @@ export default class ItemsEdit extends Component {
           onChange={e => this.setState({ recommendedStock: e.target.value })} />
         <ItemLocationsUpdater
           current={queryResults.data.item ? queryResults.data.item.locations : null}
+          refetchItem={queryResults.refetch}
+          itemId={itemId} />
+        <ItemCategoriesUpdater
+          current={queryResults.data.item ? queryResults.data.item.categories : null}
           refetchItem={queryResults.refetch}
           itemId={itemId} />
       </GenericDialog>
