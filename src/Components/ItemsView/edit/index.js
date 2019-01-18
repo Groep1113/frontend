@@ -13,14 +13,15 @@ const query = gql`query ($id: Int!) {
   item(id: $id) { code, name, recommendedStock locations { id code } categories { id name } }
 }`;
 
-const mutation = gql`mutation($itemId: Int!, $code: String, $locationIds: [Int!]!, $name: String, $recommendedStock: Int, $categoryIds: [Int!]!) {
+const mutation = gql`mutation($supplierId: Int, $itemId: Int!, $code: String, $locationIds: [Int!]!, $name: String, $recommendedStock: Int, $categoryIds: [Int!]!) {
   updateItem (
+    supplierId: $supplierId,
     locationIds: $locationIds,
     itemId: $itemId,
     code: $code,
     name: $name,
     recommendedStock: $recommendedStock,
-    categoryIds: categoryIds
+    categoryIds: $categoryIds
   ) { id }
 }`;
 
@@ -50,12 +51,14 @@ export default class LocationsEdit extends Component {
     if (!this.props.queryResults.data) return;
     if (this.props.queryResults.data !== prevProps.queryResults.data) {
       const {
-        code, name, recommendedStock, locations, categories,
+        code, name, locations, categories, supplierId,
       } = this.props.queryResults.data.item;
+      let { recommendedStock } = this.props.queryResults.data.item;
+      recommendedStock = parseInt(recommendedStock, 10);
       const locationIds = elementsToIdList(locations);
       const categoryIds = elementsToIdList(categories);
       this.setState({
-        code, name, recommendedStock, locationIds, categoryIds,
+        code, name, recommendedStock, locationIds, categoryIds, supplierId,
       });
     }
   }
