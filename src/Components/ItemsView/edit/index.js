@@ -31,7 +31,7 @@ const styles = ({ spacing }) => ({
 @QueryHOC(query)
 @MutationHOC(mutation)
 @withStyles(styles)
-export default class LocationsEdit extends Component {
+export default class ItemsEdit extends Component {
   state = {
     code: '',
     name: '',
