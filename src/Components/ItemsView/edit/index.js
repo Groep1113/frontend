@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import gql from 'graphql-tag';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
+import Select from 'react-select';
 import MutationHOC from '../../HOC/MutationHOC';
 import QueryHOC from '../../HOC/QueryHOC';
 import GenericDialog from '../../Common/CRUD/GenericDialog';
@@ -13,6 +14,7 @@ import ItemCategoriesUpdater from './Categories/ItemCategoriesUpdater';
 // so we will use this.props.queryResults.refetch function to supply it a value
 const query = gql`query ($id: Int!) {
   item(id: $id) { code, name, supplier { id name } recommendedStock locations { id code } categories { id name } }
+  suppliers { id name }
 }`;
 
 const mutation = gql`mutation($supplier: Int, $itemId: Int!, $code: String, $locationIds: [Int!]!, $name: String, $recommendedStock: Int, $categoryIds: [Int!]!) {
@@ -117,6 +119,12 @@ export default class ItemsEdit extends Component {
           id='recommendedStock' name='recommendedStock' label="Minimum voorraad" type='recommendedStock' margin='normal'
           value={this.state.recommendedStock}
           onChange={e => this.setState({ recommendedStock: e.target.value })} />
+        <Select
+          value={this.state.supplier}
+          options={elementsToOptions(queryResults.data.suppliers)
+            ? queryResults.data.suppliers : null }
+          onChange={e => this.setState({ supplier: e.target.value })}
+        />
         <ItemLocationsUpdater
           current={queryResults.data.item ? queryResults.data.item.locations : null}
           refetchItem={queryResults.refetch}
@@ -136,4 +144,17 @@ function elementsToIdList(elements) {
     idList.push(element.id);
   }
   return idList;
+}
+
+function elementsToOptions(elements) {
+  const options = new Array();
+  if (!isEmpty(elements)) {
+    let i = 1;
+    for (const element of elements) {
+      options.push({ key: i, value: element.id, label: element.name });
+      i += 1;
+    }
+  }
+  console.log(options);
+  return options;
 }
