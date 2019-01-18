@@ -66,7 +66,7 @@ export default class ItemLocationsUpdater extends Component {
 
     const chips = this.props.current;
     const locationsAvailable = data.locations
-      .filter(l => !_includes(chips && chips.map(c => c.id), l.id));
+      .filter(l => !_includes(chips && chips.map(i => i.id), l.id));
 
     const withContext = { className: classes.chip, onDelete: this.handleDelete };
     return (
