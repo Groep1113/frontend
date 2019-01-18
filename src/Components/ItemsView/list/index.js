@@ -6,7 +6,7 @@ import QueryHOC from '../../HOC/QueryHOC';
 import GenericListView from '../../Common/CRUD/GenericListView';
 
 const query = gql`query{
-  items { id name code locations {code} recommendedStock categories { name } }
+  items { id name code supplier { id name } locations {code} recommendedStock categories { name } }
 }`;
 
 const styles = theme => ({
@@ -35,8 +35,8 @@ export default class ItemsView extends Component {
     if (loading) return 'Loading data..';
     if (error) return `Foutmelding bij data ophaling: ${error.message}`;
 
-    const headers = ['Id', 'Product', 'Code', 'Minimum voorraad', 'Locatie', 'Categorie', 'Edit', 'Delete'];
-    const columns = ['id', 'name', 'code', 'recommendedStock', ({ locations }) => locations.reduce((accum, { code }) => `${accum}, ${code}`, '').substring(2), ({ categories }) => categories.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2)];
+    const headers = ['Id', 'Product', 'Code', 'Minimum voorraad', 'Leverancier', 'Locatie', 'Categorie', 'Edit', 'Delete'];
+    const columns = ['id', 'name', 'code', 'recommendedStock', ({ supplier }) => supplier.name, ({ locations }) => locations.reduce((accum, { code }) => `${accum}, ${code}`, '').substring(2), ({ categories }) => categories.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2)];
     return (
       <GenericListView
         editIcon={true} deleteIcon={true}
