@@ -10,7 +10,7 @@ import GenericDialog from '../../Common/CRUD/GenericDialog';
 // notice: query contains a parameter ($id: Int!)
 // so we will use this.props.queryResults.refetch function to supply it a value
 const query = gql`query ($id: Int!) {
-  item(id: $id) { code, name, recommendedStock }
+  item(id: $id) { id code, name, recommendedStock }
 }`;
 
 const mutation = gql`mutation($itemId: Int!, $code: String, $name: String, $recommendedStock: Int) {
