@@ -43,6 +43,10 @@ export default class ReservationCreate extends Component {
   render() {
     const { mutateResults: { loading, error, data }, queryResults, mutateFunc } = this.props;
     if (!loading && !error && data) return <Redirect to='/reservations2' />;
+    if (queryResults.loading) return 'Gegevens worden geladen..';
+    if (queryResults.error) {
+      return <div>Er ging iets fout.<br />{error.message}</div>;
+    }
 
     return (
       <GenericDialog
@@ -73,22 +77,12 @@ export default class ReservationCreate extends Component {
   }
 }
 
-function isEmpty(obj) {
-  for (const key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) return false;
-  }
-  return true;
-}
-
 function itemsToOptions(items) {
-  const options = new Array();
-  if (!isEmpty(items)) {
-    let i = 1;
-    for (const item of items) {
-      options.push({ key: i, value: item.id, label: item.name });
-      i += 1;
-    }
+  const options = [];
+  let i = 1;
+  for (const item of items) {
+    options.push({ key: i, value: item.id, label: item.name });
+    i += 1;
   }
-  console.log(options);
   return options;
 }
