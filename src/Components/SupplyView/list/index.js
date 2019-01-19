@@ -27,7 +27,7 @@ export default class SupplyList extends Component {
     if (error) return `Foutmelding bij data ophaling: ${error.message}`;
 
     const headers = ['Naam', 'Minimum voorraad', 'Locatie(s)', 'Voorraad', 'Edit', 'Delete'];
-    const columns = [({ balances }) => balances.reduce((accum, { item.name }) => `${accum}, ${item.name}`, '').substring(2), ({ item }) => item.name, ({ item }) => item.recommendedStock, ({ account }) => account.location.code, 'amount'];
+    const columns = [({ item }) => item.name, ({ item }) => item.recommendedStock, ({ account }) => account.location.code, 'amount'];
     return (
       <div className={this.props.classes.root}>
         <GenericListView
