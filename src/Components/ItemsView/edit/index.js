@@ -101,6 +101,10 @@ export default class ItemsEdit extends Component {
   render() {
     const { mutateResults: { loading, error, data }, queryResults, mutateFunc } = this.props;
     if (!loading && !error && data) return <Redirect to='/items' />;
+    if (queryResults.loading) return 'Gegevens worden geladen..';
+    if (queryResults.error) {
+      return <div>Er ging iets fout.<br />{error.message}</div>;
+    }
 
     const itemId = parseInt(this.props.match.params.id, 10);
     const variables = { ...this.state, itemId };
@@ -127,8 +131,7 @@ export default class ItemsEdit extends Component {
           Leverancier
           <Select
             value={this.state.selectedOption}
-            options={elementsToOptions(queryResults.data.suppliers)
-              ? elementsToOptions(queryResults.data.suppliers) : null }
+            options={elementsToOptions(queryResults.data.suppliers)}
             onChange={(...all) => this.setState(
               { supplier: all[0].value, selectedOption: all[1].label },
             )}
