@@ -9,6 +9,7 @@ import Navbar from '../Navbar';
 import Dashboard from '../Dashboard';
 import UsersView from '../UsersView';
 import SuppliersView from '../SuppliersView';
+import SupplyView from '../SupplyView';
 import Reservation from '../Reservation';
 import LocationsView from '../LocationsView';
 import CategoriesView from '../CategoriesView';
@@ -38,6 +39,7 @@ export default class App extends Component {
             <Route path="/login" component={ Login } />
             <Route path="/users" component={ UsersView } />
             <Route path="/items" component={ ItemsView } />
+            <Route path="/overviewsupply" component={ SupplyView } />
             <Route path="/locations" component={ LocationsView } />
             <Route path="/categories" component={ CategoriesView } />
             <Route path="/suppliers" component={ SuppliersView } />

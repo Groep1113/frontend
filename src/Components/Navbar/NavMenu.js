@@ -9,11 +9,12 @@ const navMenuConfig = {
   items: [
     { path: '/', title: 'Dashboard' },
     { path: '/items', title: 'Items' },
+    { path: '/overviewsupply', title: 'Voorraad' },
     { path: '/locations', title: 'Locaties' },
     { path: '/categories', title: 'Categorieën' },
     { path: '/suppliers', title: 'Leveranciers' },
-    { path: '/users', title: 'Gebruikers (admin)' },
     { path: '/reservations', title: 'Reserveringen' },
+    { path: '/users', title: 'Gebruikers (admin)' },
   ],
 };
 
