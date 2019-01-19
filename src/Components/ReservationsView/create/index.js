@@ -53,20 +53,27 @@ export default class ReservationCreate extends Component {
       <GenericDialog
         dialogTitle="Reservering toevoegen"
         cancelPath="/reservations2"
-        onConfirm={() => mutateFunc({ variables: this.state })}
+        onConfirm={() => mutateFunc({
+          variables: {
+            itemId: parseInt(this.state.itemId, 10),
+            amount: parseInt(this.state.amount, 10),
+            plannedDate: this.state.plannedDate,
+            description: this.state.description,
+          },
+        })}
         loading={loading} error={error} called={data}
       >
         <Select
           value={this.state.selectedOption}
           options={itemsToOptions(queryResults.data.items)}
           onChange={(...all) => this.setState(
-            { supplier: all[0].value, selectedOption: all[1].label },
+            { itemId: parseInt(all[0].value, 10), selectedOption: all[1].label },
           )}
         />
         <TextField
           id='amount' name='amount' label='Aantal' type='amount' margin='normal'
           value={this.state.amount}
-          onChange={e => this.setState({ amount: e.target.value })} />
+          onChange={e => this.setState({ amount: parseInt(e.target.value, 10) })} />
         <TextField
           id='plannedDate' name='plannedDate' label="Reserveringsdatum" type='date' margin='normal'
           value={this.state.plannedDate}
