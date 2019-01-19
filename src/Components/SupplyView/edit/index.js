@@ -34,7 +34,6 @@ export default class SupplyEdit extends Component {
   state = {
     amount: '',
     description: '',
-    balanceId: '',
   };
 
   // we call refetch to supply our QueryHOC with the required param
@@ -47,9 +46,9 @@ export default class SupplyEdit extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (!this.props.queryResults.data) return;
     if (this.props.queryResults.data !== prevProps.queryResults.data) {
-      const {
-        amount, description,
-      } = this.props.queryResults.data.balance;
+      const { amount } = this.props.queryResults.data.balance;
+      let { description } = this.props.queryResults.data.balance;
+      description = description == null ? '' : description;
       this.setState({
         amount, description,
       });
