@@ -4,6 +4,8 @@ import gql from 'graphql-tag';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import Select from 'react-select';
+import FormControl from '@material-ui/core/FormControl/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MutationHOC from '../../HOC/MutationHOC';
 import QueryHOC from '../../HOC/QueryHOC';
 import GenericDialog from '../../Common/CRUD/GenericDialog';
@@ -43,7 +45,7 @@ export default class ItemsEdit extends Component {
     recommendedStock: '',
     locationIds: [],
     categoryIds: [],
-    selectedOption: null,
+    selectedOption: '',
   };
 
   updateItem = this.updateItem.bind(this);
@@ -63,11 +65,12 @@ export default class ItemsEdit extends Component {
       } = this.props.queryResults.data.item;
       let { recommendedStock, supplier } = this.props.queryResults.data.item;
       supplier = parseInt(supplier.id, 10);
+      const selectedOption = supplier.name;
       recommendedStock = parseInt(recommendedStock, 10);
       const locationIds = elementsToIdList(locations);
       const categoryIds = elementsToIdList(categories);
       this.setState({
-        code, name, recommendedStock, locationIds, categoryIds, supplier,
+        code, name, recommendedStock, locationIds, categoryIds, supplier, selectedOption,
       });
     }
   }
@@ -120,12 +123,17 @@ export default class ItemsEdit extends Component {
           id='recommendedStock' name='recommendedStock' label="Minimum voorraad" type='recommendedStock' margin='normal'
           value={this.state.recommendedStock}
           onChange={e => this.setState({ recommendedStock: e.target.value })} />
-        <Select
-          value={this.state.selectedOption}
-          options={elementsToOptions(queryResults.data.suppliers)
-            ? elementsToOptions(queryResults.data.suppliers) : null }
-          onChange={e => this.setState({ supplier: e.target.value })}
-        />
+        <FormControl>
+          Leverancier
+          <Select
+            value={this.state.selectedOption}
+            options={elementsToOptions(queryResults.data.suppliers)
+              ? elementsToOptions(queryResults.data.suppliers) : null }
+            onChange={(...all) => this.setState(
+              { supplier: all[0].value, selectedOption: all[1].label },
+            )}
+          />
+        </FormControl>
         <ItemLocationsUpdater
           current={queryResults.data.item ? queryResults.data.item.locations : null}
           refetchItem={queryResults.refetch}
@@ -163,6 +171,5 @@ function elementsToOptions(elements) {
       i += 1;
     }
   }
-  console.log(options);
   return options;
 }
