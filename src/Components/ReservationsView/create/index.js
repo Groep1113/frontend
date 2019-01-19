@@ -38,6 +38,7 @@ export default class ReservationCreate extends Component {
     amount: '',
     plannedDate: today,
     description: '',
+    selectedOption: null,
   };
 
   render() {
@@ -56,9 +57,11 @@ export default class ReservationCreate extends Component {
         loading={loading} error={error} called={data}
       >
         <Select
-          value={this.state.itemId}
+          value={this.state.selectedOption}
           options={itemsToOptions(queryResults.data.items)}
-          onChange={e => this.setState({ itemId: e.target.value })}
+          onChange={(...all) => this.setState(
+            { supplier: all[0].value, selectedOption: all[1].label },
+          )}
         />
         <TextField
           id='amount' name='amount' label='Aantal' type='amount' margin='normal'
