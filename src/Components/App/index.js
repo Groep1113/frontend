@@ -13,6 +13,7 @@ import LocationsView from '../LocationsView';
 import CategoriesView from '../CategoriesView';
 import ItemsView from '../ItemsView';
 import ReservationsView from '../ReservationsView';
+import SupplyView from '../SupplyView';
 
 const theme = createMuiTheme({
   // because we apparently use typography and the old variant types will be
