@@ -4,9 +4,11 @@ import gql from 'graphql-tag';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import Select from 'react-select';
+import Typography from '@material-ui/core/Typography/Typography';
 import MutationHOC from '../../HOC/MutationHOC';
 import GenericDialog from '../../Common/CRUD/GenericDialog';
 import QueryHOC from '../../HOC/QueryHOC';
+import ItemLocationsUpdater from './ItemLocationsUpdater';
 
 const query = gql`query{
   items { id name }
@@ -40,7 +42,15 @@ export default class ReservationCreate extends Component {
     locationId: '',
     description: '',
     selectedOption: null,
+    itemSelected: false,
   };
+
+  // handleChange = this.handleChange.bind(this)
+  //
+  // handleChange = (locationId) => {
+  //   this.setState({ locationId });
+  //   console.log(locationId);
+  // };
 
   render() {
     const { mutateResults: { loading, error, data }, queryResults, mutateFunc } = this.props;
@@ -65,13 +75,28 @@ export default class ReservationCreate extends Component {
         })}
         loading={loading} error={error} called={data}
       >
+        <Typography variant="subtitle1" className='supplier'>
+          Selecteer item
+        </Typography>
         <Select
           value={this.state.selectedOption}
           options={itemsToOptions(queryResults.data.items)}
           onChange={(...all) => this.setState(
-            { itemId: parseInt(all[0].value, 10), selectedOption: all[1].label },
+            {
+              itemId: parseInt(all[0].value, 10),
+              selectedOption: all[1].label,
+              itemSelected: true,
+            },
           )}
         />
+        {this.state.itemSelected ? (
+          <ItemLocationsUpdater
+            // onItemLocationsUpdater={e => this.handleChange(e)}
+            itemId={this.state.itemId}
+            items={queryResults.data.items}/>
+        ) : (
+          <div></div>
+        )}
         <TextField
           id='amount' name='amount' label='Aantal' type='amount' margin='normal'
           value={this.state.amount}
