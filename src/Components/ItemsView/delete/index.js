@@ -6,7 +6,7 @@ import MutationHOC from '../../HOC/MutationHOC';
 import GenericDialog from '../../Common/CRUD/GenericDialog';
 
 const mutation = gql`mutation($itemId: Int!) {
-  deleteItem(itemId: $itemId) 
+  deleteItem(itemId: $itemId) { id }
 }`;
 
 const styles = ({ spacing }) => ({
@@ -21,6 +21,7 @@ export default class ItemDelete extends Component {
     const { mutateResults: { loading, error, data }, mutateFunc } = this.props;
     if (!loading && !error && data) return <Redirect to='/items' />;
 
+    console.log(id);
     return (
       <GenericDialog
         dialogTitle="Item verwijderen"
