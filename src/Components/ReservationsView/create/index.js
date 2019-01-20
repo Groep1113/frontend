@@ -4,7 +4,6 @@ import gql from 'graphql-tag';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import Select from 'react-select';
-import MenuItem from '@material-ui/core/MenuItem/MenuItem';
 import MutationHOC from '../../HOC/MutationHOC';
 import GenericDialog from '../../Common/CRUD/GenericDialog';
 import QueryHOC from '../../HOC/QueryHOC';
