@@ -29,7 +29,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 const errorLink = onError(({ forward, operation, graphQLErrors }) => {
   if (
     graphQLErrors
-    && graphQLErrors.filter(({ message }) => message === 'Unauthorized.').length
+    && graphQLErrors.filter(({ message }) => message.includes('E401')).length
   ) {
     localStorage.clear();
     window.location.replace('/');
