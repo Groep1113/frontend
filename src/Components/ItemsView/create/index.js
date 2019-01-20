@@ -56,7 +56,7 @@ export default class ItemCreate extends Component {
   }
 
   handleChangeCategory(all) {
-    this.setState({ categorId: elementsToIdList(all[0]), selectedOptionCategory: all[1].label });
+    this.setState({ categoryId: elementsToIdList(all[0]), selectedOptionCategory: all[1].label });
   }
 
   render() {
