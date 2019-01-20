@@ -23,21 +23,19 @@ export default class ItemLocationsUpdater extends Component {
     locationId: '',
   };
 
-  // handleChange = this.handleChange.bind(this)
-  //
-  // handleChange = (all) => {
-  //   this.props.onItemLocationsUpdater(all[0].value);
-  //   this.setState(
-  //     { locationId: parseInt(all[0].value, 10), selectedOption: all[1].label },
-  //   );
-  // }
+  handleChange = this.handleChange.bind(this)
+
+  handleChange(all) {
+    this.props.onItemLocationsUpdater(all[0].value);
+    this.setState(
+      { locationId: parseInt(all[0].value, 10), selectedOption: all[1].label },
+    );
+  }
 
   render() {
     const {
       queryResults: { loading, error, data }, items, itemId,
     } = this.props;
-
-    console.log(this.state.locationId);
 
     this.props.queryResults.refetch({ id: parseInt(itemId, 10) });
     return (
@@ -49,9 +47,7 @@ export default class ItemLocationsUpdater extends Component {
           value={this.state.selectedOption}
           options={isEmpty(this.props.queryResults.data.item)
             ? itemsToOptions(items) : locationsToOptions(data.item.locations)}
-          onChange={(...all) => this.setState(
-            { locationId: parseInt(all[0].value, 10), selectedOption: all[1].label },
-          )}
+          onChange={(...all) => this.handleChange(all)}
         />
       </FormControl>
     );

@@ -45,12 +45,11 @@ export default class ReservationCreate extends Component {
     itemSelected: false,
   };
 
-  // handleChange = this.handleChange.bind(this)
-  //
-  // handleChange = (locationId) => {
-  //   this.setState({ locationId });
-  //   console.log(locationId);
-  // };
+  handleChange = this.handleChange.bind(this)
+
+  handleChange(locationId) {
+    this.setState({ locationId });
+  }
 
   render() {
     const { mutateResults: { loading, error, data }, queryResults, mutateFunc } = this.props;
@@ -91,7 +90,7 @@ export default class ReservationCreate extends Component {
         />
         {this.state.itemSelected ? (
           <ItemLocationsUpdater
-            // onItemLocationsUpdater={e => this.handleChange(e)}
+            onItemLocationsUpdater={this.handleChange}
             itemId={this.state.itemId}
             items={queryResults.data.items}/>
         ) : (
