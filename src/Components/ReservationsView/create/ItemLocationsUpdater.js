@@ -39,17 +39,22 @@ export default class ItemLocationsUpdater extends Component {
 
     this.props.queryResults.refetch({ id: parseInt(itemId, 10) });
     return (
-      <FormControl>
-        <Typography variant="subtitle1" className='location'>
+      <div>
+        <FormControl>
+          <Typography variant="subtitle1" className='location'>
           Selecteer locatie
+          </Typography>
+          <Select
+            value={this.state.selectedOption}
+            options={isEmpty(this.props.queryResults.data.item)
+              ? itemsToOptions(items) : locationsToOptions(data.item.locations)}
+            onChange={(...all) => this.handleChange(all)}
+          />
+        </FormControl>
+        <Typography variant="subtitle1" className='location'>
+          Huidige voorraad {itemId}
         </Typography>
-        <Select
-          value={this.state.selectedOption}
-          options={isEmpty(this.props.queryResults.data.item)
-            ? itemsToOptions(items) : locationsToOptions(data.item.locations)}
-          onChange={(...all) => this.handleChange(all)}
-        />
-      </FormControl>
+      </div>
     );
   }
 }
