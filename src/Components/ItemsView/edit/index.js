@@ -167,21 +167,12 @@ function elementsToIdList(elements) {
   return idList;
 }
 
-function isEmpty(obj) {
-  for (const key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) return false;
-  }
-  return true;
-}
-
 function elementsToOptions(elements) {
   const options = [];
-  if (!isEmpty(elements)) {
-    let i = 1;
-    for (const element of elements) {
-      options.push({ key: i, value: element.id, label: element.name });
-      i += 1;
-    }
+  let i = 1;
+  for (const element of elements) {
+    options.push({ key: i, value: element.id, label: element.name });
+    i += 1;
   }
   return options;
 }
