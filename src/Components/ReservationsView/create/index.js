@@ -13,13 +13,14 @@ const query = gql`query{
   items { id name }
 }`;
 
-const mutation = gql`mutation($itemId: Int, $amount: Int, $plannedDate: LocalDate, $description: String) {
+const mutation = gql`mutation($itemId: Int, $amount: Int, $plannedDate: LocalDate, $locationId: Int, $description: String) {
     createReservationTransaction (
       itemId: $itemId, 
       amount: $amount, 
-      plannedDate: $plannedDate
+      plannedDate: $plannedDate,
+      locationId: $locationId,
       description: $description
-    ) { createdDate }
+    ) { id createdDate }
 }`;
 
 const today = new Date().getMonth() + 1 > 9
@@ -37,6 +38,7 @@ export default class ReservationCreate extends Component {
     itemId: '',
     amount: '',
     plannedDate: today,
+    locationId: '',
     description: '',
     selectedOption: null,
   };
@@ -57,6 +59,7 @@ export default class ReservationCreate extends Component {
           variables: {
             itemId: parseInt(this.state.itemId, 10),
             amount: parseInt(this.state.amount, 10),
+            locationId: parseInt(this.state.locationId, 10),
             plannedDate: this.state.plannedDate,
             description: this.state.description,
           },
