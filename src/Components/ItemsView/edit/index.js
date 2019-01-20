@@ -5,7 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import Select from 'react-select';
 import FormControl from '@material-ui/core/FormControl/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Typography from '@material-ui/core/Typography/Typography';
 import MutationHOC from '../../HOC/MutationHOC';
 import QueryHOC from '../../HOC/QueryHOC';
 import GenericDialog from '../../Common/CRUD/GenericDialog';
@@ -107,6 +107,11 @@ export default class ItemsEdit extends Component {
     }
 
     const itemId = parseInt(this.props.match.params.id, 10);
+    const selectedItemOption = {
+      key: 1,
+      value: queryResults.data.item.supplier.id,
+      label: queryResults.data.item.supplier.name,
+    };
     const variables = { ...this.state, itemId };
     return (
       <GenericDialog
@@ -128,9 +133,13 @@ export default class ItemsEdit extends Component {
           value={this.state.recommendedStock}
           onChange={e => this.setState({ recommendedStock: e.target.value })} />
         <FormControl>
-          Leverancier
+          <Typography variant="subtitle1" className='leverancier'>
+            Leverancier
+          </Typography>
           <Select
-            value={this.state.selectedOption}
+            value={ this.state.selectedOption === ''
+              ? selectedItemOption.label
+              : this.state.selectedOption}
             options={elementsToOptions(queryResults.data.suppliers)}
             onChange={(...all) => this.setState(
               { supplier: all[0].value, selectedOption: all[1].label },
