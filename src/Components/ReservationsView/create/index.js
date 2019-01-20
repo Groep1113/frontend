@@ -53,7 +53,7 @@ export default class ReservationCreate extends Component {
 
   render() {
     const { mutateResults: { loading, error, data }, queryResults, mutateFunc } = this.props;
-    if (!loading && !error && data) return <Redirect to='/reservations2' />;
+    if (!loading && !error && data) return <Redirect to='/reservations' />;
     if (queryResults.loading) return 'Gegevens worden geladen..';
     if (queryResults.error) {
       return <div>Er ging iets fout.<br />{error.message}</div>;
@@ -62,7 +62,7 @@ export default class ReservationCreate extends Component {
     return (
       <GenericDialog
         dialogTitle="Reservering toevoegen"
-        cancelPath="/reservations2"
+        cancelPath="/reservations"
         onConfirm={() => mutateFunc({
           variables: {
             itemId: parseInt(this.state.itemId, 10),

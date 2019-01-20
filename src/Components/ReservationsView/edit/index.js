@@ -55,13 +55,13 @@ export default class ReservationsEdit extends Component {
 
   render() {
     const { mutateResults: { loading, error, data }, mutateFunc } = this.props;
-    if (!loading && !error && data) return <Redirect to='/reservations2' />;
+    if (!loading && !error && data) return <Redirect to='/reservations' />;
 
     const variables = { ...this.state, id: parseInt(this.props.match.params.id, 10) };
     return (
       <GenericDialog
         dialogTitle="Reservering bewerken"
-        cancelPath="/reservations2"
+        cancelPath="/reservations"
         onConfirm={() => mutateFunc({ variables })}
         {...this.props.queryResults} called={this.props.queryResults.data}
       >

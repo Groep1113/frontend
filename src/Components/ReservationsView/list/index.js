@@ -22,8 +22,8 @@ export default class ReservationsView extends Component {
     // Refetch graphql query when we create or edit a user
     const oldPath = prevProps.location.pathname;
     if (
-      (oldPath.includes('/reservations2/create') || oldPath.includes('/reservations2/edit/'))
-      && this.props.location.pathname === '/reservations2'
+      (oldPath.includes('/reservations/create') || oldPath.includes('/reservations/edit/'))
+      && this.props.location.pathname === '/reservations'
     ) {
       this.props.queryResults.refetch();
     }
@@ -43,7 +43,7 @@ export default class ReservationsView extends Component {
       <GenericListView
         editIcon={true} deleteIcon={true}
         refetchFunc={refetch}
-        basePath="/reservations2/"
+        basePath="/reservations/"
         fabLabel="Reservering toevoegen"
         tblTitle="Reserveringen"
         data={data && data.transactions}

@@ -22,9 +22,9 @@ export default class ReservationsView extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Route path="/reservations2/create" component={CreateView} />
-        <Route path="/reservations2/delete/:id" component={DeleteView} />
-        <Route path="/reservations2/edit/:id" component={EditView} />
+        <Route path="/reservations/create" component={CreateView} />
+        <Route path="/reservations/delete/:id" component={DeleteView} />
+        <Route path="/reservations/edit/:id" component={EditView} />
         <Route component={ListView} />
       </div>
     );
