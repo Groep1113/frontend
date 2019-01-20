@@ -13,7 +13,7 @@ const query = gql`query{
   items { id name }
 }`;
 
-const mutation = gql`mutation($itemId: Int, $amount: Int, $plannedDate: LocalDate, $locationId: Int!, $description: String) {
+const mutation = gql`mutation($itemId: Int!, $amount: Int!, $plannedDate: LocalDate, $locationId: Int!, $description: String) {
     createReservationTransaction (
       itemId: $itemId, 
       amount: $amount, 
