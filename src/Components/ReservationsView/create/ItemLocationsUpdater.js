@@ -4,7 +4,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Select from 'react-select';
 import Typography from '@material-ui/core/Typography/Typography';
 import FormControl from '@material-ui/core/FormControl/FormControl';
-import { Redirect } from 'react-router-dom';
 import QueryHOC from '../../HOC/QueryHOC';
 
 const query = gql`query($id: Int!) {
