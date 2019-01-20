@@ -16,12 +16,15 @@ const query = gql`query {
   categories { id name }
 }`;
 
-const mutation = gql`mutation($code: String, $recommendedStock: Int, $name: String!) {
+const mutation = gql`mutation($supplierId: Int, $code: String, $locationId: [Int!]!, $name: String!, $recommendedStock: Int, $categoryId: [Int!]!) {
     createItem (
+      supplierId: $supplierId,
       code: $code,
+      locationId: $locationId,
+      name: $name,
       recommendedStock: $recommendedStock,
-      name: $name) {
-        id
+      categoryId: $categoryId) {
+        id name
     }
   }`;
 
@@ -36,13 +39,25 @@ export default class ItemCreate extends Component {
     code: '',
     recommendedStock: '',
     name: '',
-    supplier: '',
-    locationIds: [],
-    categoryIds: [],
+    supplierId: '',
+    locationId: [],
+    categoryId: [],
     selectedOptionSupplier: '',
     selectedOptionLocation: '',
     selectedOptionCategory: '',
   };
+
+  handleChangeLocation = this.handleChangeLocation.bind(this);
+
+  handleChangeCategory = this.handleChangeCategory.bind(this);
+
+  handleChangeLocation(all) {
+    this.setState({ locationId: elementsToIdList(all[0]), selectedOptionLocation: all[1].label });
+  }
+
+  handleChangeCategory(all) {
+    this.setState({ categorId: elementsToIdList(all[0]), selectedOptionCategory: all[1].label });
+  }
 
   render() {
     const { mutateResults: { loading, error, data }, queryResults, mutateFunc } = this.props;
@@ -76,11 +91,29 @@ export default class ItemCreate extends Component {
             Leverancier
           </Typography>
           <Select
-            value={this.state.selectedOption}
+            value={this.state.selectedOptionSupplier}
             options={elementsToOptions(queryResults.data.suppliers)}
             onChange={(...all) => this.setState(
-              { supplier: all[0].value, selectedOptionSupplier: all[1].label },
+              { supplierId: all[0].value, selectedOptionSupplier: all[1].label },
             )}
+          />
+          <Typography variant="subtitle1" className='location'>
+            Locaties
+          </Typography>
+          <Select
+            value={this.state.selectedOptionLocation}
+            isMulti={true}
+            options={locationsToOptions(queryResults.data.locations)}
+            onChange={(...all) => this.handleChangeLocation(all)}
+          />
+          <Typography variant="subtitle1" className='category'>
+            Categorieën
+          </Typography>
+          <Select
+            value={this.state.selectedOptionCategory}
+            isMulti={true}
+            options={elementsToOptions(queryResults.data.categories)}
+            onChange={(...all) => this.handleChangeCategory(all)}
           />
         </FormControl>
       </GenericDialog>
@@ -88,11 +121,29 @@ export default class ItemCreate extends Component {
   }
 }
 
+function elementsToIdList(elements) {
+  const idList = [];
+  for (const element of elements) {
+    idList.push(element.value);
+  }
+  return idList;
+}
+
 function elementsToOptions(elements) {
   const options = [];
   let i = 1;
   for (const element of elements) {
     options.push({ key: i, value: element.id, label: element.name });
+    i += 1;
+  }
+  return options;
+}
+
+function locationsToOptions(locations) {
+  const options = [];
+  let i = 1;
+  for (const location of locations) {
+    options.push({ key: i, value: location.id, label: location.code });
     i += 1;
   }
   return options;
