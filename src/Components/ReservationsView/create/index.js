@@ -74,7 +74,7 @@ export default class ReservationCreate extends Component {
         })}
         loading={loading} error={error} called={data}
       >
-        <Typography variant="subtitle1" className='supplier'>
+        <Typography variant="subtitle1" className='item'>
           Selecteer item
         </Typography>
         <Select
