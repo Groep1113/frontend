@@ -5,8 +5,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import QueryHOC from '../../HOC/QueryHOC';
 import GenericListView from '../../Common/CRUD/GenericListView';
 
-const query = gql`query{
-  locations { id, code, depth, height, width, categories { name } }
+const query = gql`query {
+  transactions ( showOrders: true ) {
+    id createdDate updateDate deletedDate plannedDate receivedDate description transactionLines { id item { name } }
+  }
 }`;
 
 const styles = theme => ({
@@ -15,13 +17,13 @@ const styles = theme => ({
 @QueryHOC(query)
 @withStyles(styles)
 @withRouter
-export default class LocationsList extends Component {
+export default class OrdersList extends Component {
   componentDidUpdate(prevProps, prevState) {
     // Refetch graphql query when we create or edit a user
     const oldPath = prevProps.location.pathname;
     if (
-      (oldPath.includes('/locations/create') || oldPath.includes('/locations/edit/'))
-      && this.props.location.pathname === '/locations'
+      (oldPath.includes('/orders/create') || oldPath.includes('/orders/edit/'))
+      && this.props.location.pathname === '/orders'
     ) {
       this.props.queryResults.refetch();
     }
@@ -35,16 +37,16 @@ export default class LocationsList extends Component {
     if (loading) return 'Loading data..';
     if (error) return `Foutmelding bij data ophaling: ${error.message}`;
 
-    const headers = ['Id', 'Code', 'Diepte (in cm\'s)', 'Hoogte (in cm\'s)', 'Breedte (in cm\'s)', 'Categorie(ën)', 'Edit', 'Delete'];
-    const columns = ['id', 'code', 'depth', 'height', 'width', ({ categories }) => categories.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2)];
+    const headers = ['Id', 'Item', 'description', 'Datum aangevraagd', 'Orderdatum', 'Datum aangepast', 'Datum order ontvangen', 'Edit', 'Delete'];
+    const columns = ['id', ({ transactionLines }) => transactionLines.reduce((accum, { item }) => `${accum}, ${item.name}`, '').substring(2), 'description', 'createdDate', 'plannedDate', 'updateDate', 'receivedDate'];
     return (
       <GenericListView
         editIcon={true} deleteIcon={true}
         refetchFunc={refetch}
-        basePath="/locations/"
-        fabLabel="Locatie toevoegen"
-        tblTitle="Locaties"
-        data={data && data.locations}
+        basePath="/orders/"
+        fabLabel="Order toevoegen"
+        tblTitle="Orders"
+        data={data && data.transactions}
         headers={headers}
         columns={columns}
       />

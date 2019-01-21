@@ -15,7 +15,7 @@ const query = gql`query{
 }`;
 
 const mutation = gql`mutation($itemId: Int!, $amount: Int!, $plannedDate: LocalDate, $locationId: Int!, $description: String) {
-    createReservationTransaction (
+    createOrderTransaction (
       itemId: $itemId, 
       amount: $amount, 
       plannedDate: $plannedDate,
@@ -34,7 +34,7 @@ const styles = ({ spacing }) => ({
 @MutationHOC(mutation)
 @QueryHOC(query)
 @withStyles(styles)
-export default class ReservationCreate extends Component {
+export default class OrderCreate extends Component {
   state = {
     itemId: '',
     amount: '',
@@ -53,7 +53,7 @@ export default class ReservationCreate extends Component {
 
   render() {
     const { mutateResults: { loading, error, data }, queryResults, mutateFunc } = this.props;
-    if (!loading && !error && data) return <Redirect to='/reservations' />;
+    if (!loading && !error && data) return <Redirect to='/orders' />;
     if (queryResults.loading) return 'Gegevens worden geladen..';
     if (queryResults.error) {
       return <div>Er ging iets fout.<br />{error.message}</div>;
@@ -61,8 +61,8 @@ export default class ReservationCreate extends Component {
 
     return (
       <GenericDialog
-        dialogTitle="Reservering toevoegen"
-        cancelPath="/reservations"
+        dialogTitle="Order toevoegen"
+        cancelPath="/orders"
         onConfirm={() => mutateFunc({
           variables: {
             itemId: parseInt(this.state.itemId, 10),
@@ -101,7 +101,7 @@ export default class ReservationCreate extends Component {
           value={this.state.amount}
           onChange={e => this.setState({ amount: parseInt(e.target.value, 10) })} />
         <TextField
-          id='plannedDate' name='plannedDate' label="Reserveringsdatum" type='date' margin='normal'
+          id='plannedDate' name='plannedDate' label="Orderdatum" type='date' margin='normal'
           value={this.state.plannedDate}
           onChange={e => this.setState({ plannedDate: e.target.value })} />
         <TextField

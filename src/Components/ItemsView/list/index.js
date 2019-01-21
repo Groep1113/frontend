@@ -15,7 +15,7 @@ const styles = theme => ({
 @QueryHOC(query)
 @withStyles(styles)
 @withRouter
-export default class ItemsView extends Component {
+export default class ItemsList extends Component {
   componentDidUpdate(prevProps, prevState) {
     // Refetch graphql query when we create or edit a user
     const oldPath = prevProps.location.pathname;
