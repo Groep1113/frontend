@@ -15,7 +15,7 @@ const styles = ({ spacing }) => ({
 @MutationHOC(mutation)
 @withStyles(styles)
 @withRouter
-export default class ReservationDelete extends Component {
+export default class OrderDelete extends Component {
   render() {
     const { id } = this.props.match.params;
     const { mutateResults: { loading, error, data }, mutateFunc } = this.props;
