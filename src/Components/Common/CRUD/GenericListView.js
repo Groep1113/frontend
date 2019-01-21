@@ -73,7 +73,7 @@ export default class GenericListView extends Component {
         <Typography className={classes.title} gutterBottom variant="h4">
           {tblTitle}
         </Typography>
-        <Table className={classes.table}>
+        <Table className="aTable">
           <CustomTableHead headers={headers} />
           <TableBody>
             {data && data.map(rowDataToJSX, withContext)}

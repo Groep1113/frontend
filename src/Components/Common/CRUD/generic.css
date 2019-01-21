@@ -24,3 +24,11 @@
   display: flex;
   flex-direction: column;
 }
+
+.aTable tr:nth-child(even) {
+  background: #f6ffff;
+}
+
+.aTable tr:hover {
+  background: #e0e0e0;
+}
