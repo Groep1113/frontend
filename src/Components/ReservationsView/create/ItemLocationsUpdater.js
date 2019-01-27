@@ -33,8 +33,10 @@ export default class ItemLocationsUpdater extends Component {
 
   render() {
     const {
-      queryResults: { data }, items, itemId,
+      queryResults: { data }, items, itemId, balances,
     } = this.props;
+
+    const amount = getAmountOfItem(balances, itemId);
 
     this.props.queryResults.refetch({ id: parseInt(itemId, 10) });
     return (
@@ -51,7 +53,7 @@ export default class ItemLocationsUpdater extends Component {
           />
         </FormControl>
         <Typography variant="subtitle1" className='location'>
-          Huidige voorraad {itemId}
+          Huidige voorraad {amount}
         </Typography>
       </div>
     );
@@ -83,4 +85,14 @@ function locationsToOptions(locations) {
     i += 1;
   }
   return options;
+}
+
+function getAmountOfItem(balances, itemId) {
+  let amount = 0;
+  for (const balance of balances) {
+    if (balance.item.id === itemId) {
+      amount += balance.amount;
+    }
+  }
+  return amount;
 }

@@ -12,6 +12,9 @@ import ItemLocationsUpdater from './ItemLocationsUpdater';
 
 const query = gql`query{
   items { id name }
+  balances  {
+    item { id name } amount
+  }
 }`;
 
 const mutation = gql`mutation($itemId: Int!, $amount: Int!, $plannedDate: LocalDate, $locationId: Int!, $description: String) {
@@ -92,7 +95,7 @@ export default class ReservationCreate extends Component {
           <ItemLocationsUpdater
             onItemLocationsUpdater={this.handleChange}
             itemId={this.state.itemId}
-            items={queryResults.data.items}/>
+            items={queryResults.data.items} balances={queryResults.data.balances}/>
         ) : (
           <div></div>
         )}
