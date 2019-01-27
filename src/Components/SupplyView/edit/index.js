@@ -69,6 +69,7 @@ export default class SupplyEdit extends Component {
       >
         <TextField
           id='amount' name='amount' label='Nieuw aantal' type='amount' margin='normal'
+          type='number'
           value={this.state.amount}
           onChange={e => this.setState({ amount: e.target.value })} />
         <TextField

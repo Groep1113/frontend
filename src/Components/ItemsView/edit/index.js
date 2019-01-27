@@ -130,6 +130,7 @@ export default class ItemsEdit extends Component {
           onChange={e => this.setState({ code: e.target.value })} />
         <TextField
           id='recommendedStock' name='recommendedStock' label="Minimum voorraad" type='recommendedStock' margin='normal'
+          type='number'
           value={this.state.recommendedStock}
           onChange={e => this.setState({ recommendedStock: e.target.value })} />
         <FormControl>

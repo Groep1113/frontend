@@ -71,14 +71,17 @@ export default class LocationsEdit extends Component {
           onChange={e => this.setState({ code: e.target.value })} />
         <TextField
           id='depth' name='depth' label="Diepte (in cm's)" type='depth' margin='normal'
+          type='number'
           value={this.state.depth}
           onChange={e => this.setState({ depth: e.target.value })} />
         <TextField
           id='height' name='height' label="Hoogte (in cm's)" type='height' margin='normal'
+          type='number'
           value={this.state.height}
           onChange={e => this.setState({ height: e.target.value })} />
         <TextField
           id='width' name='width' label="Breedte (in cm's)" type='width' margin='normal'
+          type='number'
           value={this.state.width}
           onChange={e => this.setState({ width: e.target.value })} />
       </GenericDialog>

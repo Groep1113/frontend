@@ -98,6 +98,7 @@ export default class OrderCreate extends Component {
         )}
         <TextField
           id='amount' name='amount' label='Aantal' type='amount' margin='normal'
+          type='number'
           value={this.state.amount}
           onChange={e => this.setState({ amount: parseInt(e.target.value, 10) })} />
         <TextField
