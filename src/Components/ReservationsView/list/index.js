@@ -37,11 +37,11 @@ export default class ReservationsList extends Component {
     if (loading) return 'Loading data..';
     if (error) return `Foutmelding bij data ophaling: ${error.message}`;
 
-    const headers = ['Id', 'Item', 'description', 'Datum aangevraagd', 'Reserveringsdatum', 'Datum aangepast', 'Datum uitgeleverd', 'Edit', 'Delete'];
+    const headers = ['Id', 'Item', 'description', 'Datum aangevraagd', 'Reserveringsdatum', 'Datum aangepast', 'Datum uitgeleverd', 'Edit', 'Uivoeren', 'Delete'];
     const columns = ['id', ({ transactionLines }) => transactionLines.reduce((accum, { item }) => `${accum}, ${item.name}`, '').substring(2), 'description', 'createdDate', 'plannedDate', 'updateDate', 'receivedDate'];
     return (
       <GenericListView
-        editIcon={true} deleteIcon={true}
+        editIcon={true} executeIcon={true} deleteIcon={true}
         refetchFunc={refetch}
         basePath="/reservations/"
         fabLabel="Reservering toevoegen"
