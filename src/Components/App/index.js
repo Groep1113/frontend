@@ -15,6 +15,7 @@ import ItemsView from '../ItemsView';
 import ReservationsView from '../ReservationsView';
 import OrdersView from '../OrdersView';
 import SupplyView from '../SupplyView';
+import UnauthorizedView from '../UnauthorizedView';
 
 const theme = createMuiTheme({
   // because we apparently use typography and the old variant types will be
@@ -37,6 +38,7 @@ export default class App extends Component {
         <Navbar />
         <AuthRequired>
           <Switch>
+            <Route path="/unauthorized" component={ UnauthorizedView } />
             <Route path="/login" component={ Login } />
             <Route path="/users" component={ UsersView } />
             <Route path="/items" component={ ItemsView } />
