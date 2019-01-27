@@ -86,6 +86,7 @@ export default class SupplyCreate extends Component {
         </FormControl>
         <TextField
           id='amount' name='amount' label="Aantal" type='amount' margin='normal'
+          type='number'
           value={this.state.amount}
           onChange={e => this.setState({ amount: e.target.value })} />
       </GenericDialog>
