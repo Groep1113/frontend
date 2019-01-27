@@ -33,7 +33,7 @@ export default class ItemLocationsUpdater extends Component {
 
   render() {
     const {
-      queryResults: { loading, error, data }, items, itemId,
+      queryResults: { data }, items, itemId,
     } = this.props;
 
     this.props.queryResults.refetch({ id: parseInt(itemId, 10) });

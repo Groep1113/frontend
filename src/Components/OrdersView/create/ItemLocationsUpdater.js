@@ -4,7 +4,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Select from 'react-select';
 import Typography from '@material-ui/core/Typography/Typography';
 import FormControl from '@material-ui/core/FormControl/FormControl';
-import { Redirect } from 'react-router-dom';
 import QueryHOC from '../../HOC/QueryHOC';
 
 const query = gql`query($id: Int!) {
@@ -34,7 +33,7 @@ export default class ItemLocationsUpdater extends Component {
 
   render() {
     const {
-      queryResults: { loading, error, data }, items, itemId,
+      queryResults: { data }, items, itemId,
     } = this.props;
 
     this.props.queryResults.refetch({ id: parseInt(itemId, 10) });

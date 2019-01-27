@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import update from 'immutability-helper';
+import gql from 'graphql-tag';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import QueryHOC from '../HOC/QueryHOC';
 
-const navMenuConfig = {
-  items: [
-    { path: '/', title: 'Dashboard' },
-    { path: '/items', title: 'Items' },
-    { path: '/overviewsupply', title: 'Voorraad' },
-    { path: '/locations', title: 'Locaties' },
-    { path: '/categories', title: 'Categorieën' },
-    { path: '/suppliers', title: 'Leveranciers' },
-    { path: '/orders', title: 'Orders' },
-    { path: '/reservations', title: 'Reserveringen' },
-    { path: '/users', title: 'Gebruikers (admin)' },
-  ],
-};
+const query = gql`{
+  currentUser {
+    roles { id, name }
+  }
+}`;
 
 @withRouter
+@QueryHOC(query)
 export default class NavMenu extends Component {
   state = { anchorEl: null }
 
@@ -40,8 +36,11 @@ export default class NavMenu extends Component {
   }
 
   render() {
+    const { queryResults: { data, loading } } = this.props;
     const { anchorEl } = this.state;
     const isOpen = Boolean(anchorEl);
+
+    const navMenuConfig = getNavMenu(data, loading);
     return (
       <>
         <IconButton
@@ -60,9 +59,35 @@ export default class NavMenu extends Component {
           open={isOpen}
           onClose={e => this.setState({ anchorEl: null })}
         >
-          {navMenuConfig.items.map(this.mapMenuItemToJSX)}
+          {navMenuConfig.map(this.mapMenuItemToJSX)}
         </Menu>
       </>
     );
   }
+}
+
+function getNavMenu(data, loading) {
+  const baseMenu = [
+    { path: '/', title: 'Dashboard' },
+    { path: '/overviewsupply', title: 'Voorraad' },
+  ];
+
+  if (loading || !data || !data.currentUser.roles.length) return baseMenu;
+
+  const combinedMenu = data.currentUser.roles.reduce(combineRoleMenus, baseMenu);
+  return uniqueItems(combinedMenu, 'path');
+}
+
+function combineRoleMenus(accumMenu, { name: roleName }) {
+  const roleMenu = require(`./rolemenus/${roleName.replace(' ', '-')}`).default; // eslint-disable-line global-require, import/no-dynamic-require
+  return update(accumMenu, { $push: roleMenu });
+}
+
+function uniqueItems(arr, comp) {
+  const unique = arr.map(e => e[comp])
+    // store the keys of the unique objects
+    .map((e, i, final) => final.indexOf(e) === i && i)
+    // eliminate the dead keys & store unique objects
+    .filter(e => arr[e]).map(e => arr[e]);
+  return unique;
 }
