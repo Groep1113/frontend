@@ -31,7 +31,7 @@ export default class SupplyList extends Component {
     return (
       <div className={this.props.classes.root}>
         <GenericListView
-          editIcon={true} deleteIcon={true}
+          editIcon={true} executeIcon={false} deleteIcon={true}
           refetchFunc={refetch}
           basePath="/overviewsupply/"
           fabLabel="Product registreren"

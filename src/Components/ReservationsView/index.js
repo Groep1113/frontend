@@ -5,6 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import ListView from './list';
 import EditView from './edit';
 import CreateView from './create';
+import ExecuteView from './execute';
 import DeleteView from './delete';
 
 const styles = theme => ({
@@ -24,6 +25,7 @@ export default class ReservationsView extends Component {
       <div className={classes.root}>
         <Route path="/reservations/create" component={CreateView} />
         <Route path="/reservations/delete/:id" component={DeleteView} />
+        <Route path="/reservations/execute/:id" component={ExecuteView} />
         <Route path="/reservations/edit/:id" component={EditView} />
         <Route component={ListView} />
       </div>

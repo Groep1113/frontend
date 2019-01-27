@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ExecuteIcon from '@material-ui/icons/PlayArrow';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -44,6 +45,7 @@ export default class GenericListView extends Component {
       (
         oldPath.includes(`${this.props.basePath}create`)
         || oldPath.includes(`${this.props.basePath}edit`)
+        || oldPath.includes(`${this.props.basePath}execute`)
         || oldPath.includes(`${this.props.basePath}delete`)
       )
       && this.props.location.pathname === this.props.basePath.replace(/\/$/, '')
@@ -55,11 +57,11 @@ export default class GenericListView extends Component {
   render() {
     const {
       classes, history: { push }, fabLabel, tblTitle, data, headers, columns,
-      basePath, editIcon, deleteIcon,
+      basePath, editIcon, executeIcon, deleteIcon,
     } = this.props;
 
     const withContext = {
-      push, basePath, columns, editIcon, deleteIcon,
+      push, basePath, columns, editIcon, executeIcon, deleteIcon,
     };
     return (
       <Paper className={classes.paper} elevation={1}>
@@ -113,6 +115,16 @@ function rowDataToJSX(row) {
           </IconButton>
         </TableCell>
       ) : null}
+      {this.executeIcon ? (
+        <TableCell>
+          <IconButton
+            onClick={e => this.push(`${this.basePath}execute/${row.id}`)}
+            aria-label="execute"
+          >
+            <ExecuteIcon />
+          </IconButton>
+        </TableCell>
+      ) : null}
       {this.deleteIcon ? (
         <TableCell>
           <IconButton
@@ -128,9 +140,10 @@ function rowDataToJSX(row) {
 }
 
 GenericListView.propTypes = {
-  // delete|edit: set either of these to true to include corresponding button/action
+  // delete|edit|execute: set either of these to true to include corresponding button/action
   deleteIcon: PropTypes.bool,
   editIcon: PropTypes.bool,
+  executeIcon: PropTypes.bool,
   // refetchFunc: optional function to call when returning from /edit or /create paths
   refetchFunc: PropTypes.func,
   // basePath: use this to form edit and create links

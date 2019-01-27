@@ -41,7 +41,7 @@ export default class OrdersList extends Component {
     const columns = ['id', ({ transactionLines }) => transactionLines.reduce((accum, { item }) => `${accum}, ${item.name}`, '').substring(2), 'description', 'createdDate', 'plannedDate', 'updateDate', 'receivedDate'];
     return (
       <GenericListView
-        editIcon={true} deleteIcon={true}
+        editIcon={true} executeIcon={false} deleteIcon={true}
         refetchFunc={refetch}
         basePath="/orders/"
         fabLabel="Order toevoegen"

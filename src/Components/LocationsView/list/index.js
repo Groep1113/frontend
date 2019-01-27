@@ -39,7 +39,7 @@ export default class LocationsList extends Component {
     const columns = ['id', 'code', 'depth', 'height', 'width', ({ categories }) => categories.reduce((accum, { name }) => `${accum}, ${name}`, '').substring(2)];
     return (
       <GenericListView
-        editIcon={true} deleteIcon={true}
+        editIcon={true} executeIcon={false} deleteIcon={true}
         refetchFunc={refetch}
         basePath="/locations/"
         fabLabel="Locatie toevoegen"

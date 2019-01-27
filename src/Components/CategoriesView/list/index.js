@@ -41,7 +41,7 @@ export default class CategoriesView extends Component {
     const columns = ['id', 'name', ({ locations }) => locations.reduce((accum, { code }) => `${accum}, ${code}`, '').substring(2)];
     return (
       <GenericListView
-        editIcon={true} deleteIcon={true}
+        editIcon={true} executeIcon={false} deleteIcon={true}
         refetchFunc={refetch}
         basePath="/categories/"
         fabLabel="Categorie toevoegen"
