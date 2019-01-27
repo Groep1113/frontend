@@ -45,7 +45,6 @@ export default class SupplyCreate extends Component {
   handleChange = this.handleChange.bind(this)
 
   handleChange(e, accounts, items) {
-    console.log(accounts);
     for (const item of items) {
       for (const location of item.locations) {
         location.id = 0;
@@ -61,7 +60,7 @@ export default class SupplyCreate extends Component {
       return <div>Er ging iets fout.<br />{error.message}</div>;
     }
 
-    const { accounts, items } = queryResults.data;
+    const { items } = queryResults.data;
     const itemsSelect = items.map(itemsToJSX);
     return (
       <GenericDialog

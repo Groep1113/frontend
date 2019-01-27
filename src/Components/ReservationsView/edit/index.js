@@ -17,7 +17,7 @@ const mutation = gql`mutation($plannedDate: LocalDate, $description: String, $id
   updateTransaction (
     plannedDate: $plannedDate,
     description: $description,
-    transactionId: $id) 
+    transactionId: $id)
   {
     id
   }
@@ -70,9 +70,8 @@ export default class ReservationsEdit extends Component {
           value={this.state.description}
           onChange={e => this.setState({ description: e.target.value })} />
         <TextField
-          id='plannedDate' name='plannedDate' label="Reserveringsdatum" type='plannedDate' margin='normal'
+          id='plannedDate' name='plannedDate' label="Reserveringsdatum" type='date' margin='normal'
           value={this.state.plannedDate}
-          type='date'
           onChange={e => this.setState({ plannedDate: e.target.value })} />
       </GenericDialog>
     );
