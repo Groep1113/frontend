@@ -7,7 +7,7 @@ import GenericListView from '../../Common/CRUD/GenericListView';
 
 const query = gql`query {
   transactions ( showReservations: true ) {
-    id createdDate updateDate deletedDate plannedDate receivedDate description transactionLines { id item { name } }
+    id createdDate updateDate deletedDate plannedDate receivedDate description transactionLines { id item { name } amount }
   }
 }`;
 
@@ -37,8 +37,8 @@ export default class ReservationsList extends Component {
     if (loading) return 'Loading data..';
     if (error) return `Foutmelding bij data ophaling: ${error.message}`;
 
-    const headers = ['Id', 'Item', 'description', 'Datum aangevraagd', 'Reserveringsdatum', 'Datum aangepast', 'Datum uitgeleverd', 'Edit', 'Uivoeren', 'Delete'];
-    const columns = ['id', ({ transactionLines }) => transactionLines.reduce((accum, { item }) => `${accum}, ${item.name}`, '').substring(2), 'description', 'createdDate', 'plannedDate', 'updateDate', 'receivedDate'];
+    const headers = ['Id', 'Item', 'Aantal', 'description', 'Datum aangevraagd', 'Reserveringsdatum', 'Datum aangepast', 'Datum uitgeleverd', 'Edit', 'Uivoeren', 'Delete'];
+    const columns = ['id', ({ transactionLines }) => transactionLines.reduce((accum, { item }) => `${accum}, ${item.name}`, '').substring(2), ({ transactionLines }) => transactionLines.reduce((accum, { amount }) => `${accum}, ${amount}`, '').substring(2), 'description', 'createdDate', 'plannedDate', 'updateDate', 'receivedDate'];
     return (
       <GenericListView
         editIcon={true} executeIcon={true} deleteIcon={true}
