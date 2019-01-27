@@ -23,6 +23,7 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
     minWidth: '80%',
+    maxWidth: '100%',
   },
   title: {
     display: 'inline-block',
