@@ -38,6 +38,9 @@ export default class UnauthorizedView extends Component {
           </Typography>
           <div className={classes.links}>
             <Link to="/">Terug naar Dashboard</Link>
+            <span className={classes.links.logout} onClick={() => { localStorage.clear(); this.props.history.push('/login'); }}>
+              Uitloggen
+            </span>
           </div>
         </Paper>
       </div>
