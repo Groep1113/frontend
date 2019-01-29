@@ -30,6 +30,7 @@ const errorLink = onError(({ forward, operation, graphQLErrors }) => {
   if (
     graphQLErrors
     && graphQLErrors.filter(({ message }) => message.includes('E401')).length
+    && window.location.pathname !== '/unauthorized'
   ) {
     window.location.replace('/unauthorized');
   }
