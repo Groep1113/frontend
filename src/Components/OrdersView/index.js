@@ -6,6 +6,7 @@ import ListView from './list';
 import EditView from './edit';
 import CreateView from './create';
 import DeleteView from './delete';
+import ExecuteView from './execute';
 
 const styles = theme => ({
   root: {
@@ -24,6 +25,7 @@ export default class OrdersView extends Component {
       <div className={classes.root}>
         <Route path="/orders/create" component={CreateView} />
         <Route path="/orders/delete/:id" component={DeleteView} />
+        <Route path="/orders/execute/:id" component={ExecuteView} />
         <Route path="/orders/edit/:id" component={EditView} />
         <Route component={ListView} />
       </div>
