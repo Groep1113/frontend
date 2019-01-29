@@ -26,12 +26,12 @@ export default class SupplyList extends Component {
     if (loading) return 'Loading data..';
     if (error) return `Foutmelding bij data ophaling: ${error.message}`;
 
-    const headers = ['Naam', 'Minimum voorraad', 'Locatie(s)', 'Voorraad', 'Edit', 'Delete'];
+    const headers = ['Naam', 'Minimum voorraad', 'Locatie(s)', 'Voorraad', 'Edit'];
     const columns = [({ item }) => item.name, ({ item }) => item.recommendedStock, ({ account }) => account.location.code, 'amount'];
     return (
       <div className={this.props.classes.root}>
         <GenericListView
-          editIcon={true} executeIcon={false} deleteIcon={true}
+          editIcon={true} executeIcon={false} deleteIcon={false}
           refetchFunc={refetch}
           basePath="/overviewsupply/"
           fabLabel="Product registreren"
