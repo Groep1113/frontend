@@ -43,11 +43,11 @@ export default class SuggestionsList extends Component {
     if (loading) return 'Loading data..';
     if (error) return `Foutmelding bij data ophaling: ${error.message}`;
 
-    const headers = ['Id', 'Item', 'Aantal', 'Reden', 'Toepassen', 'Verwijderen'];
+    const headers = ['Id', 'Item', 'Aantal', 'Reden', 'Uitvoeren'];
     const columns = ['id', ({ item }) => item.name, 'amount', 'reason'];
     return (
       <GenericListView
-        executeIcon={true} deleteIcon={true} addIcon={false}
+        executeIcon={true} deleteIcon={false} addIcon={false}
         refetchFunc={refetch}
         basePath="/suggestions/"
         tblTitle="Suggesties"
