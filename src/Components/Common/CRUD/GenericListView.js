@@ -58,21 +58,27 @@ export default class GenericListView extends Component {
   render() {
     const {
       classes, history: { push }, fabLabel, tblTitle, data, headers, columns,
-      basePath, editIcon, executeIcon, deleteIcon,
+      basePath, editIcon, executeIcon, deleteIcon, addIcon,
     } = this.props;
 
     const withContext = {
-      push, basePath, columns, editIcon, executeIcon, deleteIcon,
+      push, basePath, columns, editIcon, executeIcon, deleteIcon, addIcon,
     };
+    let fabIcon = (
+      <Fab
+        size="medium" onClick={e => push(`${basePath}create`)}
+        className={classes.createBtn} color="primary"
+        aria-label={fabLabel} title={fabLabel}
+      >
+        <AddIcon/>
+      </Fab>
+    );
+    if (addIcon == false) {
+      fabIcon = null;
+    }
     return (
       <Paper className={classes.paper} elevation={1}>
-        <Fab
-          size="medium" onClick={e => push(`${basePath}create`)}
-          className={classes.createBtn} color="primary"
-          aria-label={fabLabel} title={fabLabel}
-        >
-          <AddIcon />
-        </Fab>
+        {fabIcon}
         <Typography className={classes.title} gutterBottom variant="h4">
           {tblTitle}
         </Typography>

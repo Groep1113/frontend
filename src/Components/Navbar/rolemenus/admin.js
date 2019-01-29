@@ -6,4 +6,5 @@ export default [
   { path: '/orders', title: 'Orders' },
   { path: '/reservations', title: 'Reserveringen' },
   { path: '/users', title: 'Gebruikers (admin)' },
+  { path: '/suggestions', title: 'Suggesties' },
 ];
