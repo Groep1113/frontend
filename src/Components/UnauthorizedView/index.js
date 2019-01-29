@@ -19,6 +19,13 @@ const styles = theme => ({
   },
   links: {
     marginTop: theme.spacing.unit * 2,
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  logoutLink: {
+    cursor: 'pointer',
+    color: '#551A8B',
+    textDecoration: 'underline',
   },
 });
 
@@ -38,7 +45,9 @@ export default class UnauthorizedView extends Component {
           </Typography>
           <div className={classes.links}>
             <Link to="/">Terug naar Dashboard</Link>
-            <span className={classes.links.logout} onClick={() => { localStorage.clear(); this.props.history.push('/login'); }}>
+            <span title="Log uit"
+              className={classes.logoutLink}
+              onClick={() => { localStorage.clear(); this.props.history.push('/login'); }}>
               Uitloggen
             </span>
           </div>
