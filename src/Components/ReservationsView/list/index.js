@@ -37,7 +37,7 @@ export default class ReservationsList extends Component {
     if (loading) return 'Loading data..';
     if (error) return `Foutmelding bij data ophaling: ${error.message}`;
 
-    const headers = ['Id', 'Producten', 'description', 'Datum aangevraagd', 'Reserveringsdatum', 'Datum uitgeleverd', 'Edit', 'Uivoeren', 'Delete'];
+    const headers = ['Id', 'Producten', 'description', 'Datum aangevraagd', 'Reserveringsdatum', 'Datum uitgeleverd', 'Edit', 'Uitvoeren', 'Delete'];
     const columns = [
       'id',
       ({ transactionLines }) => transactionLines.reduce((accum, { item }) => `${accum}, ${item.name}`, '').substring(2), // Item
