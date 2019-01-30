@@ -73,7 +73,7 @@ export default class GenericListView extends Component {
         <AddIcon/>
       </Fab>
     );
-    if (addIcon == false) {
+    if (addIcon === false) {
       fabIcon = null;
     }
     return (
@@ -82,7 +82,7 @@ export default class GenericListView extends Component {
         <Typography className={classes.title} gutterBottom variant="h4">
           {tblTitle}
         </Typography>
-        <Table className="aTable">
+        <Table className="aTable" padding="dense">
           <CustomTableHead headers={headers} />
           <TableBody>
             {data && data.map(rowDataToJSX, withContext)}
