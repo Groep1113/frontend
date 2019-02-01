@@ -53,7 +53,7 @@ export default class ItemLocationsUpdater extends Component {
           />
         </FormControl>
         <Typography variant="subtitle1" className='location'>
-          Huidige voorraad {amount}
+          Totale huidige voorraad {amount}
         </Typography>
       </div>
     );
