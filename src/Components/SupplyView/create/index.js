@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem/MenuItem';
 import GenericDialog from '../../Common/CRUD/GenericDialog';
 import MutationHOC from '../../HOC/MutationHOC';
 import QueryHOC from '../../HOC/QueryHOC';
+import ItemLocationsUpdater from './ItemLocationsUpdater';
 
 const query = gql` query {
   items {
@@ -37,19 +38,15 @@ const styles = ({ spacing }) => ({
 @withStyles(styles)
 export default class SupplyCreate extends Component {
   state = {
-    accountId: 1,
+    accountId: '',
     itemId: '',
     amount: '',
   };
 
   handleChange = this.handleChange.bind(this)
 
-  handleChange(e, accounts, items) {
-    for (const item of items) {
-      for (const location of item.locations) {
-        location.id = 0;
-      }
-    }
+  handleChange(accountId) {
+    this.setState({ accountId });
   }
 
   render() {
@@ -82,6 +79,14 @@ export default class SupplyCreate extends Component {
           >
             {itemsSelect}
           </Select>
+          {this.state.itemId ? (
+            <ItemLocationsUpdater
+              onItemLocationsUpdater={this.handleChange}
+              itemId={this.state.itemId}
+              items={queryResults.data.items} accounts={queryResults.data.accounts}/>
+          ) : (
+            <div></div>
+          )}
         </FormControl>
         <TextField
           id='amount' name='amount' label="Aantal" type='amount' margin='normal'
