@@ -5,9 +5,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import QueryHOC from '../../HOC/QueryHOC';
 import GenericListView from '../../Common/CRUD/GenericListView';
 
-const query = gql`query {
-  transactions ( showReservations: true ) {
-    id createdDate updateDate deletedDate plannedDate receivedDate description transactionLines { id item { name } amount }
+const query = gql`query{
+  transactions (showOrders:true, showReservations:true, showLocation:true) {
+    id description createdDate plannedDate updateDate receivedDate fromAccount { id location { id code } } transactionLines { id item { id name } amount } transactionMutations { id description date }
   }
 }`;
 
@@ -37,15 +37,16 @@ export default class ReservationsList extends Component {
     if (loading) return 'Loading data..';
     if (error) return `Foutmelding bij data ophaling: ${error.message}`;
 
-    const headers = ['Id', 'Producten', 'description', 'Datum aangevraagd', 'Reserveringsdatum', 'Datum uitgeleverd', 'Edit', 'Uitvoeren', 'Delete'];
+    const headers = ['Id', 'Item', 'Aantal', 'Locatie', 'Beschrijving', 'Datum aangevraagd', 'Reserveringsdatum', 'Datum aangepast', 'Datum uitgeleverd', 'Edit', 'Uitvoeren', 'Delete'];
     const columns = [
       'id',
       ({ transactionLines }) => transactionLines.reduce((accum, { item }) => `${accum}, ${item.name}`, '').substring(2), // Item
-      // ({ transactionLines }) => transactionLines
-      // .reduce((accum, { amount }) => `${accum}, ${amount}`, '').substring(2), // Aantal
+      ({ transactionLines }) => transactionLines.reduce((accum, { amount }) => `${accum}, ${amount}`, '').substring(2), // Aantal
+      ({ fromAccount }) => fromAccount.location.code, // Locatie
       'description',
       'createdDate',
       'plannedDate',
+      'updateDate',
       'receivedDate',
     ];
     return (
