@@ -27,9 +27,13 @@ const mutation = gql`mutation($itemId: Int!, $amount: Int!, $plannedDate: LocalD
     ) { id createdDate }
 }`;
 
-const today = new Date().getMonth() + 1 > 9
-  ? `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
-  : `${new Date().getFullYear()}-0${new Date().getMonth() + 1}-${new Date().getDate()}`;
+const todaysMonth = new Date().getMonth() + 1 > 9
+  ? `${new Date().getMonth() + 1}`
+  : `0${new Date().getMonth() + 1}`;
+const todaysDay = new Date().getDate() > 9
+  ? `${new Date().getDate()}`
+  : `0${new Date().getDate()}`;
+const today = `${new Date().getFullYear()}-${todaysMonth}-${todaysDay}`;
 
 const styles = ({ spacing }) => ({
 });
